@@ -2,8 +2,8 @@ import { styled } from "styled-components";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
 
 export interface AuthProps {
-  $isValidEmail?: boolean;
-  $isEmail?: boolean;
+  $isValidValue?: boolean;
+  $isEmpty?: boolean;
 }
 
 // 로그인 페이지
@@ -175,7 +175,10 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
   }
 `;
 
-export const SignInFormBox = styled(FlexContainer)<FlexContainerProps>`
+export const SignInFormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   margin: 60px 0 48px 0;
 
   & > div {
@@ -195,11 +198,29 @@ export const SignInTermsBox = styled.div`
   margin-bottom: 48px;
 
   p {
-    text-align: left;
+    display: flex;
+    align-items: center;
     color: var(--main-font);
     font-size: 14px;
     font-style: normal;
     line-height: normal;
+
+    input[id="allAgreeCheck"],
+    input[id="ageCheck"],
+    input[id="termsCheck"],
+    input[id="alarmCheck"] {
+      display: none;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      svg {
+        margin-right: 6px;
+      }
+    }
 
     span {
       color: var(--caution-color);
@@ -256,8 +277,8 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   background: #fff;
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
-    ${({ $isValidEmail, $isEmail }) =>
-      !$isValidEmail && $isEmail ? "var(--gray-05)" : "var(--caution-color)"};
+    ${({ $isValidValue, $isEmpty }) =>
+      $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
 
   button {
     display: flex;
@@ -296,8 +317,8 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   &:focus-within {
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
-      ${({ $isValidEmail, $isEmail }) =>
-        !$isValidEmail && $isEmail ? "var(--gray-07)" : "var(--caution-color)"};
+      ${({ $isValidValue, $isEmpty }) =>
+        $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
 
     svg {
       fill: var(--gray-07);
