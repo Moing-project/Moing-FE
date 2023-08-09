@@ -5,7 +5,8 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   :root {
-    //colors
+    font-family : 'Pretendard';
+
     //gray
     --gray-01: #FFFFFF;
     --gray-02: #F4F4F4;
@@ -27,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     --keyColor-main: #3F40E9;
 
     //caution-color
-    --caution-Color: #FF0000;
+    --caution-color: #FF0000;
   }
 `;
 
