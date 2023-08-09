@@ -313,6 +313,9 @@ export default function SignIn() {
           </p>
         </div>
       </S.SignInTermsBox>
+      {(!ageCheck || !termsCheck) && (
+        <S.CautionText>필수사항에 동의해주세요.</S.CautionText>
+      )}
       <S.SubmitButton type="submit" disabled={!isButtonActive}>
         다음
       </S.SubmitButton>

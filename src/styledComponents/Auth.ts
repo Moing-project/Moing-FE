@@ -173,6 +173,10 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
       text-decoration: none;
     }
   }
+
+  & > p {
+    margin-bottom: 6px;
+  }
 `;
 
 export const SignInFormBox = styled.form`
@@ -328,6 +332,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 
 export const CautionText = styled.p`
   margin-top: 6px;
+  width: 368px;
   text-align: left;
   color: var(--caution-color);
   font-size: 12px;
