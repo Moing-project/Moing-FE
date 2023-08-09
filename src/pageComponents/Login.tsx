@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "../styledComponents/Auth";
 import { Link } from "react-router-dom";
 import { useInput } from "../hooks/useInput";
@@ -6,6 +6,9 @@ import { useInput } from "../hooks/useInput";
 import { ReactComponent as Remove } from "../assets/icons/remove.svg";
 import { ReactComponent as Hide } from "../assets/icons/hide.svg";
 import { ReactComponent as Visible } from "../assets/icons/visible.svg";
+
+import { ReactComponent as Unchecked } from "../assets/elements/unchecked.svg";
+import { ReactComponent as Checked } from "../assets/elements/checked.svg";
 
 import { ReactComponent as Google } from "../assets/icons/google.svg";
 import { ReactComponent as Kakao } from "../assets/icons/kakaotalk.svg";
@@ -17,34 +20,45 @@ const SignIn: React.FC = () => {
   const {
     value: email,
     handleChange: handleEmailChange,
-    isFocused: isEmailFocused,
     handleFocus: handleEmailFocus,
-    handleBlur: handleEmailBlur,
     clearValue: clearEmail,
   } = useInput("");
 
   const {
     value: password,
     handleChange: handlePasswordChange,
-    isFocused: isPassowordFocused,
     handleFocus: handlePasswordFocus,
-    handleBlur: handlePasswordBlur,
     clearValue: clearPassword,
-    showPassword,
-    toggleShowPassword,
   } = useInput("");
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const [autoLogin, setAutoLogin] = useState<boolean>(false);
+
+  const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setShowPassword(!showPassword);
+    e.preventDefault();
+  };
+
+  const isValidEmail = (email: string) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
 
   const [login, { isLoading }] = usePostLoginMutation();
 
   const onLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isLoading) {
-      console.log(email, password);
-      const res = await login({
-        username: email,
-        password: password,
-      });
-      console.log(res);
+      if (isValidEmail(email) && password) {
+        // 이메일 형식과 비밀번호 모두 유효할 때
+        console.log(email, password);
+        const res = await login({
+          username: email,
+          password: password,
+        });
+        console.log(res);
+      }
     }
   };
 
@@ -74,46 +88,68 @@ const SignIn: React.FC = () => {
         <S.LoginFormBox onSubmit={onLoginSubmit}>
           <h1>로그인</h1>
           <S.LoginForm direction="column" gap="12px">
-            <S.InputBox justify="space-between" align="center">
-              <input
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-                onFocus={handleEmailFocus}
-                onBlur={handleEmailBlur}
-                placeholder="이메일"
-              />
-              {email && isEmailFocused && (
-                <button onClick={clearEmail}>
-                  <Remove />
-                </button>
+            <div>
+              <S.InputBox
+                justify="space-between"
+                align="center"
+                $isValidEmail={isValidEmail(email)}
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  onFocus={handleEmailFocus}
+                  placeholder="이메일"
+                />
+                {email && (
+                  <button onClick={clearEmail}>
+                    <Remove />
+                  </button>
+                )}
+              </S.InputBox>
+              {email && !isValidEmail(email) && (
+                <S.CautionText>
+                  이메일 주소 형식으로 입력해주세요.
+                </S.CautionText>
               )}
-            </S.InputBox>
-            <S.InputBox justify="space-between" align="center">
-              <input
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={handlePasswordChange}
-                onFocus={handlePasswordFocus}
-                onBlur={handlePasswordBlur}
-                placeholder="비밀번호 입력"
-              />
-              <div>
-                {password &&
-                  isPassowordFocused && ( // 비밀번호가 입력된 경우에만 X 버튼 표시
+            </div>
+            <div>
+              <S.InputBox
+                justify="space-between"
+                align="center"
+                $isValidEmail={true}
+              >
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={handlePasswordChange}
+                  onFocus={handlePasswordFocus}
+                  placeholder="비밀번호 입력"
+                />
+                <div>
+                  {password && ( // 비밀번호가 입력된 경우에만 X 버튼 표시
                     <button onClick={clearPassword}>
                       <Remove />
                     </button>
                   )}
-                <button onClick={toggleShowPassword}>
-                  {showPassword ? <Hide /> : <Visible />}
-                </button>
-              </div>
-            </S.InputBox>
+                  <button onClick={toggleShowPassword}>
+                    {showPassword ? <Hide /> : <Visible />}
+                  </button>
+                </div>
+              </S.InputBox>
+              {/* <S.CautionText>로그인 정보가 틀립니다.</S.CautionText> */}
+            </div>
           </S.LoginForm>
           <S.LoginFormNav justify="space-between" align="center">
             <p>
-              <input type="checkbox" /> 자동 로그인
+              <input
+                type="checkbox"
+                id="autoLogin"
+                checked={autoLogin} // 체크 여부에 따라 상태 반영
+                onChange={() => setAutoLogin(!autoLogin)} // 체크 상태 변경
+              />
+              {autoLogin ? <Checked /> : <Unchecked />}
+              <label htmlFor="autoLogin">자동 로그인</label>
             </p>
             <div>
               <Link to="">비밀번호 찾기</Link>
@@ -121,7 +157,12 @@ const SignIn: React.FC = () => {
               <Link to="">회원가입</Link>
             </div>
           </S.LoginFormNav>
-          <S.SubmitButton type="submit">로그인</S.SubmitButton>
+          <S.SubmitButton
+            type="submit"
+            disabled={!isValidEmail(email) || !password}
+          >
+            로그인
+          </S.SubmitButton>
         </S.LoginFormBox>
         <S.Devider />
         <S.LoginSNSBox direction="column" align="center" gap="12px">

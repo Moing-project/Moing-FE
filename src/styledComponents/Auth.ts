@@ -1,6 +1,10 @@
 import { styled } from "styled-components";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
 
+export interface AuthProps {
+  $isValidEmail?: boolean;
+}
+
 // 로그인 페이지
 export const LoginLayout = styled(FlexContainer)<FlexContainerProps>`
   box-sizing: border-box;
@@ -77,6 +81,15 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
   p {
     display: flex;
     align-items: center;
+
+    input[id="autoLogin"] {
+      display: none;
+    }
+
+    label {
+      margin-left: 6px;
+      cursor: pointer;
+    }
   }
 
   a {
@@ -216,26 +229,26 @@ export const SubmitButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: var(--gray-05);
-  border: none;
-  cursor: pointer;
-
   color: var(--gray-01);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  border: none;
+  cursor: pointer;
+  background: ${({ disabled }) =>
+    disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
 `;
 
-export const InputBox = styled(FlexContainer)<FlexContainerProps>`
+export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   box-sizing: border-box;
   width: 368px;
   height: 42px;
   padding: 12px;
   flex-shrink: 0;
   border-radius: 8px;
-  border: 1px solid var(--gray-05);
   background: #fff;
+  border: 1px solid var(--gray-05);
 
   button {
     display: flex;
@@ -272,7 +285,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps>`
   }
 
   &:focus-within {
-    border: 1px solid var(--gray-07);
+    /* border: 1px solid var(--gray-07); */
+    border: 1px solid
+      ${({ $isValidEmail }) =>
+        $isValidEmail ? "var(--gray-07)" : "var(--caution-color)"};
 
     svg {
       fill: var(--gray-07);
