@@ -213,6 +213,9 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
     }
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7cec77f ([add] 필수사항 동의 문구 추가)
 
   & > p {
     margin-bottom: 6px;
@@ -490,9 +493,13 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 export const CautionText = styled.p`
   margin-top: 6px;
 <<<<<<< HEAD
+<<<<<<< HEAD
   width: 368px;
 =======
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+  width: 368px;
+>>>>>>> 7cec77f ([add] 필수사항 동의 문구 추가)
   text-align: left;
   color: var(--caution-color);
   font-size: 12px;
