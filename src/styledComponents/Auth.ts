@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface AuthProps {
   $isValidValue?: boolean;
   $isEmpty?: boolean;
@@ -9,6 +10,12 @@ export interface AuthProps {
 
 =======
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+export interface AuthProps {
+  $isValidEmail?: boolean;
+}
+
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
 // 로그인 페이지
 export const LoginLayout = styled(FlexContainer)<FlexContainerProps>`
   box-sizing: border-box;
@@ -93,12 +100,16 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
     display: flex;
     align-items: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
 
     input[id="autoLogin"] {
       display: none;
     }
 
     label {
+<<<<<<< HEAD
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -109,6 +120,11 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
     }
 =======
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+      margin-left: 6px;
+      cursor: pointer;
+    }
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
   }
 
   a {
@@ -291,22 +307,29 @@ export const SubmitButton = styled.button`
   align-items: center;
   border-radius: 8px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   background: var(--gray-05);
   border: none;
   cursor: pointer;
 
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
   color: var(--gray-01);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
   border: none;
   cursor: pointer;
   background: ${({ disabled }) =>
     disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
+<<<<<<< HEAD
 `;
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
@@ -315,12 +338,18 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps>`
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+`;
+
+export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
   box-sizing: border-box;
   width: 368px;
   height: 42px;
   padding: 12px;
   flex-shrink: 0;
   border-radius: 8px;
+<<<<<<< HEAD
 <<<<<<< HEAD
   background: #fff;
   /* border: 1px solid var(--gray-05); */
@@ -331,6 +360,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps>`
   border: 1px solid var(--gray-05);
   background: #fff;
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+  background: #fff;
+  border: 1px solid var(--gray-05);
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
 
   button {
     display: flex;
@@ -368,6 +401,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps>`
 
   &:focus-within {
 <<<<<<< HEAD
+<<<<<<< HEAD
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
       ${({ $isValidValue, $isEmpty }) =>
@@ -375,6 +409,12 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps>`
 =======
     border: 1px solid var(--gray-07);
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+    /* border: 1px solid var(--gray-07); */
+    border: 1px solid
+      ${({ $isValidEmail }) =>
+        $isValidEmail ? "var(--gray-07)" : "var(--caution-color)"};
+>>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
 
     svg {
       fill: var(--gray-07);
