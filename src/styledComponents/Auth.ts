@@ -3,6 +3,7 @@ import FlexContainer, { FlexContainerProps } from "./Flexbox";
 
 export interface AuthProps {
   $isValidEmail?: boolean;
+  $isEmail?: boolean;
 }
 
 // 로그인 페이지
@@ -87,8 +88,13 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
     }
 
     label {
-      margin-left: 6px;
+      display: flex;
+      align-items: center;
       cursor: pointer;
+
+      svg {
+        margin-right: 6px;
+      }
     }
   }
 
@@ -220,7 +226,7 @@ export const SignInTermsBox = styled.div`
 `;
 
 // 공통 스타일
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<AuthProps>`
   margin-bottom: 48px;
   width: 368px;
   height: 42px;
@@ -250,8 +256,8 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   background: #fff;
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
-    ${({ $isValidEmail }) =>
-      $isValidEmail ? "var(--gray-05)" : "var(--caution-color)"};
+    ${({ $isValidEmail, $isEmail }) =>
+      !$isValidEmail && $isEmail ? "var(--gray-05)" : "var(--caution-color)"};
 
   button {
     display: flex;
@@ -288,7 +294,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   }
 
   &:focus-within {
-    border: 1px solid var(--gray-07);
+    /* border: 1px solid var(--gray-07); */
+    border: 1px solid
+      ${({ $isValidEmail, $isEmail }) =>
+        !$isValidEmail && $isEmail ? "var(--gray-07)" : "var(--caution-color)"};
 
     svg {
       fill: var(--gray-07);

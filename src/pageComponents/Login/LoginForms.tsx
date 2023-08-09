@@ -32,7 +32,7 @@ export default function LoginForms() {
 
   const isValidEmail = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(email) || email.trim() === "";
+    return emailPattern.test(email);
   };
 
   const [login, { isLoading }] = usePostLoginMutation();
@@ -65,6 +65,7 @@ export default function LoginForms() {
               justify="space-between"
               align="center"
               $isValidEmail={isValidEmail(email)}
+              $isEmail={email === ""}
             >
               <input
                 type="email"
@@ -87,7 +88,8 @@ export default function LoginForms() {
             <S.InputBox
               justify="space-between"
               align="center"
-              $isValidEmail={true}
+              $isValidEmail={false}
+              $isEmail={true}
             >
               <input
                 type={showPassword ? "text" : "password"}
@@ -118,8 +120,10 @@ export default function LoginForms() {
               checked={autoLogin} // 체크 여부에 따라 상태 반영
               onChange={() => setAutoLogin(!autoLogin)} // 체크 상태 변경
             />
-            {autoLogin ? <I.Checked /> : <I.Unchecked />}
-            <label htmlFor="autoLogin">자동 로그인</label>
+            <label htmlFor="autoLogin">
+              {autoLogin ? <I.Checked /> : <I.Unchecked />}
+              자동 로그인
+            </label>
           </p>
           <div>
             <Link to="">비밀번호 찾기</Link>
@@ -130,6 +134,7 @@ export default function LoginForms() {
         <S.SubmitButton
           type="submit"
           disabled={!isValidEmail(email) || !password}
+          $isEmail={email === ""}
         >
           로그인
         </S.SubmitButton>
