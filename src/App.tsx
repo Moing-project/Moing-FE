@@ -15,9 +15,14 @@ import Rending from "./pageComponents/Rending";
 import Main from "./pageComponents/Main";
 import Projects from "./pageComponents/Projects";
 import NotFound from "./pageComponents/NotFound";
+<<<<<<< HEAD
 import SignIn from "./pageComponents/SignIn";
 import Login from "./pageComponents/Login";
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+import SignIn from "./pageComponents/SignIn/SignIn";
+import Login from "./pageComponents/Login/Login";
+>>>>>>> 087cd96 ([add, modify] 로그인 페이지 아이콘 파일 분리, 로그인 폼 컴포넌트 분리/ 로그인 페이지 이메일 유효성 검사 공백 허용, border 수정)
 
 function App() {
   return (

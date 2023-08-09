@@ -362,8 +362,15 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 =======
   background: #fff;
+<<<<<<< HEAD
   border: 1px solid var(--gray-05);
 >>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
+=======
+  /* border: 1px solid var(--gray-05); */
+  border: 1px solid
+    ${({ $isValidEmail }) =>
+      $isValidEmail ? "var(--gray-05)" : "var(--caution-color)"};
+>>>>>>> 087cd96 ([add, modify] 로그인 페이지 아이콘 파일 분리, 로그인 폼 컴포넌트 분리/ 로그인 페이지 이메일 유효성 검사 공백 허용, border 수정)
 
   button {
     display: flex;
@@ -402,6 +409,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   &:focus-within {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
       ${({ $isValidValue, $isEmpty }) =>
@@ -415,6 +423,9 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
       ${({ $isValidEmail }) =>
         $isValidEmail ? "var(--gray-07)" : "var(--caution-color)"};
 >>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
+=======
+    border: 1px solid var(--gray-07);
+>>>>>>> 087cd96 ([add, modify] 로그인 페이지 아이콘 파일 분리, 로그인 폼 컴포넌트 분리/ 로그인 페이지 이메일 유효성 검사 공백 허용, border 수정)
 
     svg {
       fill: var(--gray-07);
