@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import * as S from "../styledComponents/Auth";
+import * as S from "../../styledComponents/Auth";
 
 export default function SignIn() {
   return (

@@ -248,7 +248,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   flex-shrink: 0;
   border-radius: 8px;
   background: #fff;
-  border: 1px solid var(--gray-05);
+  /* border: 1px solid var(--gray-05); */
+  border: 1px solid
+    ${({ $isValidEmail }) =>
+      $isValidEmail ? "var(--gray-05)" : "var(--caution-color)"};
 
   button {
     display: flex;
@@ -285,10 +288,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   }
 
   &:focus-within {
-    /* border: 1px solid var(--gray-07); */
-    border: 1px solid
-      ${({ $isValidEmail }) =>
-        $isValidEmail ? "var(--gray-07)" : "var(--caution-color)"};
+    border: 1px solid var(--gray-07);
 
     svg {
       fill: var(--gray-07);

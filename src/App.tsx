@@ -5,8 +5,8 @@ import Rending from "./pageComponents/Rending";
 import Main from "./pageComponents/Main";
 import Projects from "./pageComponents/Projects";
 import NotFound from "./pageComponents/NotFound";
-import SignIn from "./pageComponents/SignIn";
-import Login from "./pageComponents/Login";
+import SignIn from "./pageComponents/SignIn/SignIn";
+import Login from "./pageComponents/Login/Login";
 
 function App() {
   return (
