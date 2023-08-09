@@ -1,12 +1,20 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+<<<<<<< HEAD
 import { ResponseData } from "../types/BaseRequestType";
+=======
+import { ResponseData } from "../../config/BaseRequestType";
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 import {
   Auth,
   LoginData,
   NicknameDataType,
   SingInData,
   UsernameDataType,
+<<<<<<< HEAD
 } from "../types/LoginType";
+=======
+} from "../../config/LoginType";
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 import { axiosBaseQuery } from "../config/axios";
 import axios from "axios";
 

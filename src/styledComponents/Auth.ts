@@ -1,11 +1,14 @@
 import { styled } from "styled-components";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
 
+<<<<<<< HEAD
 export interface AuthProps {
   $isValidValue?: boolean;
   $isEmpty?: boolean;
 }
 
+=======
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 // 로그인 페이지
 export const LoginLayout = styled(FlexContainer)<FlexContainerProps>`
   box-sizing: border-box;
@@ -20,10 +23,13 @@ export const LoginIntroText = styled(FlexContainer)<FlexContainerProps>`
     font-size: 30px;
     font-weight: 600;
     line-height: 38px;
+<<<<<<< HEAD
 
     span{
       color: var(--keyColor-main);
     }
+=======
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   }
 
   p {
@@ -86,6 +92,7 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
   p {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
 
     input[id="autoLogin"] {
       display: none;
@@ -100,6 +107,8 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
         margin-right: 6px;
       }
     }
+=======
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   }
 
   a {
@@ -177,6 +186,7 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
       text-decoration: none;
     }
   }
+<<<<<<< HEAD
 
   & > p {
     margin-bottom: 6px;
@@ -187,6 +197,11 @@ export const SignInFormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 24px;
+=======
+`;
+
+export const SignInFormBox = styled(FlexContainer)<FlexContainerProps>`
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   margin: 60px 0 48px 0;
 
   & > div {
@@ -206,13 +221,18 @@ export const SignInTermsBox = styled.div`
   margin-bottom: 48px;
 
   p {
+<<<<<<< HEAD
     display: flex;
     align-items: center;
+=======
+    text-align: left;
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
     color: var(--main-font);
     font-size: 14px;
     font-style: normal;
     line-height: normal;
 
+<<<<<<< HEAD
     input[id="allAgreeCheck"],
     input[id="ageCheck"],
     input[id="termsCheck"],
@@ -230,6 +250,8 @@ export const SignInTermsBox = styled.div`
       }
     }
 
+=======
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
     span {
       color: var(--caution-color);
     }
@@ -255,7 +277,11 @@ export const SignInTermsBox = styled.div`
 `;
 
 // 공통 스타일
+<<<<<<< HEAD
 export const SubmitButton = styled.button<AuthProps>`
+=======
+export const SubmitButton = styled.button`
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   margin-bottom: 48px;
   width: 368px;
   height: 42px;
@@ -264,11 +290,19 @@ export const SubmitButton = styled.button<AuthProps>`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+<<<<<<< HEAD
+=======
+  background: var(--gray-05);
+  border: none;
+  cursor: pointer;
+
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   color: var(--gray-01);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+<<<<<<< HEAD
   border: none;
   cursor: pointer;
   background: ${({ disabled }) =>
@@ -276,17 +310,27 @@ export const SubmitButton = styled.button<AuthProps>`
 `;
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
+=======
+`;
+
+export const InputBox = styled(FlexContainer)<FlexContainerProps>`
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   box-sizing: border-box;
   width: 368px;
   height: 42px;
   padding: 12px;
   flex-shrink: 0;
   border-radius: 8px;
+<<<<<<< HEAD
   background: #fff;
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
     ${({ $isValidValue, $isEmpty }) =>
       $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
+=======
+  border: 1px solid var(--gray-05);
+  background: #fff;
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 
   button {
     display: flex;
@@ -323,10 +367,14 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   }
 
   &:focus-within {
+<<<<<<< HEAD
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
       ${({ $isValidValue, $isEmpty }) =>
         $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
+=======
+    border: 1px solid var(--gray-07);
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 
     svg {
       fill: var(--gray-07);
@@ -336,7 +384,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 
 export const CautionText = styled.p`
   margin-top: 6px;
+<<<<<<< HEAD
   width: 368px;
+=======
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
   text-align: left;
   color: var(--caution-color);
   font-size: 12px;

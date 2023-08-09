@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+<<<<<<< HEAD
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import Rending from "./page/Rending/Rending";
@@ -7,6 +8,16 @@ import Projects from "./page/Projects";
 import NotFound from "./page/NotFound";
 import SignIn from "./page/SignIn/SignIn";
 import Login from "./page/Login/Login";
+=======
+import Footer from "./layoutComponents/Footer";
+import Header from "./layoutComponents/Header";
+import Rending from "./pageComponents/Rending";
+import Main from "./pageComponents/Main";
+import Projects from "./pageComponents/Projects";
+import NotFound from "./pageComponents/NotFound";
+import SignIn from "./pageComponents/SignIn";
+import Login from "./pageComponents/Login";
+>>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 
 function App() {
   return (
