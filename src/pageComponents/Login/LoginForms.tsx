@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import * as S from "../../styledComponents/Auth";
-import * as I from "./LoginIcons";
+import * as I from "../../components/UsingIcons";
 import { Link } from "react-router-dom";
 import { useInput } from "../../hooks/useInput";
+import { useCheckBox } from "../../hooks/useCheckBox";
 
 import { usePostLoginMutation } from "../../redux/modules/LoginAPI";
 
@@ -23,7 +24,7 @@ export default function LoginForms() {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const [autoLogin, setAutoLogin] = useState<boolean>(false);
+  const { checked: autoLogin, setChecked: setAutoLogin } = useCheckBox();
 
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     setShowPassword(!showPassword);
@@ -64,8 +65,8 @@ export default function LoginForms() {
             <S.InputBox
               justify="space-between"
               align="center"
-              $isValidEmail={isValidEmail(email)}
-              $isEmail={email === ""}
+              $isValidValue={isValidEmail(email)}
+              $isEmpty={email === ""}
             >
               <input
                 type="email"
@@ -88,8 +89,8 @@ export default function LoginForms() {
             <S.InputBox
               justify="space-between"
               align="center"
-              $isValidEmail={false}
-              $isEmail={true}
+              $isValidValue={false}
+              $isEmpty={true}
             >
               <input
                 type={showPassword ? "text" : "password"}
@@ -134,7 +135,7 @@ export default function LoginForms() {
         <S.SubmitButton
           type="submit"
           disabled={!isValidEmail(email) || !password}
-          $isEmail={email === ""}
+          $isEmpty={!!!email}
         >
           로그인
         </S.SubmitButton>

@@ -12,8 +12,8 @@ export interface AuthProps {
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
 =======
 export interface AuthProps {
-  $isValidEmail?: boolean;
-  $isEmail?: boolean;
+  $isValidValue?: boolean;
+  $isEmpty?: boolean;
 }
 
 >>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
@@ -226,8 +226,15 @@ export const SignInFormBox = styled.form`
 =======
 `;
 
+<<<<<<< HEAD
 export const SignInFormBox = styled(FlexContainer)<FlexContainerProps>`
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+export const SignInFormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+>>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
   margin: 60px 0 48px 0;
 
   & > div {
@@ -248,17 +255,25 @@ export const SignInTermsBox = styled.div`
 
   p {
 <<<<<<< HEAD
+<<<<<<< HEAD
     display: flex;
     align-items: center;
 =======
     text-align: left;
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+    display: flex;
+    align-items: center;
+>>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
     color: var(--main-font);
     font-size: 14px;
     font-style: normal;
     line-height: normal;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
     input[id="allAgreeCheck"],
     input[id="ageCheck"],
     input[id="termsCheck"],
@@ -276,8 +291,11 @@ export const SignInTermsBox = styled.div`
       }
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+>>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
     span {
       color: var(--caution-color);
     }
@@ -369,6 +387,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
 <<<<<<< HEAD
+<<<<<<< HEAD
     ${({ $isValidValue, $isEmpty }) =>
       $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
 =======
@@ -390,6 +409,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
     ${({ $isValidEmail, $isEmail }) =>
       !$isValidEmail && $isEmail ? "var(--gray-05)" : "var(--caution-color)"};
 >>>>>>> 55cc28e ([modify] 입력값 유효성 검사 조건부 렌더링 수정)
+=======
+    ${({ $isValidValue, $isEmpty }) =>
+      $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
+>>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
 
   button {
     display: flex;
@@ -449,9 +472,14 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 =======
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
+<<<<<<< HEAD
       ${({ $isValidEmail, $isEmail }) =>
         !$isValidEmail && $isEmail ? "var(--gray-07)" : "var(--caution-color)"};
 >>>>>>> 55cc28e ([modify] 입력값 유효성 검사 조건부 렌더링 수정)
+=======
+      ${({ $isValidValue, $isEmpty }) =>
+        $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
+>>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
 
     svg {
       fill: var(--gray-07);
