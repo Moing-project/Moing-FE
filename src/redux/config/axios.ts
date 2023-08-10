@@ -6,7 +6,7 @@ import axios, {
   HttpStatusCode,
   InternalAxiosRequestConfig,
 } from "axios";
-import { AxiosArgs, ResponseData } from "../../config/BaseRequestType";
+import { AxiosArgs, ResponseData } from "../types/BaseRequestType";
 
 export const instance: AxiosInstance = axios.create({
   baseURL: "https://api.moingtool.com",

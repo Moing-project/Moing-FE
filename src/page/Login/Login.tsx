@@ -1,6 +1,7 @@
 import React from "react";
 import * as S from "../../styledComponents/Auth";
 import LoginForms from "./LoginForms";
+import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
 
 const SignIn: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const SignIn: React.FC = () => {
           </p>
         </S.LoginIntroText>
         <figure>
-          <img src="imgs/example.png" alt="메인 사진" />
+          <PageIntro />
         </figure>
       </S.LoginIntroBox>
       <LoginForms />
