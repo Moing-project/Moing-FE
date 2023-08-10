@@ -1,16 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-export default createGlobalStyle`
 
+const GlobalStyle = createGlobalStyle`
+  ${reset}
 
-${reset};
-@font-face {
-    font-family: 'Pretendard Variable';
-    src: local('Pretendard Variable'),url('../assets/fonts/PretendardVariable.woff2') format('woff2-variations');
-}
+  :root {
+    font-family : 'Pretendard';
 
-:root {
-    //colors
     //gray
     --gray-01: #FFFFFF;
     --gray-02: #F4F4F4;
@@ -25,22 +21,15 @@ ${reset};
     --main-font: #202020;
 
     //key-color
-    --keyColor-01: #5F60ED;
-    --keyColor-02: #B1B2F6;
+    --keyColor-01: #B1B2F6;
+    --keyColor-02: #F6F6FE;
     --keyColor--01: #1A1BE0;
     --keyColor--02: #1617C0;
     --keyColor-main: #3F40E9;
 
     //caution-color
-    --caution-Color: #FF0000;
+    --caution-color: #FF0000;
   }
-;
+`;
 
-    html{
-        font-family : 'Pretendard Variable';
-    }
-
-
-
-
-`
+export default GlobalStyle;

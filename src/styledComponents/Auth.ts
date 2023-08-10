@@ -20,6 +20,10 @@ export const LoginIntroText = styled(FlexContainer)<FlexContainerProps>`
     font-size: 30px;
     font-weight: 600;
     line-height: 38px;
+
+    span{
+      color: var(--keyColor-main);
+    }
   }
 
   p {

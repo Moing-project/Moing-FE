@@ -1,12 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { ResponseData } from "../../config/BaseRequestType";
+import { ResponseData } from "../types/BaseRequestType";
 import {
   Auth,
   LoginData,
   NicknameDataType,
   SingInData,
   UsernameDataType,
-} from "../../config/LoginType";
+} from "../types/LoginType";
 import { axiosBaseQuery } from "../config/axios";
 import axios from "axios";
 

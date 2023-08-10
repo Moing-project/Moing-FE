@@ -5,7 +5,7 @@ import * as S from "../../styledComponents/Randing";
 import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
 import { Link } from "react-router-dom";
 
-function Section1 () {
+function RendingSection1() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInViewport = useIntersectionObsever(ref);
   return (
@@ -14,7 +14,7 @@ function Section1 () {
         <S.RendingContainer
           ref={ref}
           className={isInViewport ? "animation" : ""}
-          $isInViewport = {isInViewport}
+          $isInViewport={isInViewport}
         >
           <S.RandingBox $gap={100}>
             <div
@@ -30,7 +30,7 @@ function Section1 () {
                   </h2>
                 </div>
                 <div style={{ color: "var(--gray-06)" }}>
-                  <br/>
+                  <br />
                   <p>
                     내가 원하는 프로젝트를 바로 찾아
                     <br />
@@ -58,5 +58,4 @@ function Section1 () {
   );
 }
 
-
-export default forwardRef(Section1);
+export default forwardRef(RendingSection1);

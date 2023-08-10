@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Footer from "./layoutComponents/Footer";
-import Header from "./layoutComponents/Header";
-import Rending from "./pageComponents/Rending";
-import Main from "./pageComponents/Main";
-import Projects from "./pageComponents/Projects";
-import NotFound from "./pageComponents/NotFound";
-import SignIn from "./pageComponents/SignIn/SignIn";
-import Login from "./pageComponents/Login/Login";
+import Footer from "./layout/Footer";
+import Header from "./layout/Header";
+import Rending from "./page/Rending/Rending";
+import Main from "./page/Main";
+import Projects from "./page/Projects";
+import NotFound from "./page/NotFound";
+import SignIn from "./page/SignIn/SignIn";
+import Login from "./page/Login/Login";
 
 function App() {
   return (
