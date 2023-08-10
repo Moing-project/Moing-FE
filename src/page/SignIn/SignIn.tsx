@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 import * as S from '../../styledComponents/Auth';
 import * as I from '../../components/UsingIcons';
 import { useCheckBox } from '../../hooks/useCheckBox';
 import { useInput } from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
+=======
+import { Link } from "react-router-dom";
+import * as S from "../../styledComponents/Auth";
+import * as I from "../../components/UsingIcons";
+import { useCheckBox } from "../../hooks/useCheckBox";
+import { useInput } from "../../hooks/useInput";
+import { useEffect, useState } from "react";
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
 export default function SignIn() {
   // 체크 상태
@@ -19,28 +28,44 @@ export default function SignIn() {
     handleChange: handleEmailChange,
     handleFocus: handleEmailFocus,
     clearValue: clearEmail,
+<<<<<<< HEAD
   } = useInput('');
+=======
+  } = useInput("");
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
     handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
+<<<<<<< HEAD
   } = useInput('');
+=======
+  } = useInput("");
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
   const {
     value: password,
     handleChange: handlePasswordChange,
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
+<<<<<<< HEAD
   } = useInput('');
+=======
+  } = useInput("");
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
   const {
     value: passwordMatch,
     handleChange: handlePasswordMatchChange,
     handleFocus: handlePasswordMatchFocus,
     clearValue: clearPasswordMatch,
+<<<<<<< HEAD
   } = useInput('');
+=======
+  } = useInput("");
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [shwoPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
@@ -151,7 +176,11 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={isValidEmail(email)}
+<<<<<<< HEAD
             $isEmpty={email === ''}
+=======
+            $isEmpty={email === ""}
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
           >
             <input
               type="email"
@@ -176,7 +205,11 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={!isValidNickname(nickname)}
+<<<<<<< HEAD
             $isEmpty={nickname === ''}
+=======
+            $isEmpty={nickname === ""}
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
           >
             <input
               type="text"
@@ -201,10 +234,17 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={isPasswordValid(password)}
+<<<<<<< HEAD
             $isEmpty={password === ''}
           >
             <input
               type={showPassword ? 'text' : 'password'}
+=======
+            $isEmpty={password === ""}
+          >
+            <input
+              type={showPassword ? "text" : "password"}
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
               value={password}
               onChange={handlePasswordChange}
               onFocus={handlePasswordFocus}
@@ -233,10 +273,17 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={isPasswordMatch(passwordMatch)}
+<<<<<<< HEAD
             $isEmpty={passwordMatch === ''}
           >
             <input
               type={shwoPasswordMatch ? 'text' : 'password'}
+=======
+            $isEmpty={passwordMatch === ""}
+          >
+            <input
+              type={shwoPasswordMatch ? "text" : "password"}
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
               value={passwordMatch}
               onChange={handlePasswordMatchChange}
               onFocus={handlePasswordMatchFocus}
@@ -325,6 +372,7 @@ export default function SignIn() {
     </S.SignInLayout>
   );
 }
+<<<<<<< HEAD
 
 // background-color: #ffffff;
 // border: 1px none;
@@ -360,3 +408,5 @@ export default function SignIn() {
 //     </Container>
 //   );
 // }
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)

@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import Rending from "./page/Rending/Rending";
@@ -8,6 +11,7 @@ import Projects from "./page/Projects";
 import NotFound from "./page/NotFound";
 import SignIn from "./page/SignIn/SignIn";
 import Login from "./page/Login/Login";
+<<<<<<< HEAD
 =======
 import Footer from "./layoutComponents/Footer";
 import Header from "./layoutComponents/Header";
@@ -23,6 +27,8 @@ import Login from "./pageComponents/Login";
 import SignIn from "./pageComponents/SignIn/SignIn";
 import Login from "./pageComponents/Login/Login";
 >>>>>>> 087cd96 ([add, modify] 로그인 페이지 아이콘 파일 분리, 로그인 폼 컴포넌트 분리/ 로그인 페이지 이메일 유효성 검사 공백 허용, border 수정)
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
 function App() {
   return (

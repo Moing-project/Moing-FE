@@ -32,12 +32,18 @@ export const LoginIntroText = styled(FlexContainer)<FlexContainerProps>`
     font-weight: 600;
     line-height: 38px;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
     span{
       color: var(--keyColor-main);
     }
+<<<<<<< HEAD
 =======
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
   }
 
   p {

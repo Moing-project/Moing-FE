@@ -17,12 +17,16 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
   <BrowserRouter>
     <Provider store={store}>
       <GlobalStyle />
       <App />
     </Provider>
   </BrowserRouter>
+<<<<<<< HEAD
 =======
   <React.StrictMode>
     <BrowserRouter>
@@ -33,6 +37,8 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 );
 
 // If you want to start measuring performance in your app, pass a function

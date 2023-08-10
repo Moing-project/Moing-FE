@@ -7,10 +7,14 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { AxiosArgs, ResponseData } from "../types/BaseRequestType";
 =======
 import { AxiosArgs, ResponseData } from "../../config/BaseRequestType";
 >>>>>>> fec5d28 ([add] 회원가입 틀 완성, 폰트 적용)
+=======
+import { AxiosArgs, ResponseData } from "../types/BaseRequestType";
+>>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
 export const instance: AxiosInstance = axios.create({
   baseURL: "https://api.moingtool.com",
