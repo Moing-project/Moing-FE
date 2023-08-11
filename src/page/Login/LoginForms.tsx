@@ -132,7 +132,7 @@ export default function LoginForms() {
           <div>
             <Link to="">비밀번호 찾기</Link>
             <span>|</span>
-            <Link to="">회원가입</Link>
+            <Link to="/signin">회원가입</Link>
           </div>
         </S.LoginFormNav>
         <S.SubmitButton

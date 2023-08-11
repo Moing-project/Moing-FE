@@ -379,7 +379,7 @@ export default function SignIn() {
         다음
       </S.SubmitButton>
       <nav>
-        이미 가입하셨나요? <Link to="">로그인</Link>
+        이미 가입하셨나요? <Link to="/login">로그인</Link>
       </nav>
     </S.SignInLayout>
   );
