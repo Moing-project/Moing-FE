@@ -1,13 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
-import Rending from "./page/Rending/Rending";
-import Main from "./page/Main";
-import Projects from "./page/Projects";
-import NotFound from "./page/NotFound";
-import SignIn from "./page/SignIn/SignIn";
-import Login from "./page/Login/Login";
-import { SMarginLayout } from "./styledComponents/commonStyle";
+import { Routes, Route } from 'react-router-dom';
+import Footer from './layout/Footer';
+import Header from './layout/Header';
+import Rending from './page/Rending/Rending';
+import Main from './page/Main';
+import Projects from './page/Projects';
+import NotFound from './page/NotFound';
+import SignIn from './page/SignIn/SignIn';
+import Login from './page/Login/Login';
+import { SMarginLayout } from './styledComponents/commonStyle';
 
 function App() {
   return (

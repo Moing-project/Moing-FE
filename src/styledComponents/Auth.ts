@@ -1,7 +1,8 @@
-import { styled } from "styled-components";
-import FlexContainer, { FlexContainerProps } from "./Flexbox";
-import { CustomBtn } from "./Buttons";
-import { ButtonProps } from "./types/ButtonType";
+import { styled } from 'styled-components';
+import emotionStyled from '@emotion/styled/macro';
+import FlexContainer, { FlexContainerProps } from './Flexbox';
+import { CustomBtn } from './Buttons';
+import { ButtonProps } from './types/ButtonType';
 
 export interface AuthProps {
   $isValidValue?: boolean;
@@ -89,7 +90,7 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
     display: flex;
     align-items: center;
 
-    input[id="autoLogin"] {
+    input[id='autoLogin'] {
       display: none;
     }
 
@@ -167,6 +168,7 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
   }
 
   nav {
+    margin-top: 12px;
     color: var(--gray-06);
     font-size: 12px;
     font-style: normal;
@@ -215,10 +217,10 @@ export const SignInTermsBox = styled.div`
     font-style: normal;
     line-height: normal;
 
-    input[id="allAgreeCheck"],
-    input[id="ageCheck"],
-    input[id="termsCheck"],
-    input[id="alarmCheck"] {
+    input[id='allAgreeCheck'],
+    input[id='ageCheck'],
+    input[id='termsCheck'],
+    input[id='alarmCheck'] {
       display: none;
     }
 
@@ -256,16 +258,25 @@ export const SignInTermsBox = styled.div`
   }
 `;
 
-// <ButtonProps> <AuthProps>
+// 모달 스타일
+export const ModalBody = emotionStyled.div`
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background: beige;
+  max-height: calc(100vh - 16px);
+  overflow: hidden;
+  padding-block: 80px;
+  padding-inline: 40px;
+`;
 
 // 공통 스타일
 export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
-  margin-bottom: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: ${({ disabled }) =>
-    disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
+    disabled ? 'var(--gray-05)' : 'var(--keyColor-main)'};
 `;
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
@@ -279,7 +290,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
     ${({ $isValidValue, $isEmpty }) =>
-      $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
+      $isValidValue || $isEmpty ? 'var(--gray-05)' : 'var(--caution-color)'};
 
   button {
     display: flex;
@@ -319,7 +330,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
       ${({ $isValidValue, $isEmpty }) =>
-        $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
+        $isValidValue || $isEmpty ? 'var(--gray-07)' : 'var(--caution-color)'};
 
     svg {
       fill: var(--gray-07);
