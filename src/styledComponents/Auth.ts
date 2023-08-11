@@ -1,8 +1,8 @@
-import { styled } from 'styled-components';
-import emotionStyled from '@emotion/styled/macro';
-import FlexContainer, { FlexContainerProps } from './Flexbox';
-import { CustomBtn } from './Buttons';
-import { ButtonProps } from './types/ButtonType';
+import { styled } from "styled-components";
+import emotionStyled from "@emotion/styled/macro";
+import FlexContainer, { FlexContainerProps } from "./Flexbox";
+import { CustomBtn } from "./Buttons";
+import { ButtonProps } from "./types/ButtonType";
 
 export interface AuthProps {
   $isValidValue?: boolean;
@@ -90,7 +90,7 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
     display: flex;
     align-items: center;
 
-    input[id='autoLogin'] {
+    input[id="autoLogin"] {
       display: none;
     }
 
@@ -185,6 +185,25 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
   & > p {
     margin-bottom: 6px;
   }
+
+  section {
+    position: relative;
+    margin: 68px;
+    width: 368px;
+    height: 231px;
+
+    svg:first-child {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    svg:last-child {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
 `;
 
 export const SignInFormBox = styled.form`
@@ -217,10 +236,10 @@ export const SignInTermsBox = styled.div`
     font-style: normal;
     line-height: normal;
 
-    input[id='allAgreeCheck'],
-    input[id='ageCheck'],
-    input[id='termsCheck'],
-    input[id='alarmCheck'] {
+    input[id="allAgreeCheck"],
+    input[id="ageCheck"],
+    input[id="termsCheck"],
+    input[id="alarmCheck"] {
       display: none;
     }
 
@@ -276,7 +295,7 @@ export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
   justify-content: center;
   align-items: center;
   background: ${({ disabled }) =>
-    disabled ? 'var(--gray-05)' : 'var(--keyColor-main)'};
+    disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
 `;
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
@@ -290,7 +309,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
     ${({ $isValidValue, $isEmpty }) =>
-      $isValidValue || $isEmpty ? 'var(--gray-05)' : 'var(--caution-color)'};
+      $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
 
   button {
     display: flex;
@@ -330,7 +349,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
       ${({ $isValidValue, $isEmpty }) =>
-        $isValidValue || $isEmpty ? 'var(--gray-07)' : 'var(--caution-color)'};
+        $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
 
     svg {
       fill: var(--gray-07);
