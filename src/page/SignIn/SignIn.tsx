@@ -4,7 +4,7 @@ import * as I from '../../components/UsingIcons';
 import { useCheckBox } from '../../hooks/useCheckBox';
 import { useInput } from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
-import Modal from './ModalComponents/Modal';
+import Modal from '../../components/Modal/Modal';
 
 export default function SignIn() {
   // 모달
