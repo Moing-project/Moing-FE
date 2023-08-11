@@ -40,9 +40,10 @@ function RendingSection1() {
               </div>
               <Link to="">
                 <PrimaryBtn
-                  $bc="var(--keyColor-main)"
-                  $size="long"
-                  $fontcolor="white"
+                  $shape="filled"
+                  $status="active"
+                  $width="long"
+                  $height="high"
                 >
                   모잉 둘러보기
                 </PrimaryBtn>

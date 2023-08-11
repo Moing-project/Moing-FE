@@ -1,3 +1,4 @@
-### style : 병합 후 구조 수정
+### modify, style : 닉네임 유효성 버튼 활성화 수정, 버튼 스타일 컴포넌트 수정
 
-#1 폴더 구조 수정 : types 각 폴더로 분리, layout/page 폴더 Components 제거, public images 폴더 제거
+#1 버튼 활성화 수정 : 닉네임 유효성 추가
+#2 버튼 스타일 컴포넌트 수정

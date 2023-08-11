@@ -53,6 +53,9 @@ export default function LoginForms() {
     }
   };
 
+  // 버튼 상태 값
+  let status = !isValidEmail(email) || !password ? "active" : "disable";
+
   return (
     <S.LoginBox direction="column">
       <nav>
@@ -134,8 +137,11 @@ export default function LoginForms() {
         </S.LoginFormNav>
         <S.SubmitButton
           type="submit"
+          $shape="filled"
+          $status={status}
+          $width="long"
+          $height="medium"
           disabled={!isValidEmail(email) || !password}
-          $isEmpty={!!!email}
         >
           로그인
         </S.SubmitButton>
