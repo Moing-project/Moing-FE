@@ -1,51 +1,74 @@
 import { styled, css } from "styled-components";
 import { ButtonProps } from "./types/ButtonType";
 
+const heights = { low: `32px`, medium: `42px`, high: `48px` };
+const widths = { short: `80px`, medium: `167px`, long: `368px` };
+
 const CustomBtn = styled.button<ButtonProps>`
-  ${({ $size }) => {
-    switch ($size) {
-      case "small":
+  ${({ $shape, $status }) => {
+    let status: string =
+      $status === "active" ? "var(--keyColor-main)" : "var(--gray-05)";
+
+    switch ($shape) {
+      case "filled":
         return css`
-          width: 94px;
-          height: 32px;
+          background: ${status};
+          border: none;
+          color: var(--gray-01);
+        `;
+      case "solid":
+        return css`
+          background: var(--gray-01);
+          border: 1px solid ${status};
+          color: ${status};
+        `;
+      default:
+        return ``;
+    }
+  }};
+
+  ${({ $height }) => {
+    switch ($height) {
+      case "low":
+        return css`
+          height: ${heights.low};
           font-size: 12px;
         `;
       case "medium":
         return css`
-          width: 150px;
-          height: 18px;
+          height: ${heights.medium};
           font-size: 14px;
         `;
-      case "large":
+      case "high":
         return css`
-          width: 167px;
-          height: 42px;
+          height: ${heights.high};
           font-size: 16px;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          gap: 8px;
-          white-space: nowrap;
-        `;
-      case "long":
-        return css`
-          width: 288px;
-          height: 48px;
-          font-size: 16px;
-          font-weight: 600;
         `;
       default:
-        return css`
-          width: 92px;
-          height: 32px;
-        `;
+        return ``;
     }
-  }}
-  background-color : ${({ $bc }) => $bc};
-  color: ${({ $fontcolor }) => $fontcolor};
+  }};
+
+  width: ${({ $width }) => {
+    switch ($width) {
+      case "short":
+        return widths.short;
+      case "medium":
+        return widths.medium;
+      case "long":
+        return widths.long;
+      default:
+        return ``;
+    }
+  }};
+
+  /* 버튼 공통 부분 */
   border-radius: 8px;
-  border: 1px solid ${({ $bdc }) => $bdc};
+  text-align: center;
+  font-style: normal;
   font-weight: 600;
+  line-height: 20px; /* 166.667% */
   cursor: pointer;
 `;
+
 export { CustomBtn };

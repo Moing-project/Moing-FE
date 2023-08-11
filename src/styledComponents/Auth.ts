@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
+import { CustomBtn } from "./Buttons";
+import { ButtonProps } from "./types/ButtonType";
 
 export interface AuthProps {
   $isValidValue?: boolean;
@@ -21,7 +23,7 @@ export const LoginIntroText = styled(FlexContainer)<FlexContainerProps>`
     font-weight: 600;
     line-height: 38px;
 
-    span{
+    span {
       color: var(--keyColor-main);
     }
   }
@@ -254,23 +256,14 @@ export const SignInTermsBox = styled.div`
   }
 `;
 
+// <ButtonProps> <AuthProps>
+
 // 공통 스타일
-export const SubmitButton = styled.button<AuthProps>`
+export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
   margin-bottom: 48px;
-  width: 368px;
-  height: 42px;
-  padding: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
-  color: var(--gray-01);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  border: none;
-  cursor: pointer;
   background: ${({ disabled }) =>
     disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
 `;

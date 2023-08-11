@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import RendingSection1 from "./RendingSection1";
 import RendingSection2 from "./RendingSection2";
 import RendingSection3 from "./RendingSection3";
