@@ -88,7 +88,7 @@ export default function SignIn() {
   };
 
   const isValidNickname = (nickname: string) => {
-    return nickname.trim().length >= 8;
+    return nickname.trim().length > 8;
   };
 
   const isPasswordValid = (password: string) => {
@@ -118,7 +118,7 @@ export default function SignIn() {
     } else if (ageCheck && termsCheck && alarmCheck) {
       setAllAgreeCheck(true);
     }
-  }, [ageCheck, termsCheck, alarmCheck]);
+  }, [setAllAgreeCheck, ageCheck, termsCheck, alarmCheck]);
 
   // Submit 버튼
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -130,6 +130,8 @@ export default function SignIn() {
       termsCheck &&
       email &&
       isValidEmail(email) &&
+      nickname &&
+      !isValidNickname(nickname) &&
       password &&
       isPasswordValid(password) &&
       passwordMatch &&
@@ -139,7 +141,10 @@ export default function SignIn() {
     } else {
       setIsButtonActive(false);
     }
-  }, [ageCheck, termsCheck, email, password, passwordMatch]);
+  }, [ageCheck, termsCheck, email, nickname, password, passwordMatch]);
+
+  // 버튼 상태 값
+  let status = !isButtonActive ? "active" : "disable";
 
   // const [login, { isLoading }] = usePostLoginMutation();
 
@@ -363,7 +368,14 @@ export default function SignIn() {
       {(!ageCheck || !termsCheck) && (
         <S.CautionText>필수사항에 동의해주세요.</S.CautionText>
       )}
-      <S.SubmitButton type="submit" disabled={!isButtonActive}>
+      <S.SubmitButton
+        type="submit"
+        $shape="filled"
+        $status={status}
+        $width="long"
+        $height="medium"
+        disabled={!isButtonActive}
+      >
         다음
       </S.SubmitButton>
       <nav>

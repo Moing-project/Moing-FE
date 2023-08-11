@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
+import { CustomBtn } from "./Buttons";
+import { ButtonProps } from "./types/ButtonType";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -36,7 +38,7 @@ export const LoginIntroText = styled(FlexContainer)<FlexContainerProps>`
 =======
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
 
-    span{
+    span {
       color: var(--keyColor-main);
     }
 <<<<<<< HEAD
@@ -329,7 +331,10 @@ export const SignInTermsBox = styled.div`
   }
 `;
 
+// <ButtonProps> <AuthProps>
+
 // 공통 스타일
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 export const SubmitButton = styled.button<AuthProps>`
@@ -339,13 +344,14 @@ export const SubmitButton = styled.button`
 =======
 export const SubmitButton = styled.button<AuthProps>`
 >>>>>>> 55cc28e ([modify] 입력값 유효성 검사 조건부 렌더링 수정)
+=======
+export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
+>>>>>>> e15b50e ([modify, style] 닉네임 유효성 버튼 활성화 수정, 버튼 스타일 컴포넌트 수정)
   margin-bottom: 48px;
-  width: 368px;
-  height: 42px;
-  padding: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
   border-radius: 8px;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -368,6 +374,8 @@ export const SubmitButton = styled.button<AuthProps>`
 >>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
   border: none;
   cursor: pointer;
+=======
+>>>>>>> e15b50e ([modify, style] 닉네임 유효성 버튼 활성화 수정, 버튼 스타일 컴포넌트 수정)
   background: ${({ disabled }) =>
     disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
 <<<<<<< HEAD

@@ -24,11 +24,12 @@ function RendingSection3() {
               </h2>
               <br />
               <PrimaryBtn
-                $size="large"
-                $bc="var(--keyColor-main)"
-                $fontcolor="white"
+                $shape="filled"
+                $status="active"
+                $width="long"
+                $height="high"
               >
-                워크스페이스 보기
+                모잉 둘러보기
               </PrimaryBtn>
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
