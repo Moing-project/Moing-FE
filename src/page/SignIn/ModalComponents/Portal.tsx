@@ -13,7 +13,7 @@ const Portal: React.FC<Props> = ({ children, selector }) => {
 
   return <>{rootElement ? createPortal(children, rootElement) : children}</>;
 };
-//12번 줄
+//13번 줄
 //rootElement가 있을때  createPortal로 props로 전달받은 children을 rootElement에 랜더링 시켜주고
 // :rootElement가 없으면 그대로 children을 리턴한다
 
