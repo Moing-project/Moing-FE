@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import * as S from "../../styledComponents/Auth";
-import * as I from "../../components/UsingIcons";
-import { useCheckBox } from "../../hooks/useCheckBox";
-import { useInput } from "../../hooks/useInput";
-import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import * as S from '../../styledComponents/Auth';
+import * as I from '../../components/UsingIcons';
+import { useCheckBox } from '../../hooks/useCheckBox';
+import { useInput } from '../../hooks/useInput';
+import { useEffect, useState } from 'react';
 
 export default function SignIn() {
   // 체크 상태
@@ -19,28 +19,28 @@ export default function SignIn() {
     handleChange: handleEmailChange,
     handleFocus: handleEmailFocus,
     clearValue: clearEmail,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
     handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: password,
     handleChange: handlePasswordChange,
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: passwordMatch,
     handleChange: handlePasswordMatchChange,
     handleFocus: handlePasswordMatchFocus,
     clearValue: clearPasswordMatch,
-  } = useInput("");
+  } = useInput('');
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [shwoPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
@@ -156,7 +156,7 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={isValidEmail(email)}
-            $isEmpty={email === ""}
+            $isEmpty={email === ''}
           >
             <input
               type="email"
@@ -181,7 +181,7 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={!isValidNickname(nickname)}
-            $isEmpty={nickname === ""}
+            $isEmpty={nickname === ''}
           >
             <input
               type="text"
@@ -206,10 +206,10 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={isPasswordValid(password)}
-            $isEmpty={password === ""}
+            $isEmpty={password === ''}
           >
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={handlePasswordChange}
               onFocus={handlePasswordFocus}
@@ -238,10 +238,10 @@ export default function SignIn() {
             justify="space-between"
             align="center"
             $isValidValue={isPasswordMatch(passwordMatch)}
-            $isEmpty={passwordMatch === ""}
+            $isEmpty={passwordMatch === ''}
           >
             <input
-              type={shwoPasswordMatch ? "text" : "password"}
+              type={shwoPasswordMatch ? 'text' : 'password'}
               value={passwordMatch}
               onChange={handlePasswordMatchChange}
               onFocus={handlePasswordMatchFocus}
@@ -337,3 +337,38 @@ export default function SignIn() {
     </S.SignInLayout>
   );
 }
+
+// background-color: #ffffff;
+// border: 1px none;
+// box-shadow: var(--);
+// height: 180px;
+// position: relative;
+// width: 310px;
+
+// function App() {
+//   const [isOpen, setIsOpen] = useState<boolean>(false);
+//   //모달을 열고 닫기 위한 상태를 선언하기위해
+
+//   const handleOpen = () => setIsOpen(true);
+//   const handleClose = () => setIsOpen(false);
+//   //모달 닫는부분
+
+//   // 실제 모달이 부분 ,내용
+//   return (
+//     <Container className="모달">
+//       <Button onClick={handleOpen}>OPEN</Button>
+//       {/* 버튼은 모달을 여는 역할 */}
+//       <Modal isOpen={isOpen} onClose={handleClose}>
+//         <ModalBody>
+//           <h2>
+//             ll894564@naver.com
+//             <p>입력하신 이메일로 인증번호가 전송되었습니다</p>
+//           </h2>
+//           <p>인증번호를 입력해주세요</p>
+//           <input type="text" placeholder="인증번호를 입력해주세요"></input>
+//           <Button onClick={handleClose}>확인</Button>
+//         </ModalBody>
+//       </Modal>
+//     </Container>
+//   );
+// }
