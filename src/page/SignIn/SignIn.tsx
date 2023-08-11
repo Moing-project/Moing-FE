@@ -1,10 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a972e5a (feature/modal)
 import { Link } from 'react-router-dom';
 import * as S from '../../styledComponents/Auth';
 import * as I from '../../components/UsingIcons';
 import { useCheckBox } from '../../hooks/useCheckBox';
 import { useInput } from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
 =======
 import { Link } from "react-router-dom";
 import * as S from "../../styledComponents/Auth";
@@ -13,6 +17,8 @@ import { useCheckBox } from "../../hooks/useCheckBox";
 import { useInput } from "../../hooks/useInput";
 import { useEffect, useState } from "react";
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+>>>>>>> a972e5a (feature/modal)
 
 export default function SignIn() {
   // 체크 상태
@@ -29,10 +35,14 @@ export default function SignIn() {
     handleFocus: handleEmailFocus,
     clearValue: clearEmail,
 <<<<<<< HEAD
+<<<<<<< HEAD
   } = useInput('');
 =======
   } = useInput("");
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+  } = useInput('');
+>>>>>>> a972e5a (feature/modal)
 
   const {
     value: nickname,
@@ -40,10 +50,14 @@ export default function SignIn() {
     handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
 <<<<<<< HEAD
+<<<<<<< HEAD
   } = useInput('');
 =======
   } = useInput("");
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+  } = useInput('');
+>>>>>>> a972e5a (feature/modal)
 
   const {
     value: password,
@@ -51,10 +65,14 @@ export default function SignIn() {
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
 <<<<<<< HEAD
+<<<<<<< HEAD
   } = useInput('');
 =======
   } = useInput("");
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+  } = useInput('');
+>>>>>>> a972e5a (feature/modal)
 
   const {
     value: passwordMatch,
@@ -62,10 +80,14 @@ export default function SignIn() {
     handleFocus: handlePasswordMatchFocus,
     clearValue: clearPasswordMatch,
 <<<<<<< HEAD
+<<<<<<< HEAD
   } = useInput('');
 =======
   } = useInput("");
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+  } = useInput('');
+>>>>>>> a972e5a (feature/modal)
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [shwoPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
@@ -182,10 +204,14 @@ export default function SignIn() {
             align="center"
             $isValidValue={isValidEmail(email)}
 <<<<<<< HEAD
+<<<<<<< HEAD
             $isEmpty={email === ''}
 =======
             $isEmpty={email === ""}
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+            $isEmpty={email === ''}
+>>>>>>> a972e5a (feature/modal)
           >
             <input
               type="email"
@@ -211,10 +237,14 @@ export default function SignIn() {
             align="center"
             $isValidValue={!isValidNickname(nickname)}
 <<<<<<< HEAD
+<<<<<<< HEAD
             $isEmpty={nickname === ''}
 =======
             $isEmpty={nickname === ""}
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+            $isEmpty={nickname === ''}
+>>>>>>> a972e5a (feature/modal)
           >
             <input
               type="text"
@@ -240,6 +270,7 @@ export default function SignIn() {
             align="center"
             $isValidValue={isPasswordValid(password)}
 <<<<<<< HEAD
+<<<<<<< HEAD
             $isEmpty={password === ''}
           >
             <input
@@ -250,6 +281,12 @@ export default function SignIn() {
             <input
               type={showPassword ? "text" : "password"}
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+            $isEmpty={password === ''}
+          >
+            <input
+              type={showPassword ? 'text' : 'password'}
+>>>>>>> a972e5a (feature/modal)
               value={password}
               onChange={handlePasswordChange}
               onFocus={handlePasswordFocus}
@@ -279,6 +316,7 @@ export default function SignIn() {
             align="center"
             $isValidValue={isPasswordMatch(passwordMatch)}
 <<<<<<< HEAD
+<<<<<<< HEAD
             $isEmpty={passwordMatch === ''}
           >
             <input
@@ -289,6 +327,12 @@ export default function SignIn() {
             <input
               type={shwoPasswordMatch ? "text" : "password"}
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+            $isEmpty={passwordMatch === ''}
+          >
+            <input
+              type={shwoPasswordMatch ? 'text' : 'password'}
+>>>>>>> a972e5a (feature/modal)
               value={passwordMatch}
               onChange={handlePasswordMatchChange}
               onFocus={handlePasswordMatchFocus}
@@ -385,6 +429,9 @@ export default function SignIn() {
   );
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a972e5a (feature/modal)
 
 // background-color: #ffffff;
 // border: 1px none;
@@ -420,5 +467,8 @@ export default function SignIn() {
 //     </Container>
 //   );
 // }
+<<<<<<< HEAD
 =======
 >>>>>>> 5797968 ([style] 병합 후 구조 수정)
+=======
+>>>>>>> a972e5a (feature/modal)
