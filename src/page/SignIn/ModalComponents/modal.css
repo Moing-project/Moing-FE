@@ -16,7 +16,7 @@
   transition: opacity 300ms;
 }
 
-.Container {
+/* .Container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,4 +36,4 @@
   &:active {
     opacity: 0.8;
   }
-}
+} */

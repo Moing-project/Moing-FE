@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Routes, Route } from "react-router-dom";
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -33,6 +34,18 @@ import Login from "./pageComponents/Login/Login";
 =======
 import { SMarginLayout } from "./styledComponents/commonStyle";
 >>>>>>> e15b50e ([modify, style] 닉네임 유효성 버튼 활성화 수정, 버튼 스타일 컴포넌트 수정)
+=======
+import { Routes, Route } from 'react-router-dom';
+import Footer from './layout/Footer';
+import Header from './layout/Header';
+import Rending from './page/Rending/Rending';
+import Main from './page/Main';
+import Projects from './page/Projects';
+import NotFound from './page/NotFound';
+import SignIn from './page/SignIn/SignIn';
+import Login from './page/Login/Login';
+import { SMarginLayout } from './styledComponents/commonStyle';
+>>>>>>> 629fcdd ([add] 모달 기능 추가)
 
 function App() {
   return (

@@ -26,11 +26,11 @@ const Dim = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Container = styled.div`
-  max-width: 456px;
-  position: relative;
-  width: 100%;
-`;
+// const Container = styled.div`
+//   // max-width: 456px;
+//   // position: relative;
+//   // width: 100%;
+// `;
 
 interface Props {
   isOpen: boolean;
@@ -46,11 +46,11 @@ const Modal: React.FC<Props> = ({
   selector = '#modal-root',
 }) => {
   return (
-    <CSSTransition in={isOpen} timeout={300} classNames="modal" unmountOnExit>
+    <CSSTransition in={isOpen} timeout={180} classNames="modal" unmountOnExit>
       <Portal selector={selector}>
         <Overlay>
           <Dim onClick={onClose} />
-          <Container>{children}</Container>
+          <div>{children}</div>
         </Overlay>
       </Portal>
     </CSSTransition>

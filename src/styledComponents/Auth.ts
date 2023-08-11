@@ -1,7 +1,8 @@
-import { styled } from "styled-components";
-import FlexContainer, { FlexContainerProps } from "./Flexbox";
-import { CustomBtn } from "./Buttons";
-import { ButtonProps } from "./types/ButtonType";
+import { styled } from 'styled-components';
+import emotionStyled from '@emotion/styled/macro';
+import FlexContainer, { FlexContainerProps } from './Flexbox';
+import { CustomBtn } from './Buttons';
+import { ButtonProps } from './types/ButtonType';
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -113,7 +114,7 @@ export const LoginFormNav = styled(FlexContainer)<FlexContainerProps>`
 =======
 >>>>>>> 7e00682 ([add, modify] useInput 커스텀 훅 수정, 로그인 페이지 이메일 검증, 조건부 렌더링 추가)
 
-    input[id="autoLogin"] {
+    input[id='autoLogin'] {
       display: none;
     }
 
@@ -208,6 +209,7 @@ export const SignInLayout = styled(FlexContainer)<FlexContainerProps>`
   }
 
   nav {
+    margin-top: 12px;
     color: var(--gray-06);
     font-size: 12px;
     font-style: normal;
@@ -283,12 +285,19 @@ export const SignInTermsBox = styled.div`
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
     input[id="allAgreeCheck"],
     input[id="ageCheck"],
     input[id="termsCheck"],
     input[id="alarmCheck"] {
+=======
+    input[id='allAgreeCheck'],
+    input[id='ageCheck'],
+    input[id='termsCheck'],
+    input[id='alarmCheck'] {
+>>>>>>> 629fcdd ([add] 모달 기능 추가)
       display: none;
     }
 
@@ -331,7 +340,17 @@ export const SignInTermsBox = styled.div`
   }
 `;
 
-// <ButtonProps> <AuthProps>
+// 모달 스타일
+export const ModalBody = emotionStyled.div`
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background: beige;
+  max-height: calc(100vh - 16px);
+  overflow: hidden;
+  padding-block: 80px;
+  padding-inline: 40px;
+`;
 
 // 공통 스타일
 <<<<<<< HEAD
@@ -346,8 +365,11 @@ export const SubmitButton = styled.button<AuthProps>`
 >>>>>>> 55cc28e ([modify] 입력값 유효성 검사 조건부 렌더링 수정)
 =======
 export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
+<<<<<<< HEAD
 >>>>>>> e15b50e ([modify, style] 닉네임 유효성 버튼 활성화 수정, 버튼 스타일 컴포넌트 수정)
   margin-bottom: 48px;
+=======
+>>>>>>> 629fcdd ([add] 모달 기능 추가)
   display: flex;
   justify-content: center;
   align-items: center;
@@ -377,8 +399,12 @@ export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
 =======
 >>>>>>> e15b50e ([modify, style] 닉네임 유효성 버튼 활성화 수정, 버튼 스타일 컴포넌트 수정)
   background: ${({ disabled }) =>
+<<<<<<< HEAD
     disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
 <<<<<<< HEAD
+=======
+    disabled ? 'var(--gray-05)' : 'var(--keyColor-main)'};
+>>>>>>> 629fcdd ([add] 모달 기능 추가)
 `;
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
@@ -406,6 +432,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
 <<<<<<< HEAD
 <<<<<<< HEAD
     ${({ $isValidValue, $isEmpty }) =>
+<<<<<<< HEAD
       $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
 =======
   border: 1px solid var(--gray-05);
@@ -430,6 +457,9 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
     ${({ $isValidValue, $isEmpty }) =>
       $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
 >>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
+=======
+      $isValidValue || $isEmpty ? 'var(--gray-05)' : 'var(--caution-color)'};
+>>>>>>> 629fcdd ([add] 모달 기능 추가)
 
   button {
     display: flex;
@@ -473,6 +503,7 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
       ${({ $isValidValue, $isEmpty }) =>
+<<<<<<< HEAD
         $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
 =======
     border: 1px solid var(--gray-07);
@@ -497,6 +528,9 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
       ${({ $isValidValue, $isEmpty }) =>
         $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
 >>>>>>> 16c9200 ([add] 회원가입 틀 완성, 각 필드/제출 버튼 유효성 검사 구현)
+=======
+        $isValidValue || $isEmpty ? 'var(--gray-07)' : 'var(--caution-color)'};
+>>>>>>> 629fcdd ([add] 모달 기능 추가)
 
     svg {
       fill: var(--gray-07);

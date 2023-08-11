@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import * as S from "../../styledComponents/Auth";
-import * as I from "../../components/UsingIcons";
-import { Link } from "react-router-dom";
-import { useInput } from "../../hooks/useInput";
-import { useCheckBox } from "../../hooks/useCheckBox";
+import React, { useState } from 'react';
+import * as S from '../../styledComponents/Auth';
+import * as I from '../../components/UsingIcons';
+import { Link } from 'react-router-dom';
+import { useInput } from '../../hooks/useInput';
+import { useCheckBox } from '../../hooks/useCheckBox';
 
-import { usePostLoginMutation } from "../../redux/modules/LoginAPI";
+import { usePostLoginMutation } from '../../redux/modules/LoginAPI';
 
 export default function LoginForms() {
   const {
@@ -13,14 +13,14 @@ export default function LoginForms() {
     handleChange: handleEmailChange,
     handleFocus: handleEmailFocus,
     clearValue: clearEmail,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: password,
     handleChange: handlePasswordChange,
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
-  } = useInput("");
+  } = useInput('');
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -54,7 +54,7 @@ export default function LoginForms() {
   };
 
   // 버튼 상태 값
-  let status = !isValidEmail(email) || !password ? "active" : "disable";
+  let status = !isValidEmail(email) || !password ? 'active' : 'disable';
 
   return (
     <S.LoginBox direction="column">
@@ -69,7 +69,7 @@ export default function LoginForms() {
               justify="space-between"
               align="center"
               $isValidValue={isValidEmail(email)}
-              $isEmpty={email === ""}
+              $isEmpty={email === ''}
             >
               <input
                 type="email"
@@ -96,7 +96,7 @@ export default function LoginForms() {
               $isEmpty={true}
             >
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={handlePasswordChange}
                 onFocus={handlePasswordFocus}
@@ -142,6 +142,7 @@ export default function LoginForms() {
           $width="long"
           $height="medium"
           disabled={!isValidEmail(email) || !password}
+          style={{ marginBottom: '48px' }}
         >
           로그인
         </S.SubmitButton>
