@@ -12,6 +12,10 @@ export function useInput(initialValue: string) {
     setIsFocused(true);
   };
 
+  // const handleBlur = () => {
+  //   setIsFocused(false);
+  // };
+
   const clearValue = (e: React.MouseEvent<HTMLButtonElement>) => {
     setValue("");
     e.preventDefault();
@@ -22,6 +26,7 @@ export function useInput(initialValue: string) {
     isFocused,
     handleChange,
     handleFocus,
+    // handleBlur,
     clearValue,
   };
 }
