@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
-import * as S from '../../styledComponents/Auth';
-import * as I from '../../components/UsingIcons';
-import { useCheckBox } from '../../hooks/useCheckBox';
-import { useInput } from '../../hooks/useInput';
-import { useEffect, useState } from 'react';
-import Modal from '../../components/Modal/Modal';
+import { Link } from "react-router-dom";
+import * as S from "../../styledComponents/Auth";
+import * as C from "../../styledComponents/commonStyle";
+import * as I from "../../components/UsingIcons";
+import { useCheckBox } from "../../hooks/useCheckBox";
+import { useInput } from "../../hooks/useInput";
+import { useEffect, useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
 export default function SignIn() {
   // 모달
@@ -27,28 +28,28 @@ export default function SignIn() {
     handleChange: handleEmailChange,
     handleFocus: handleEmailFocus,
     clearValue: clearEmail,
-  } = useInput('');
+  } = useInput("");
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
     handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
-  } = useInput('');
+  } = useInput("");
 
   const {
     value: password,
     handleChange: handlePasswordChange,
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
-  } = useInput('');
+  } = useInput("");
 
   const {
     value: passwordMatch,
     handleChange: handlePasswordMatchChange,
     handleFocus: handlePasswordMatchFocus,
     clearValue: clearPasswordMatch,
-  } = useInput('');
+  } = useInput("");
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [shwoPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
@@ -127,7 +128,7 @@ export default function SignIn() {
   }, [ageCheck, termsCheck, email, nickname, password, passwordMatch]);
 
   // 버튼 상태 값
-  let status = !isButtonActive ? 'active' : 'disable';
+  let status = !isButtonActive ? "active" : "disable";
 
   // const [login, { isLoading }] = usePostLoginMutation();
 
@@ -159,13 +160,13 @@ export default function SignIn() {
           </p>
         </div>
         <S.SignInFormBox>
-          <div>
+          <C.InputWithP>
             <p>이메일</p>
-            <S.InputBox
+            <C.InputBox
               justify="space-between"
               align="center"
               $isValidValue={isValidEmail(email)}
-              $isEmpty={email === ''}
+              $isEmpty={email === ""}
             >
               <input
                 type="email"
@@ -179,18 +180,18 @@ export default function SignIn() {
                   <I.Remove />
                 </button>
               )}
-            </S.InputBox>
+            </C.InputBox>
             {email && !isValidEmail(email) && (
-              <S.CautionText>이메일 주소 형식으로 입력해주세요.</S.CautionText>
+              <C.CautionText>이메일 주소 형식으로 입력해주세요.</C.CautionText>
             )}
-          </div>
-          <div>
+          </C.InputWithP>
+          <C.InputWithP>
             <p>이름</p>
-            <S.InputBox
+            <C.InputBox
               justify="space-between"
               align="center"
               $isValidValue={!isValidNickname(nickname)}
-              $isEmpty={nickname === ''}
+              $isEmpty={nickname === ""}
             >
               <input
                 type="text"
@@ -204,21 +205,21 @@ export default function SignIn() {
                   <I.Remove />
                 </button>
               )}
-            </S.InputBox>
+            </C.InputBox>
             {nickname && isValidNickname(nickname) && (
-              <S.CautionText>8자 이내로 입력 (+ 중복검사)</S.CautionText>
+              <C.CautionText>8자 이내로 입력 (+ 중복검사)</C.CautionText>
             )}
-          </div>
-          <div>
+          </C.InputWithP>
+          <C.InputWithP>
             <p>비밀번호</p>
-            <S.InputBox
+            <C.InputBox
               justify="space-between"
               align="center"
               $isValidValue={isPasswordValid(password)}
-              $isEmpty={password === ''}
+              $isEmpty={password === ""}
             >
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
                 onFocus={handlePasswordFocus}
@@ -234,23 +235,23 @@ export default function SignIn() {
                   {showPassword ? <I.Hide /> : <I.Visible />}
                 </button>
               </div>
-            </S.InputBox>
+            </C.InputBox>
             {password && !isPasswordValid(password) && (
-              <S.CautionText>
+              <C.CautionText>
                 영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.
-              </S.CautionText>
+              </C.CautionText>
             )}
-          </div>
-          <div>
+          </C.InputWithP>
+          <C.InputWithP>
             <p>비밀번호 확인</p>
-            <S.InputBox
+            <C.InputBox
               justify="space-between"
               align="center"
               $isValidValue={isPasswordMatch(passwordMatch)}
-              $isEmpty={passwordMatch === ''}
+              $isEmpty={passwordMatch === ""}
             >
               <input
-                type={shwoPasswordMatch ? 'text' : 'password'}
+                type={shwoPasswordMatch ? "text" : "password"}
                 value={passwordMatch}
                 onChange={handlePasswordMatchChange}
                 onFocus={handlePasswordMatchFocus}
@@ -266,13 +267,13 @@ export default function SignIn() {
                   {shwoPasswordMatch ? <I.Hide /> : <I.Visible />}
                 </button>
               </div>
-            </S.InputBox>
+            </C.InputBox>
             {passwordMatch && !isPasswordMatch(passwordMatch) && (
-              <S.CautionText>
+              <C.CautionText>
                 위와 동일한 비밀번호를 입력해주세요.
-              </S.CautionText>
+              </C.CautionText>
             )}
-          </div>
+          </C.InputWithP>
         </S.SignInFormBox>
         <S.SignInTermsBox>
           <p>
@@ -287,7 +288,7 @@ export default function SignIn() {
               전체 사항에 동의합니다.
             </label>
           </p>
-          <S.Devider />
+          <C.Devider />
           <div>
             <p>
               <input
@@ -330,9 +331,9 @@ export default function SignIn() {
           </div>
         </S.SignInTermsBox>
         {(!ageCheck || !termsCheck) && (
-          <S.CautionText>필수사항에 동의해주세요.</S.CautionText>
+          <C.CautionText>필수사항에 동의해주세요.</C.CautionText>
         )}
-        <S.SubmitButton
+        <C.SubmitButton
           type="submit"
           $shape="filled"
           $status={status}
@@ -342,7 +343,7 @@ export default function SignIn() {
           onClick={handleOpen}
         >
           다음
-        </S.SubmitButton>
+        </C.SubmitButton>
         <nav>
           이미 가입하셨나요? <Link to="/login">로그인</Link>
         </nav>
@@ -362,7 +363,7 @@ export default function SignIn() {
             <input type="text" placeholder="인증번호를 입력해주세요"></input>
             <span>03:00</span>
           </div>
-          <S.SubmitButton
+          <C.SubmitButton
             type="submit"
             $shape="filled"
             $status={status}
@@ -372,7 +373,7 @@ export default function SignIn() {
             onClick={handleClose}
           >
             확인
-          </S.SubmitButton>
+          </C.SubmitButton>
           {/* <Button onClick={handleClose}>확인</Button> */}
         </S.ModalBody>
       </Modal>
