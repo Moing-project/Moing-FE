@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function SignInDone() {
   return (
-    <S.SignInLayout direction="column" align="center">
+    <S.SignInLayout $direction="column" $align="center">
       <div>
         <h1>
           <span>모잉</span>에 가입이 완료되었습니다! 🎉
