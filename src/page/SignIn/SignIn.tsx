@@ -30,12 +30,14 @@ export default function SignIn() {
   const {
     value: email,
     handleChange: handleEmailChange,
+    handleFocus: handleEmailFocus,
     clearValue: clearEmail,
   } = useInput("");
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
+    handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
   } = useInput("");
 
@@ -89,10 +91,7 @@ export default function SignIn() {
   };
 
   // 중복 확인 함수
-  const [checkEmail, setCheckEmail] = useState<boolean>(false);
   const [isEmailDuplicated, setIsEmailDuplicated] = useState<boolean>(false);
-
-  const [checkNickname, setCheckNickname] = useState<boolean>(false);
   const [isNicknameDuplicated, setIsNicknameDuplicated] =
     useState<boolean>(false);
 
@@ -100,7 +99,7 @@ export default function SignIn() {
     useGetCheckEmailQuery(
       { email: email },
       {
-        skip: !checkEmail, // 이메일 체크가 false 일 때는 요청 안보냄
+        skip: !isValidEmail(email), // 이메일 유효할 때만 요청 보내기
       }
     );
 
@@ -108,31 +107,9 @@ export default function SignIn() {
     useGetCheckNicknameQuery(
       { nickname: nickname },
       {
-        skip: !checkNickname, // 이메일 체크가 false 일 때는 요청 안보냄
+        skip: isValidNickname(nickname), // 닉네임 유효할 때만 요청 보내기
       }
     );
-
-  const handleEmailBlur = async () => {
-    console.log("handleEmailBlur");
-    console.log("isValidEmail", isValidEmail(email));
-    if (isValidEmail(email)) setCheckEmail(true);
-  };
-
-  const handleEmailFocus = async () => {
-    setIsEmailDuplicated(false);
-    setCheckEmail(false);
-  };
-
-  const handleNicknameBlur = async () => {
-    console.log("handleNicknameBlur");
-    console.log("isValidNickname", isValidNickname(nickname));
-    if (isValidNickname(nickname)) setCheckNickname(true);
-  };
-
-  const handleNicknameFocus = async () => {
-    setIsNicknameDuplicated(false);
-    setCheckNickname(false);
-  };
 
   // 모두 체크 함수
   const handleAllAgreeChange = () => {
@@ -145,19 +122,28 @@ export default function SignIn() {
 
   ///// ## 중복 검사 결과 표시
   useEffect(() => {
-    if (UserEmailDataLoading || !checkEmail || email === "") {
+    // 요청 중이거나, 이메일 비어있거나, 이메일 유효하지 않을 때 return
+    if (UserEmailDataLoading || email === "" || !isValidEmail(email)) {
+      setIsEmailDuplicated(false);
       return;
     }
+
     setIsEmailDuplicated(UserEmailData?.msg !== "success");
-  }, [checkEmail, UserEmailDataLoading, UserEmailData]);
-  ///// ## SetCheckEmail이 변경되거나 UserEmailQuery가 로딩이 끝났을 때 ㅇㅇ
+  }, [email, isEmailDuplicated, UserEmailDataLoading, UserEmailData]);
 
   useEffect(() => {
-    if (UserNicknameDataLoading || !checkNickname || nickname === "") {
+    if (UserNicknameDataLoading || nickname === "" || !isValidNickname(email)) {
+      setIsNicknameDuplicated(false);
       return;
     }
-    setIsEmailDuplicated(UserNicknameData?.msg !== "success");
-  }, [checkNickname, UserNicknameDataLoading, UserNicknameData]);
+
+    setIsNicknameDuplicated(UserNicknameData?.msg !== "success");
+  }, [
+    nickname,
+    isNicknameDuplicated,
+    UserNicknameDataLoading,
+    UserNicknameData,
+  ]);
 
   // 하위 항목 중 하나라도 false인 경우 전체 동의도 false, 모두 동의면 전체 동의도 true
   useEffect(() => {
@@ -213,6 +199,7 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={isValidEmail(email)}
+              $isDuplicated={isEmailDuplicated}
               $isEmpty={email === ""}
             >
               <input
@@ -220,7 +207,6 @@ export default function SignIn() {
                 value={email}
                 onChange={handleEmailChange}
                 onFocus={handleEmailFocus}
-                onBlur={handleEmailBlur}
                 placeholder="이메일 주소 입력"
               />
               {email && (
@@ -249,7 +235,6 @@ export default function SignIn() {
                 value={nickname}
                 onChange={handleNicknameChange}
                 onFocus={handleNicknameFocus}
-                onBlur={handleNicknameBlur}
                 placeholder="8자 이내 입력"
               />
               {nickname && (

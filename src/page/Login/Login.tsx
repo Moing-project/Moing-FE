@@ -3,7 +3,7 @@ import * as S from "../../styledComponents/Auth";
 import LoginForms from "./LoginForms";
 import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
 
-const SignIn: React.FC = () => {
+export default function Login() {
   return (
     <S.LoginLayout $justify="center" $gap="144px">
       <S.LoginIntroBox $direction="column" $gap="48px">
@@ -26,9 +26,7 @@ const SignIn: React.FC = () => {
       <LoginForms />
     </S.LoginLayout>
   );
-};
-
-export default SignIn;
+}
 
 // import React, { useState } from "react";
 // import { usePostLoginMutation } from "../redux/modules/LoginAPI";

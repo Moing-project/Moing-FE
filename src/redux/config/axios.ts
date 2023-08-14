@@ -37,9 +37,9 @@ instance.interceptors.response.use(
         data: config.data.msg,
       };
   },
-  function (error) {
+  function (error: AxiosError<ResponseData<any>>) {
     // 요청 오류가 있는 작업 수행
-    return Promise.reject(error);
+    return { ...error, data: error.response?.data };
   }
 );
 

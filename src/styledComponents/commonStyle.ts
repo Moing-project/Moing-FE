@@ -47,8 +47,10 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   background: #fff;
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
-    ${({ $isValidValue, $isEmpty }) =>
-      $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
+    ${({ $isValidValue, $isEmpty, $isDuplicated }) =>
+      $isValidValue || $isEmpty || $isDuplicated
+        ? "var(--gray-05)"
+        : "var(--caution-color)"};
 
   button {
     display: flex;
