@@ -342,14 +342,61 @@ export const SignInTermsBox = styled.div`
 
 // 모달 스타일
 export const ModalBody = emotionStyled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;  
   position: relative;
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  background: beige;
+  background: #FFFFFF;;
   max-height: calc(100vh - 16px);
   overflow: hidden;
-  padding-block: 80px;
+  padding-block: 50px;
   padding-inline: 40px;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--gray-06);
+  text-align: center;
+
+  h2{
+    color: #000000;
+    font-weight: 700;
+  }
+
+  section{
+  div {
+   position: relative;
+   display : flex;
+   justify-content : center;
+   align-items : center;
+   margin-top:10px;
+    input {
+      border:none;
+      text-align: center;
+      font-weight : 600;
+      &:focus{
+        outline:none;
+      }
+    }
+    h3{
+      position: absolute;
+      right: 0;
+      text-align: right;
+      color: #FF0000;
+    }
+  }
+}
+  
+  h4{
+    text-align: right;
+    color: #000000;
+    margin-top: 16px;
+    font-size: 14px;
+
+  }
+
 `;
 
 // 공통 스타일

@@ -2,6 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import styled from '@emotion/styled/macro';
 import './modal.css';
+// 왜 안됨 ?
 import Portal from './Portal';
 
 const Overlay = styled.div`
@@ -26,13 +27,7 @@ const Dim = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-// const Container = styled.div`
-//   // max-width: 456px;
-//   // position: relative;
-//   // width: 100%;
-// `;
-
-interface Props {
+export interface Props {
   isOpen: boolean;
   onClose: () => void;
   children?: React.ReactNode;
