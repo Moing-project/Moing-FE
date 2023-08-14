@@ -507,7 +507,7 @@ export default function SignIn() {
                 </Link>
                 에 동의합니다.
               </label>
-              {/* 모달부분을 이제 서비스약관모달로 바꾸자 */}
+              {/* 디자인 나오면 개인정보 모달로 바꾸자 */}
             </p>
             <p>
               <input
@@ -535,7 +535,7 @@ export default function SignIn() {
           disabled={!isButtonActive}
           onClick={handleOpen}
         >
-          다음
+          <p onClick={handleOpen}>다음</p>
         </S.SubmitButton>
         <nav>
           이미 가입하셨나요? <Link to="/login">로그인</Link>
@@ -546,6 +546,7 @@ export default function SignIn() {
       <Modal isOpen={isOpen2} onClose={handleClose2}>
         <SignInModal onClose={handleClose2} />
       </Modal>
+
       {/* <Button onClick={handleOpen}>OPEN</Button> */}
       {/* 버튼은 모달을 여는 역할 */}
       <Modal isOpen={isOpen} onClose={handleClose}>
@@ -562,6 +563,7 @@ export default function SignIn() {
           </section>
 
           <h4>메일 재전송</h4>
+
           <S.SubmitButton
             type="submit"
             $shape="filled"
@@ -571,7 +573,7 @@ export default function SignIn() {
             disabled={!isButtonActive}
             onClick={handleClose}
           >
-            확인
+            <p onClick={handleClose}>확인</p>
           </S.SubmitButton>
           {/* <Button onClick={handleClose}>확인</Button> */}
         </S.ModalBody>
