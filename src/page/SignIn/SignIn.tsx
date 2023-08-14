@@ -10,6 +10,7 @@ import {
   useGetCheckEmailQuery,
   useGetCheckNicknameQuery,
 } from "../../redux/modules/LoginAPI";
+import SignInModal from "./SignInModal";
 
 export default function SignIn() {
   // 모달
@@ -33,28 +34,24 @@ export default function SignIn() {
   const {
     value: email,
     handleChange: handleEmailChange,
-    handleFocus: handleEmailFocus,
     clearValue: clearEmail,
   } = useInput("");
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
-    handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
   } = useInput("");
 
   const {
     value: password,
     handleChange: handlePasswordChange,
-    handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
   } = useInput("");
 
   const {
     value: passwordMatch,
     handleChange: handlePasswordMatchChange,
-    handleFocus: handlePasswordMatchFocus,
     clearValue: clearPasswordMatch,
   } = useInput("");
 
@@ -79,11 +76,11 @@ export default function SignIn() {
   };
 
   const isValidNickname = (nickname: string) => {
-    return nickname.trim().length > 8;
+    const trimmedNickname = nickname.trim();
+    return trimmedNickname.length >= 1 && trimmedNickname.length < 9;
   };
 
   const isPasswordValid = (password: string) => {
-    // 영문 대소문자, 숫자, 특수문자를 포함한 정규표현식
     const passwordPattern =
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
@@ -110,7 +107,7 @@ export default function SignIn() {
     useGetCheckNicknameQuery(
       { nickname: nickname },
       {
-        skip: isValidNickname(nickname), // 닉네임 유효할 때만 요청 보내기
+        skip: !isValidNickname(nickname), // 닉네임 유효할 때만 요청 보내기
       }
     );
 
@@ -130,23 +127,21 @@ export default function SignIn() {
       setIsEmailDuplicated(false);
       return;
     }
-
     setIsEmailDuplicated(UserEmailData?.msg !== "success");
-  }, [email, isEmailDuplicated, UserEmailDataLoading, UserEmailData]);
+  }, [email, UserEmailDataLoading, UserEmailData]);
 
   useEffect(() => {
-    if (UserNicknameDataLoading || nickname === "" || !isValidNickname(email)) {
+    // 요청 중이거나, 이름 비어있거나, 이름 유효하지 않을 때 return
+    if (
+      UserNicknameDataLoading ||
+      nickname === "" ||
+      !isValidNickname(nickname)
+    ) {
       setIsNicknameDuplicated(false);
       return;
     }
-
     setIsNicknameDuplicated(UserNicknameData?.msg !== "success");
-  }, [
-    nickname,
-    isNicknameDuplicated,
-    UserNicknameDataLoading,
-    UserNicknameData,
-  ]);
+  }, [nickname, UserNicknameDataLoading, UserNicknameData]);
 
   // 하위 항목 중 하나라도 false인 경우 전체 동의도 false, 모두 동의면 전체 동의도 true
   useEffect(() => {
@@ -168,7 +163,7 @@ export default function SignIn() {
       email &&
       isValidEmail(email) &&
       nickname &&
-      !isValidNickname(nickname) &&
+      isValidNickname(nickname) &&
       password &&
       isPasswordValid(password) &&
       passwordMatch &&
@@ -203,13 +198,11 @@ export default function SignIn() {
               $align="center"
               $isValidValue={isValidEmail(email)}
               $isDuplicated={isEmailDuplicated}
-              $isEmpty={email === ""}
             >
               <input
                 type="email"
                 value={email}
                 onChange={handleEmailChange}
-                onFocus={handleEmailFocus}
                 placeholder="이메일 주소 입력"
               />
               {email && (
@@ -230,14 +223,12 @@ export default function SignIn() {
             <C.InputBox
               $justify="space-between"
               $align="center"
-              $isValidValue={!isValidNickname(nickname)}
-              $isEmpty={nickname === ""}
+              $isValidValue={isValidNickname(nickname)}
             >
               <input
                 type="text"
                 value={nickname}
                 onChange={handleNicknameChange}
-                onFocus={handleNicknameFocus}
                 placeholder="8자 이내 입력"
               />
               {nickname && (
@@ -246,7 +237,7 @@ export default function SignIn() {
                 </button>
               )}
             </C.InputBox>
-            {nickname && isValidNickname(nickname) && (
+            {nickname && !isValidNickname(nickname) && (
               <C.CautionText>8자 이내로 입력해주세요.</C.CautionText>
             )}
             {isNicknameDuplicated && (
@@ -259,13 +250,11 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={isPasswordValid(password)}
-              $isEmpty={password === ""}
             >
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
-                onFocus={handlePasswordFocus}
                 placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력"
               />
               <div>
@@ -291,13 +280,11 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={isPasswordMatch(passwordMatch)}
-              $isEmpty={passwordMatch === ""}
             >
               <input
                 type={showPasswordMatch ? "text" : "password"}
                 value={passwordMatch}
                 onChange={handlePasswordMatchChange}
-                onFocus={handlePasswordMatchFocus}
                 placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력"
               />
               <div>
@@ -403,19 +390,16 @@ export default function SignIn() {
       <Modal isOpen={isOpen2} onClose={handleClose2}>
         <SignInModal onClose={handleClose2} />
       </Modal>
-      {/* <Button onClick={handleOpen}>OPEN</Button> */}
-      {/* 버튼은 모달을 여는 역할 */}
       <Modal isOpen={isOpen} onClose={handleClose}>
         <S.ModalBody>
-         <h2>ll894564@naver.com</h2>
+          <h2>ll894564@naver.com</h2>
           <p>입력하신 이메일로 인증번호가 전송되었습니다.</p>
-
           <section>
             <div>
               <input type="text" placeholder="인증번호를 입력해주세요."></input>
               <h3>3:00</h3>
             </div>
-            <S.Devider />
+            <C.Devider />
           </section>
 
           <h4>메일 재전송</h4>
@@ -430,7 +414,6 @@ export default function SignIn() {
           >
             확인
           </C.SubmitButton>
-          {/* <Button onClick={handleClose}>확인</Button> */}
         </S.ModalBody>
       </Modal>
     </>

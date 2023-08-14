@@ -1,11 +1,11 @@
 // const ServiceModal = () => {} 요런식으로 해도 되공
 // const PrivacyModal
 //약관2개 컴포넌트 만들어서 각각 임포트해
-import { styled } from 'styled-components';
-import { useState } from 'react';
-import { ReactComponent as Close } from '../../assets/icons/close.svg';
-import { CustomBtn } from '../../styledComponents/Buttons';
-import { ButtonProps } from '../../styledComponents/types/ButtonType';
+import { styled } from "styled-components";
+import { useState } from "react";
+import { ReactComponent as Close } from "../../assets/icons/close.svg";
+import { CustomBtn } from "../../styledComponents/Buttons";
+import { ButtonProps } from "../../styledComponents/types/ButtonType";
 // import { SubmitButton } from '../../styledComponents/Auth';
 
 export const ServiceModalTitle = styled.div`
@@ -173,7 +173,7 @@ const SignInModal: React.FC<Props> = ({ onClose }) => {
         </p>
 
         <p>
-          {' '}
+          {" "}
           2. “회사”는 본 약관의 내용을 “고객”이 쉽게 알 수 있도록 서비스
           초기화면에 게시합니다.
         </p>
