@@ -4,7 +4,7 @@
 
 .modal-enter-active {
   opacity: 1;
-  transition: opacity 300ms;
+  transition: opacity 180ms;
 }
 
 .modal-exit {
@@ -13,7 +13,7 @@
 
 .modal-exit-active {
   opacity: 0;
-  transition: opacity 300ms;
+  transition: opacity 180ms;
 }
 
 /* .Container {

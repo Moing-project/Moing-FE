@@ -14,10 +14,13 @@ import {
 export default function SignIn() {
   // 모달
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen2, setIsOpen2] = useState<boolean>(false);
   //모달을 열고 닫기 위한 상태를 선언하기위해
 
   const handleOpen = () => setIsOpen(true);
+  const handleOpen2 = () => setIsOpen2(true);
   const handleClose = () => setIsOpen(false);
+  const handleClose2 = () => setIsOpen2(false);
 
   // 체크 상태
   const { checked: allAgreeCheck, setChecked: setAllAgreeCheck } =
@@ -367,9 +370,16 @@ export default function SignIn() {
               <label htmlFor="termsCheck">
                 {termsCheck ? <I.Checked /> : <I.Unchecked />}
                 <span>(필수) </span>
-                <Link to="">서비스 이용약관</Link>,&nbsp;
-                <Link to="">개인정보 처리약관</Link>에 동의합니다.
+                <Link to="" onClick={handleOpen2}>
+                  서비스 이용약관
+                </Link>
+                , {/* 서비스 이용약관 모달 */}
+                <Link to="" onClick={handleOpen}>
+                  개인정보 처리약관
+                </Link>
+                에 동의합니다.
               </label>
+              {/* 모달부분을 이제 서비스약관모달로 바꾸자 */}
             </p>
             <p>
               <input
@@ -405,19 +415,25 @@ export default function SignIn() {
       </S.SignInLayout>
 
       {/* 모달 */}
+      <Modal isOpen={isOpen2} onClose={handleClose2}>
+        <SignInModal onClose={handleClose2} />
+      </Modal>
       {/* <Button onClick={handleOpen}>OPEN</Button> */}
       {/* 버튼은 모달을 여는 역할 */}
       <Modal isOpen={isOpen} onClose={handleClose}>
         <S.ModalBody>
-          <h2>
-            ll894564@naver.com
-            <p>입력하신 이메일로 인증번호가 전송되었습니다</p>
-          </h2>
-          <p>인증번호를 입력해주세요</p>
-          <div>
-            <input type="text" placeholder="인증번호를 입력해주세요"></input>
-            <span>03:00</span>
-          </div>
+         <h2>ll894564@naver.com</h2>
+          <p>입력하신 이메일로 인증번호가 전송되었습니다.</p>
+
+          <section>
+            <div>
+              <input type="text" placeholder="인증번호를 입력해주세요."></input>
+              <h3>3:00</h3>
+            </div>
+            <S.Devider />
+          </section>
+
+          <h4>메일 재전송</h4>
           <C.SubmitButton
             type="submit"
             $shape="filled"
