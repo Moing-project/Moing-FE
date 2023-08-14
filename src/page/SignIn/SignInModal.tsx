@@ -18,7 +18,7 @@ export const ServiceModalTitle = styled.div`
 export const Closebutton = styled.button`
   position: absolute;
   top: 20px;
-  right: 50px;
+  right: 25px;
   border: none;
   background-color: white;
 `;
@@ -77,8 +77,8 @@ export const SubmitButton = styled(CustomBtn)<ButtonProps>`
   background: #3f40e9;
   /* transform: translateX(-50%); */
   width: 360px;
-  height: 120px;
-  margin: 10px 0 10px 0px;
+  height: 150px;
+  margin: 5px 0 2px 0px;
   vertical-align: bottom;
 `;
 export interface Props {
