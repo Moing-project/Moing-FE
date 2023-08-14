@@ -29,7 +29,7 @@ export default function ProjectsMake() {
   // };
 
   return (
-    <S.ProjectsMekeLayout direction="column">
+    <S.ProjectsMekeLayout $direction="column">
       <div>
         <h1>프로젝트 생성하기</h1>
         <p>협업하고 싶은 프로젝트를 모잉과 함께 간단히 생성해보아요!</p>
@@ -60,12 +60,12 @@ export default function ProjectsMake() {
             <C.CautionText>이메일 주소 형식으로 입력해주세요.</C.CautionText>
           )}
         </C.InputWithP> */}
-        <S.ProjectsMekeFormBoxRow gap="16px">
+        <S.ProjectsMekeFormBoxRow $gap="16px">
           <C.InputWithP>
             <p>프로젝트 이름</p>
             <C.InputBox
-              justify="space-between"
-              align="center"
+              $justify="space-between"
+              $align="center"
               $isValidValue={!isValidName(name)}
               $isEmpty={name === ""}
             >
@@ -89,7 +89,7 @@ export default function ProjectsMake() {
           </C.InputWithP>
           <C.InputWithP>
             <p>이메일</p>
-            <C.InputBox justify="space-between" align="center">
+            <C.InputBox $justify="space-between" $align="center">
               <input type="email" placeholder="이메일 주소 입력" />
               {/* {email && (
               <button onClick={clearEmail}>
@@ -102,7 +102,7 @@ export default function ProjectsMake() {
           )} */}
           </C.InputWithP>
         </S.ProjectsMekeFormBoxRow>
-        <S.ProjectsMekeFormBoxRow gap="16px">
+        <S.ProjectsMekeFormBoxRow $gap="16px">
           <C.InputWithP>
             <p>모집 인원</p>
             {/* <C.InputBox
@@ -127,7 +127,7 @@ export default function ProjectsMake() {
           </C.InputWithP>
           <C.InputWithP>
             <p>이메일</p>
-            <C.InputBox justify="space-between" align="center">
+            <C.InputBox $justify="space-between" $align="center">
               <input type="email" placeholder="이메일 주소 입력" />
               {/* {email && (
               <button onClick={clearEmail}>

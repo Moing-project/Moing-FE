@@ -6,6 +6,10 @@ import { useCheckBox } from "../../hooks/useCheckBox";
 import { useInput } from "../../hooks/useInput";
 import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import {
+  useGetCheckEmailQuery,
+  useGetCheckNicknameQuery,
+} from "../../redux/modules/LoginAPI";
 
 export default function SignIn() {
   // 모달
@@ -26,14 +30,12 @@ export default function SignIn() {
   const {
     value: email,
     handleChange: handleEmailChange,
-    handleFocus: handleEmailFocus,
     clearValue: clearEmail,
   } = useInput("");
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
-    handleFocus: handleNicknameFocus,
     clearValue: clearNickname,
   } = useInput("");
 
@@ -52,7 +54,7 @@ export default function SignIn() {
   } = useInput("");
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [shwoPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
+  const [showPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
 
   // 비밀번호 숨기기 보이기
   const toggleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,13 +63,13 @@ export default function SignIn() {
   };
 
   const toggleShowPasswordMatch = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setShowPasswordMatch(!shwoPasswordMatch);
+    setShowPasswordMatch(!showPasswordMatch);
     e.preventDefault();
   };
 
   // 유효성 검사 함수
   const isValidEmail = (email: string) => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const emailPattern = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     return emailPattern.test(email);
   };
 
@@ -86,6 +88,52 @@ export default function SignIn() {
     return passwordMatch === password;
   };
 
+  // 중복 확인 함수
+  const [checkEmail, setCheckEmail] = useState<boolean>(false);
+  const [isEmailDuplicated, setIsEmailDuplicated] = useState<boolean>(false);
+
+  const [checkNickname, setCheckNickname] = useState<boolean>(false);
+  const [isNicknameDuplicated, setIsNicknameDuplicated] =
+    useState<boolean>(false);
+
+  const { data: UserEmailData, isLoading: UserEmailDataLoading } =
+    useGetCheckEmailQuery(
+      { email: email },
+      {
+        skip: !checkEmail, // 이메일 체크가 false 일 때는 요청 안보냄
+      }
+    );
+
+  const { data: UserNicknameData, isLoading: UserNicknameDataLoading } =
+    useGetCheckNicknameQuery(
+      { nickname: nickname },
+      {
+        skip: !checkNickname, // 이메일 체크가 false 일 때는 요청 안보냄
+      }
+    );
+
+  const handleEmailBlur = async () => {
+    console.log("handleEmailBlur");
+    console.log("isValidEmail", isValidEmail(email));
+    if (isValidEmail(email)) setCheckEmail(true);
+  };
+
+  const handleEmailFocus = async () => {
+    setIsEmailDuplicated(false);
+    setCheckEmail(false);
+  };
+
+  const handleNicknameBlur = async () => {
+    console.log("handleNicknameBlur");
+    console.log("isValidNickname", isValidNickname(nickname));
+    if (isValidNickname(nickname)) setCheckNickname(true);
+  };
+
+  const handleNicknameFocus = async () => {
+    setIsNicknameDuplicated(false);
+    setCheckNickname(false);
+  };
+
   // 모두 체크 함수
   const handleAllAgreeChange = () => {
     const newAllAgreeState = !allAgreeCheck;
@@ -94,6 +142,22 @@ export default function SignIn() {
     setTermsCheck(newAllAgreeState);
     setAlarmCheck(newAllAgreeState);
   };
+
+  ///// ## 중복 검사 결과 표시
+  useEffect(() => {
+    if (UserEmailDataLoading || !checkEmail || email === "") {
+      return;
+    }
+    setIsEmailDuplicated(UserEmailData?.msg !== "success");
+  }, [checkEmail, UserEmailDataLoading, UserEmailData]);
+  ///// ## SetCheckEmail이 변경되거나 UserEmailQuery가 로딩이 끝났을 때 ㅇㅇ
+
+  useEffect(() => {
+    if (UserNicknameDataLoading || !checkNickname || nickname === "") {
+      return;
+    }
+    setIsEmailDuplicated(UserNicknameData?.msg !== "success");
+  }, [checkNickname, UserNicknameDataLoading, UserNicknameData]);
 
   // 하위 항목 중 하나라도 false인 경우 전체 동의도 false, 모두 동의면 전체 동의도 true
   useEffect(() => {
@@ -130,26 +194,9 @@ export default function SignIn() {
   // 버튼 상태 값
   let status = !isButtonActive ? "active" : "disable";
 
-  // const [login, { isLoading }] = usePostLoginMutation();
-
-  // const onLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   if (!isLoading) {
-  //     if (isValidEmail(email) && password) {
-  //       // 이메일 형식과 비밀번호 모두 유효할 때
-  //       console.log(email, password);
-  //       const res = await login({
-  //         username: email,
-  //         password: password,
-  //       });
-  //       console.log(res);
-  //     }
-  //   }
-  // };
-
   return (
     <>
-      <S.SignInLayout direction="column" align="center">
+      <S.SignInLayout $direction="column" $align="center">
         <div>
           <h1>
             <span>모잉</span>에 오신 것을 환영합니다! 👋
@@ -163,8 +210,8 @@ export default function SignIn() {
           <C.InputWithP>
             <p>이메일</p>
             <C.InputBox
-              justify="space-between"
-              align="center"
+              $justify="space-between"
+              $align="center"
               $isValidValue={isValidEmail(email)}
               $isEmpty={email === ""}
             >
@@ -173,10 +220,11 @@ export default function SignIn() {
                 value={email}
                 onChange={handleEmailChange}
                 onFocus={handleEmailFocus}
+                onBlur={handleEmailBlur}
                 placeholder="이메일 주소 입력"
               />
               {email && (
-                <button onClick={clearEmail}>
+                <button onClick={clearEmail} tabIndex={-1}>
                   <I.Remove />
                 </button>
               )}
@@ -184,12 +232,15 @@ export default function SignIn() {
             {email && !isValidEmail(email) && (
               <C.CautionText>이메일 주소 형식으로 입력해주세요.</C.CautionText>
             )}
+            {isEmailDuplicated && (
+              <C.CautionText>이미 사용 중인 이메일입니다.</C.CautionText>
+            )}
           </C.InputWithP>
           <C.InputWithP>
             <p>이름</p>
             <C.InputBox
-              justify="space-between"
-              align="center"
+              $justify="space-between"
+              $align="center"
               $isValidValue={!isValidNickname(nickname)}
               $isEmpty={nickname === ""}
             >
@@ -198,23 +249,27 @@ export default function SignIn() {
                 value={nickname}
                 onChange={handleNicknameChange}
                 onFocus={handleNicknameFocus}
+                onBlur={handleNicknameBlur}
                 placeholder="8자 이내 입력"
               />
               {nickname && (
-                <button onClick={clearNickname}>
+                <button onClick={clearNickname} tabIndex={-1}>
                   <I.Remove />
                 </button>
               )}
             </C.InputBox>
             {nickname && isValidNickname(nickname) && (
-              <C.CautionText>8자 이내로 입력 (+ 중복검사)</C.CautionText>
+              <C.CautionText>8자 이내로 입력해주세요.</C.CautionText>
+            )}
+            {isNicknameDuplicated && (
+              <C.CautionText>이미 사용 중인 닉네임입니다.</C.CautionText>
             )}
           </C.InputWithP>
           <C.InputWithP>
             <p>비밀번호</p>
             <C.InputBox
-              justify="space-between"
-              align="center"
+              $justify="space-between"
+              $align="center"
               $isValidValue={isPasswordValid(password)}
               $isEmpty={password === ""}
             >
@@ -227,11 +282,11 @@ export default function SignIn() {
               />
               <div>
                 {password && ( // 비밀번호가 입력된 경우에만 X 버튼 표시
-                  <button onClick={clearPassword}>
+                  <button onClick={clearPassword} tabIndex={-1}>
                     <I.Remove />
                   </button>
                 )}
-                <button onClick={toggleShowPassword}>
+                <button onClick={toggleShowPassword} tabIndex={-1}>
                   {showPassword ? <I.Hide /> : <I.Visible />}
                 </button>
               </div>
@@ -245,13 +300,13 @@ export default function SignIn() {
           <C.InputWithP>
             <p>비밀번호 확인</p>
             <C.InputBox
-              justify="space-between"
-              align="center"
+              $justify="space-between"
+              $align="center"
               $isValidValue={isPasswordMatch(passwordMatch)}
               $isEmpty={passwordMatch === ""}
             >
               <input
-                type={shwoPasswordMatch ? "text" : "password"}
+                type={showPasswordMatch ? "text" : "password"}
                 value={passwordMatch}
                 onChange={handlePasswordMatchChange}
                 onFocus={handlePasswordMatchFocus}
@@ -259,12 +314,12 @@ export default function SignIn() {
               />
               <div>
                 {passwordMatch && ( // 비밀번호가 입력된 경우에만 X 버튼 표시
-                  <button onClick={clearPasswordMatch}>
+                  <button onClick={clearPasswordMatch} tabIndex={-1}>
                     <I.Remove />
                   </button>
                 )}
-                <button onClick={toggleShowPasswordMatch}>
-                  {shwoPasswordMatch ? <I.Hide /> : <I.Visible />}
+                <button onClick={toggleShowPasswordMatch} tabIndex={-1}>
+                  {showPasswordMatch ? <I.Hide /> : <I.Visible />}
                 </button>
               </div>
             </C.InputBox>
@@ -380,43 +435,3 @@ export default function SignIn() {
     </>
   );
 }
-
-// background-color: #ffffff;
-// border: 1px none;
-// box-shadow: var(--);
-// height: 180px;
-// position: relative;
-// width: 310px;
-
-// import React, { useState } from 'react';
-// import styled from '@emotion/styled/macro';
-// import { CSSTransition } from 'react-transition-group';
-// import Modal from './ModalComponents/Modal';
-
-// function App() {
-//   const [isOpen, setIsOpen] = useState<boolean>(false);
-//   //모달을 열고 닫기 위한 상태를 선언하기위해
-
-//   const handleOpen = () => setIsOpen(true);
-//   const handleClose = () => setIsOpen(false);
-//   //모달 닫는부분
-
-//   // 실제 모달이 부분 ,내용
-//   return (
-//     <Container className="모달">
-//       <Button onClick={handleOpen}>OPEN</Button>
-//       {/* 버튼은 모달을 여는 역할 */}
-//       <Modal isOpen={isOpen} onClose={handleClose}>
-//         <ModalBody>
-//           <h2>
-//             ll894564@naver.com
-//             <p>입력하신 이메일로 인증번호가 전송되었습니다</p>
-//           </h2>
-//           <p>인증번호를 입력해주세요</p>
-//           <input type="text" placeholder="인증번호를 입력해주세요"></input>
-//           <Button onClick={handleClose}>확인</Button>
-//         </ModalBody>
-//       </Modal>
-//     </Container>
-//   );
-// }

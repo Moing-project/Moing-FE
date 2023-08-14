@@ -5,9 +5,9 @@ import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
 
 const SignIn: React.FC = () => {
   return (
-    <S.LoginLayout justify="center" gap="144px">
-      <S.LoginIntroBox direction="column" gap="48px">
-        <S.LoginIntroText direction="column" gap="12px">
+    <S.LoginLayout $justify="center" $gap="144px">
+      <S.LoginIntroBox $direction="column" $gap="48px">
+        <S.LoginIntroText $direction="column" $gap="12px">
           <h1>
             모집과 협업을 한번에! <br />
             모두 있는 모임 공간

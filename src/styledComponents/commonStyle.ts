@@ -5,9 +5,10 @@ import { ButtonProps } from "./types/ButtonType";
 import { AuthProps } from "./types/AuthType";
 
 export const MarginLayout = styled.div`
-  width: 1200px;
+  display: flex;
+  justify-content: center;
+  min-width: 1200px;
   padding: 0 32px;
-  margin: 0 auto;
 `;
 
 export const Devider = styled.div`
