@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import { CustomBtn } from '../../styledComponents/Buttons';
 import { ButtonProps } from '../../styledComponents/types/ButtonType';
-// import { SubmitButton } from '../../styledComponents/Auth';
 
 export const ServiceModalTitle = styled.div`
   width: 550px;

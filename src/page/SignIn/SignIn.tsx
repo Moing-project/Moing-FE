@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
-import * as S from "../../styledComponents/Auth";
-import * as C from "../../styledComponents/commonStyle";
-import * as I from "../../components/UsingIcons";
-import { useCheckBox } from "../../hooks/useCheckBox";
-import { useInput } from "../../hooks/useInput";
-import { useEffect, useState } from "react";
-import Modal from "../../components/Modal/Modal";
+import { Link } from 'react-router-dom';
+import * as S from '../../styledComponents/Auth';
+import * as C from '../../styledComponents/commonStyle';
+import * as I from '../../components/UsingIcons';
+import { useCheckBox } from '../../hooks/useCheckBox';
+import { useInput } from '../../hooks/useInput';
+import { useEffect, useState } from 'react';
+import Modal from '../../components/Modal/Modal';
+import SignInModal from './SignInModal';
 import {
   useGetCheckEmailQuery,
   useGetCheckNicknameQuery,
-} from "../../redux/modules/LoginAPI";
+} from '../../redux/modules/LoginAPI';
 
 export default function SignIn() {
   // 모달
@@ -34,27 +35,27 @@ export default function SignIn() {
     value: email,
     handleChange: handleEmailChange,
     clearValue: clearEmail,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: nickname,
     handleChange: handleNicknameChange,
     clearValue: clearNickname,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: password,
     handleChange: handlePasswordChange,
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
-  } = useInput("");
+  } = useInput('');
 
   const {
     value: passwordMatch,
     handleChange: handlePasswordMatchChange,
     handleFocus: handlePasswordMatchFocus,
     clearValue: clearPasswordMatch,
-  } = useInput("");
+  } = useInput('');
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPasswordMatch, setShowPasswordMatch] = useState<boolean>(false);
@@ -116,8 +117,8 @@ export default function SignIn() {
     );
 
   const handleEmailBlur = async () => {
-    console.log("handleEmailBlur");
-    console.log("isValidEmail", isValidEmail(email));
+    console.log('handleEmailBlur');
+    console.log('isValidEmail', isValidEmail(email));
     if (isValidEmail(email)) setCheckEmail(true);
   };
 
@@ -127,8 +128,8 @@ export default function SignIn() {
   };
 
   const handleNicknameBlur = async () => {
-    console.log("handleNicknameBlur");
-    console.log("isValidNickname", isValidNickname(nickname));
+    console.log('handleNicknameBlur');
+    console.log('isValidNickname', isValidNickname(nickname));
     if (isValidNickname(nickname)) setCheckNickname(true);
   };
 
@@ -148,18 +149,18 @@ export default function SignIn() {
 
   ///// ## 중복 검사 결과 표시
   useEffect(() => {
-    if (UserEmailDataLoading || !checkEmail || email === "") {
+    if (UserEmailDataLoading || !checkEmail || email === '') {
       return;
     }
-    setIsEmailDuplicated(UserEmailData?.msg !== "success");
+    setIsEmailDuplicated(UserEmailData?.msg !== 'success');
   }, [checkEmail, UserEmailDataLoading, UserEmailData]);
   ///// ## SetCheckEmail이 변경되거나 UserEmailQuery가 로딩이 끝났을 때 ㅇㅇ
 
   useEffect(() => {
-    if (UserNicknameDataLoading || !checkNickname || nickname === "") {
+    if (UserNicknameDataLoading || !checkNickname || nickname === '') {
       return;
     }
-    setIsEmailDuplicated(UserNicknameData?.msg !== "success");
+    setIsEmailDuplicated(UserNicknameData?.msg !== 'success');
   }, [checkNickname, UserNicknameDataLoading, UserNicknameData]);
 
   // 하위 항목 중 하나라도 false인 경우 전체 동의도 false, 모두 동의면 전체 동의도 true
@@ -195,7 +196,7 @@ export default function SignIn() {
   }, [ageCheck, termsCheck, email, nickname, password, passwordMatch]);
 
   // 버튼 상태 값
-  let status = !isButtonActive ? "active" : "disable";
+  let status = !isButtonActive ? 'active' : 'disable';
 
   return (
     <>
@@ -216,7 +217,7 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={isValidEmail(email)}
-              $isEmpty={email === ""}
+              $isEmpty={email === ''}
             >
               <input
                 type="email"
@@ -245,7 +246,7 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={!isValidNickname(nickname)}
-              $isEmpty={nickname === ""}
+              $isEmpty={nickname === ''}
             >
               <input
                 type="text"
@@ -274,10 +275,10 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={isPasswordValid(password)}
-              $isEmpty={password === ""}
+              $isEmpty={password === ''}
             >
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={handlePasswordChange}
                 onFocus={handlePasswordFocus}
@@ -306,10 +307,10 @@ export default function SignIn() {
               $justify="space-between"
               $align="center"
               $isValidValue={isPasswordMatch(passwordMatch)}
-              $isEmpty={passwordMatch === ""}
+              $isEmpty={passwordMatch === ''}
             >
               <input
-                type={showPasswordMatch ? "text" : "password"}
+                type={showPasswordMatch ? 'text' : 'password'}
                 value={passwordMatch}
                 onChange={handlePasswordMatchChange}
                 onFocus={handlePasswordMatchFocus}
@@ -373,13 +374,12 @@ export default function SignIn() {
                 <Link to="" onClick={handleOpen2}>
                   서비스 이용약관
                 </Link>
-                , {/* 서비스 이용약관 모달 */}
+                , {/* 디자인 완성시 개인정보 처리약관 모달 추가 예정 */}
                 <Link to="" onClick={handleOpen}>
                   개인정보 처리약관
                 </Link>
                 에 동의합니다.
               </label>
-              {/* 모달부분을 이제 서비스약관모달로 바꾸자 */}
             </p>
             <p>
               <input
@@ -407,7 +407,7 @@ export default function SignIn() {
           disabled={!isButtonActive}
           onClick={handleOpen}
         >
-          다음
+          <p onClick={handleOpen}>다음</p>
         </C.SubmitButton>
         <nav>
           이미 가입하셨나요? <Link to="/login">로그인</Link>
@@ -422,7 +422,7 @@ export default function SignIn() {
       {/* 버튼은 모달을 여는 역할 */}
       <Modal isOpen={isOpen} onClose={handleClose}>
         <S.ModalBody>
-         <h2>ll894564@naver.com</h2>
+          <h2>ll894564@naver.com</h2>
           <p>입력하신 이메일로 인증번호가 전송되었습니다.</p>
 
           <section>
@@ -430,7 +430,7 @@ export default function SignIn() {
               <input type="text" placeholder="인증번호를 입력해주세요."></input>
               <h3>3:00</h3>
             </div>
-            <S.Devider />
+            <C.Devider />
           </section>
 
           <h4>메일 재전송</h4>
@@ -443,7 +443,7 @@ export default function SignIn() {
             disabled={!isButtonActive}
             onClick={handleClose}
           >
-            확인
+            <p onClick={handleClose}>확인</p>
           </C.SubmitButton>
           {/* <Button onClick={handleClose}>확인</Button> */}
         </S.ModalBody>
