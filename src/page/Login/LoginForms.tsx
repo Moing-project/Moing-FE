@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import * as S from '../../styledComponents/Auth';
-import * as I from '../../components/UsingIcons';
-import { Link } from 'react-router-dom';
-import { useInput } from '../../hooks/useInput';
-import { useCheckBox } from '../../hooks/useCheckBox';
+import React, { useState } from "react";
+import * as S from "../../styledComponents/Auth";
+import * as C from "../../styledComponents/commonStyle";
+import * as I from "../../components/UsingIcons";
+import { Link } from "react-router-dom";
+import { useInput } from "../../hooks/useInput";
+import { useCheckBox } from "../../hooks/useCheckBox";
 
-import { usePostLoginMutation } from '../../redux/modules/LoginAPI';
+import { usePostLoginMutation } from "../../redux/modules/LoginAPI";
 
 export default function LoginForms() {
   const {
@@ -13,14 +14,14 @@ export default function LoginForms() {
     handleChange: handleEmailChange,
     handleFocus: handleEmailFocus,
     clearValue: clearEmail,
-  } = useInput('');
+  } = useInput("");
 
   const {
     value: password,
     handleChange: handlePasswordChange,
     handleFocus: handlePasswordFocus,
     clearValue: clearPassword,
-  } = useInput('');
+  } = useInput("");
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -45,7 +46,7 @@ export default function LoginForms() {
         // 이메일 형식과 비밀번호 모두 유효할 때
         console.log(email, password);
         const res = await login({
-          username: email,
+          email: email,
           password: password,
         });
         console.log(res);
@@ -53,29 +54,39 @@ export default function LoginForms() {
     }
   };
 
+  // 엔터 키 핸들링 함수
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      onLoginSubmit(event);
+    }
+  };
+
   // 버튼 상태 값
-  let status = !isValidEmail(email) || !password ? 'active' : 'disable';
+  let status = !isValidEmail(email) || !password ? "active" : "disable";
 
   return (
-    <S.LoginBox direction="column">
+    <S.LoginBox $direction="column">
       <nav>
         도움이 필요하세요? <Link to="">고객센터</Link>
       </nav>
       <S.LoginFormBox onSubmit={onLoginSubmit}>
         <h1>로그인</h1>
-        <S.LoginForm direction="column" gap="12px">
+        <S.LoginForm $direction="column" $gap="12px">
           <div>
-            <S.InputBox
-              justify="space-between"
-              align="center"
+            <C.InputBox
+              $justify="space-between"
+              $align="center"
               $isValidValue={isValidEmail(email)}
-              $isEmpty={email === ''}
+              $isEmpty={email === ""}
             >
               <input
                 type="email"
                 value={email}
                 onChange={handleEmailChange}
                 onFocus={handleEmailFocus}
+                onKeyDown={handleKeyDown} // 엔터 키 핸들링
+                tabIndex={1} // 탭 순서
                 placeholder="이메일"
               />
               {email && (
@@ -83,23 +94,25 @@ export default function LoginForms() {
                   <I.Remove />
                 </button>
               )}
-            </S.InputBox>
+            </C.InputBox>
             {email && !isValidEmail(email) && (
-              <S.CautionText>이메일 주소 형식으로 입력해주세요.</S.CautionText>
+              <C.CautionText>이메일 주소 형식으로 입력해주세요.</C.CautionText>
             )}
           </div>
           <div>
-            <S.InputBox
-              justify="space-between"
-              align="center"
+            <C.InputBox
+              $justify="space-between"
+              $align="center"
               $isValidValue={false}
               $isEmpty={true}
             >
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
                 onFocus={handlePasswordFocus}
+                onKeyDown={handleKeyDown} // 엔터 키 핸들링
+                tabIndex={2} // 탭 순서
                 placeholder="비밀번호 입력"
               />
               <div>
@@ -112,11 +125,11 @@ export default function LoginForms() {
                   {showPassword ? <I.Hide /> : <I.Visible />}
                 </button>
               </div>
-            </S.InputBox>
-            {/* <S.CautionText>로그인 정보가 틀립니다.</S.CautionText> */}
+            </C.InputBox>
+            {/* <C.CautionText>로그인 정보가 틀립니다.</C.CautionText> */}
           </div>
         </S.LoginForm>
-        <S.LoginFormNav justify="space-between" align="center">
+        <S.LoginFormNav $justify="space-between" $align="center">
           <p>
             <input
               type="checkbox"
@@ -135,22 +148,23 @@ export default function LoginForms() {
             <Link to="/signin">회원가입</Link>
           </div>
         </S.LoginFormNav>
-        <S.SubmitButton
+        <C.SubmitButton
           type="submit"
           $shape="filled"
           $status={status}
           $width="long"
           $height="medium"
           disabled={!isValidEmail(email) || !password}
-          style={{ marginBottom: '48px' }}
+          style={{ marginBottom: "48px" }}
+          tabIndex={3} // 탭 순서
         >
           로그인
-        </S.SubmitButton>
+        </C.SubmitButton>
       </S.LoginFormBox>
-      <S.Devider />
-      <S.LoginSNSBox direction="column" align="center" gap="12px">
+      <C.Devider />
+      <S.LoginSNSBox $direction="column" $align="center" $gap="12px">
         <p>간편하게 회원가입 및 로그인하기</p>
-        <S.LoginSNSNav gap="18px">
+        <S.LoginSNSNav $gap="18px">
           <Link to="">
             <I.Google />
           </Link>

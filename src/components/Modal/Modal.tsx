@@ -2,7 +2,6 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import styled from '@emotion/styled/macro';
 import './modal.css';
-// 왜 안됨 ?
 import Portal from './Portal';
 
 const Overlay = styled.div`

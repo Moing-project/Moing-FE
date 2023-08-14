@@ -9,11 +9,10 @@ import axios, {
 import { AxiosArgs, ResponseData } from "../types/BaseRequestType";
 
 export const instance: AxiosInstance = axios.create({
-  baseURL: "https://api.moingtool.com",
-  //   baseURL: "http://1.244.223.183",
-  //   baseURL: process.env.REACT_APP_SERVER_URL,
+  baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
+// 요청 인터셉터 - 토큰 추가
 instance.interceptors.request.use(
   function (config: InternalAxiosRequestConfig<any>) {
     let accessToken;
@@ -27,6 +26,7 @@ instance.interceptors.request.use(
   }
 );
 
+// 응답 인터셉터 - 상태 코드가 200인 경우 응답 데이터를 반환 /아닐 경우 응답 데이터의 msg 필드를 반환
 instance.interceptors.response.use(
   function (config: AxiosResponse<ResponseData<any>, any>) {
     if (config.status === HttpStatusCode.Ok)
@@ -43,6 +43,7 @@ instance.interceptors.response.use(
   }
 );
 
+// 커스텀한 API 요청 함수
 export const axiosBaseQuery =
   (
     instance = axios.create({ baseURL: "" })
