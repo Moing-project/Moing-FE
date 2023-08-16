@@ -51,6 +51,18 @@ export const Loginapi = createApi({
         method: "POST",
         data: payload,
       }),
+      transformResponse: (response: ResponseData<any>, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response;
+      },
+      transformErrorResponse: (response, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response as ResponseData<any>;
+      },
     }),
     // 이메일 중복확인 get query
     getCheckEmail: builder.query<ResponseData<any>, UserEmailDataType>({

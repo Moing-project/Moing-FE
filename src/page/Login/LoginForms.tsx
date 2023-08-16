@@ -1,36 +1,44 @@
 import React from "react";
-import * as S from "../../styledComponents/Auth";
-import * as C from "../../styledComponents/commonStyle";
+import * as S from "../../styledComponents/commons/Auth";
+import * as C from "../../styledComponents/commons/commonStyle";
 import * as I from "../../components/UsingIcons";
 import { Link } from "react-router-dom";
-import { useInput } from "../../hooks/useInput";
+import { useInput, usePasswordInput } from "../../hooks/useValidInput";
 import { useCheckBox } from "../../hooks/useCheckBox";
 import { usePostLoginMutation } from "../../redux/modules/LoginAPI";
-import LoginEmailInput from "./LoginEmailInput";
-import { isValidEmail, isValidLoginPassword } from "../../utils/validators";
-import LoginPasswordInput from "./LoginPasswordInput";
+import { Inputs, PasswordInput } from "../../components/Inputs";
+import { SubmitButton } from "../../styledComponents/commons/Buttons";
+import {
+  emailValidCheck,
+  loginPasswordValidCheck,
+} from "../../utils/validators";
 
 export default function LoginForms() {
   const {
     value: email,
     handleChange: handleEmailChange,
     clearValue: clearEmail,
-  } = useInput("");
+    isValid: isValidEmail,
+    isEmpty: isEmailEmpty,
+  } = useInput("", emailValidCheck);
 
   const {
-    value: password,
-    handleChange: handlePasswordChange,
-    clearValue: clearPassword,
-  } = useInput("");
+    password,
+    handlePasswordChange,
+    clearPassword,
+    isValidPassword,
+    showPassword,
+    toggleShowPassword,
+  } = usePasswordInput("", loginPasswordValidCheck);
 
   const { checked: autoLogin, setChecked: setAutoLogin } = useCheckBox();
 
   const [login, { isLoading }] = usePostLoginMutation();
 
-  const onLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!isLoading) {
-      if (isValidEmail(email) && password) {
+      if (isValidEmail && isValidPassword) {
         // 이메일 형식과 비밀번호 모두 유효할 때
         console.log(email, password);
         const res = await login({
@@ -42,19 +50,9 @@ export default function LoginForms() {
     }
   };
 
-  // 엔터 키 핸들링 함수
-  const handleKeyDown = (e: any) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      onLoginSubmit(e);
-    }
-  };
-
   // 버튼 상태 값
   const isSubmitButtonEnabled = () => {
-    return (
-      isValidEmail(email) && isValidLoginPassword(password) && email && password
-    );
+    return isValidEmail && isValidPassword && email && password;
   };
 
   let status = !isSubmitButtonEnabled() ? "active" : "disable";
@@ -67,19 +65,26 @@ export default function LoginForms() {
       <S.LoginFormBox onSubmit={onLoginSubmit}>
         <h1>로그인</h1>
         <S.LoginForm $direction="column" $gap="12px">
-          <LoginEmailInput
-            email={email}
-            handleEmailChange={handleEmailChange}
-            clearEmail={clearEmail}
-            isValidEmail={isValidEmail}
-            handleKeyDown={handleKeyDown}
+          <Inputs
+            value={email}
+            handleValueChange={handleEmailChange}
+            clearValue={clearEmail}
+            isValidValue={isValidEmail}
+            isEmpty={isEmailEmpty}
+            onSubmit={onLoginSubmit}
+            placeholder="이메일을 입력하세요"
+            validErrorMessage="이메일 주소 형식으로 입력해주세요."
           />
-          <LoginPasswordInput
-            password={password}
-            handlePasswordChange={handlePasswordChange}
-            clearPassword={clearPassword}
-            isValidPassword={isValidLoginPassword}
-            handleKeyDown={handleKeyDown}
+          <PasswordInput
+            value={password}
+            handleValueChange={handlePasswordChange}
+            clearValue={clearPassword}
+            isValidValue={isValidPassword}
+            onSubmit={onLoginSubmit}
+            showPassword={showPassword}
+            toggleShowPassword={toggleShowPassword}
+            placeholder="비밀번호를 입력하세요"
+            validErrorMessage=""
           />
         </S.LoginForm>
         <S.LoginFormNav $justify="space-between" $align="center">
@@ -101,7 +106,7 @@ export default function LoginForms() {
             <Link to="/signin">회원가입</Link>
           </div>
         </S.LoginFormNav>
-        <C.SubmitButton
+        <SubmitButton
           type="submit"
           $shape="filled"
           $status={status}
@@ -111,7 +116,7 @@ export default function LoginForms() {
           style={{ marginBottom: "48px" }}
         >
           로그인
-        </C.SubmitButton>
+        </SubmitButton>
       </S.LoginFormBox>
       <C.Devider />
       <S.LoginSNSBox $direction="column" $align="center" $gap="12px">

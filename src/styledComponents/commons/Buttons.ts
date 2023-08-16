@@ -1,5 +1,5 @@
 import { styled, css } from "styled-components";
-import { ButtonProps } from "./types/ButtonType";
+import { ButtonProps } from "../types/ButtonType";
 
 const heights = { low: `32px`, medium: `42px`, high: `48px` };
 const widths = { short: `80px`, medium: `167px`, long: `368px` };
@@ -69,6 +69,14 @@ const CustomBtn = styled.button<ButtonProps>`
   font-weight: 600;
   line-height: 20px; /* 166.667% */
   cursor: pointer;
+`;
+
+export const SubmitButton = styled(CustomBtn)<ButtonProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${({ disabled }) =>
+    disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
 `;
 
 export { CustomBtn };

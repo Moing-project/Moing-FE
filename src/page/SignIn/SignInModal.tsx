@@ -2,9 +2,8 @@
 // const PrivacyModal
 //약관2개 컴포넌트 만들어서 각각 임포트해
 import { styled } from "styled-components";
-import { useState } from "react";
 import { ReactComponent as Close } from "../../assets/icons/close.svg";
-import { CustomBtn } from "../../styledComponents/Buttons";
+import { CustomBtn } from "../../styledComponents/commons/Buttons";
 import { ButtonProps } from "../../styledComponents/types/ButtonType";
 // import { SubmitButton } from '../../styledComponents/Auth';
 

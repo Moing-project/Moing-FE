@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "../../styledComponents/Auth";
+import * as S from "../../styledComponents/commons/Auth";
 import LoginForms from "./LoginForms";
 import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
 

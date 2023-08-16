@@ -1,4 +1,4 @@
-import * as S from "../../styledComponents/Auth";
+import * as S from "../../styledComponents/commons/Auth";
 import { ReactComponent as SignInDone1 } from "../../assets/elements/signindone1.svg";
 import { ReactComponent as SignInDone2 } from "../../assets/elements/signindone2.svg";
 import { PrimaryBtn } from "../../components/Buttons";
