@@ -24,16 +24,20 @@ import { Inputs, PasswordInput } from "../../components/Inputs";
 import Modal from "../../components/Modal/Modal";
 import SignInModal from "./SignInModal";
 import SignInTerms from "./SignInTerms";
+import { useNavigate } from "react-router";
 
 export default function SignInForms() {
   // 모달
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState<boolean>(false);
   const [isOpen2, setIsOpen2] = useState<boolean>(false);
   //모달을 열고 닫기 위한 상태를 선언하기위해
 
-  const handleOpen = () => setIsOpen(true);
+  const handleEmailMadalOpen = () => {
+    setIsEmailModalOpen(true);
+  };
+
+  const handleEmailMadalClose = () => setIsEmailModalOpen(false);
   const handleOpen2 = () => setIsOpen2(true);
-  const handleClose = () => setIsOpen(false);
   const handleClose2 = () => setIsOpen2(false);
 
   // 체크 상태
@@ -115,6 +119,8 @@ export default function SignInForms() {
 
   // Submit 버튼
   const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isEmailModalButtonActive, setIsEmailModalButtonActive] =
+    useState(true);
 
   useEffect(() => {
     // 모든 필수 체크박스가 체크되고, 모든 input 필드가 유효한 경우에만 버튼을 활성화
@@ -164,8 +170,18 @@ export default function SignInForms() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const onEmailVerificationSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    // 인증번호 제출 요청 보내기 -> 요청 반환값 확인 -> 맞으면 이동 아니면 오류띄우기
+    navigate("/signin/done");
+  };
+
   // 버튼 상태 값
   let status = !isButtonActive ? "active" : "disable";
+  let modalButtonStatus = isEmailModalButtonActive ? "active" : "disable";
 
   return (
     <>
@@ -240,7 +256,7 @@ export default function SignInForms() {
         setTermsCheck={setTermsCheck}
         alarmCheck={alarmCheck}
         setAlarmCheck={setAlarmCheck}
-        handleOpen={handleOpen}
+        handleOpen={handleEmailMadalOpen}
         handleOpen2={handleOpen2}
       />
       <SubmitButton
@@ -250,7 +266,7 @@ export default function SignInForms() {
         $width="long"
         $height="medium"
         disabled={!isButtonActive}
-        onClick={handleOpen}
+        onClick={handleEmailMadalOpen}
       >
         다음
       </SubmitButton>
@@ -259,7 +275,7 @@ export default function SignInForms() {
       <Modal isOpen={isOpen2} onClose={handleClose2}>
         <SignInModal onClose={handleClose2} />
       </Modal>
-      <Modal isOpen={isOpen} onClose={handleClose}>
+      <Modal isOpen={isEmailModalOpen} onClose={handleEmailMadalClose}>
         <S.ModalBody>
           <h2>ll894564@naver.com</h2>
           <p>입력하신 이메일로 인증번호가 전송되었습니다.</p>
@@ -275,11 +291,11 @@ export default function SignInForms() {
           <SubmitButton
             type="submit"
             $shape="filled"
-            $status={status}
+            $status={modalButtonStatus}
             $width="long"
             $height="medium"
-            disabled={!isButtonActive}
-            onClick={onSigninSubmit}
+            disabled={!isEmailModalButtonActive}
+            onClick={onEmailVerificationSubmit}
           >
             확인
           </SubmitButton>

@@ -12,7 +12,7 @@ export function useDuplicateCheck(
     { [queryParam]: inputValue },
     {
       skip: !isValidInput || inputValue === "",
-      // 이메일 유효하고, 비어있지 않을때만 요청 보내기
+      // 값 유효하고, 비어있지 않을때만 요청 보내기
     }
   );
 
