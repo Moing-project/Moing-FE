@@ -21,24 +21,25 @@ import {
 } from "../../utils/validators";
 import { useDuplicateCheck } from "../../hooks/useDuplicateCheck";
 import { Inputs, PasswordInput } from "../../components/Inputs";
+
 import Modal from "../../components/Modal/Modal";
-import SignInModal from "./SignInModal";
 import SignInTerms from "./SignInTerms";
-import { useNavigate } from "react-router";
+import SignInEmailModal from "./SignInEmailModal";
+import SignInServiceModal from "./SignInServiceModal";
+
+import { useAppSelector } from "../../redux/config/hook";
+import { SignInRTKValue } from "../../redux/modules/SignInRTK";
+import SignInEmailForm from "./components/SignInEmailForm";
 
 export default function SignInForms() {
-  // 모달
+  // 모달 state
   const [isEmailModalOpen, setIsEmailModalOpen] = useState<boolean>(false);
-  const [isOpen2, setIsOpen2] = useState<boolean>(false);
-  //모달을 열고 닫기 위한 상태를 선언하기위해
+  const [isServiceModalOpen, setIsServiceModalOpen] = useState<boolean>(false);
 
-  const handleEmailMadalOpen = () => {
-    setIsEmailModalOpen(true);
-  };
-
+  const handleEmailMadalOpen = () => setIsEmailModalOpen(true);
   const handleEmailMadalClose = () => setIsEmailModalOpen(false);
-  const handleOpen2 = () => setIsOpen2(true);
-  const handleClose2 = () => setIsOpen2(false);
+  const handleServiceModalOpen = () => setIsServiceModalOpen(true);
+  const handleServiceModalClose = () => setIsServiceModalOpen(false);
 
   // 체크 상태
   const { checked: allAgreeCheck, setChecked: setAllAgreeCheck } =
@@ -46,15 +47,15 @@ export default function SignInForms() {
   const { checked: ageCheck, setChecked: setAgeCheck } = useCheckBox();
   const { checked: termsCheck, setChecked: setTermsCheck } = useCheckBox();
   const { checked: alarmCheck, setChecked: setAlarmCheck } = useCheckBox();
+  const { email } = useAppSelector(SignInRTKValue);
 
-  // 인풋 상태
   const {
-    value: email,
+    value: emails,
     handleChange: handleEmailChange,
     clearValue: clearEmail,
     isValid: isValidEmail,
     isEmpty: isEmailEmpty,
-  } = useInput("", emailValidCheck);
+  } = useInput({ initialValue: "", validateFunc: emailValidCheck });
 
   const {
     value: nickname,
@@ -62,7 +63,7 @@ export default function SignInForms() {
     clearValue: clearNickname,
     isValid: isValidNickname,
     isEmpty: isNicknameEmpty,
-  } = useInput("", nicknameValidCheck);
+  } = useInput({ initialValue: "", validateFunc: nicknameValidCheck });
 
   const {
     password,
@@ -85,12 +86,12 @@ export default function SignInForms() {
   } = usePasswordMatchInput("", matchPasswordValidCheck, password);
 
   // 중복 확인
-  const isEmailDuplicated = useDuplicateCheck(
-    useGetCheckEmailQuery,
-    "email",
-    email,
-    isValidEmail
-  );
+  // const isEmailDuplicated = useDuplicateCheck(
+  //   useGetCheckEmailQuery,
+  //   "email",
+  //   email,
+  //   isValidEmail
+  // );
 
   const isNicknameDuplicated = useDuplicateCheck(
     useGetCheckNicknameQuery,
@@ -119,8 +120,6 @@ export default function SignInForms() {
 
   // Submit 버튼
   const [isButtonActive, setIsButtonActive] = useState(false);
-  const [isEmailModalButtonActive, setIsEmailModalButtonActive] =
-    useState(true);
 
   useEffect(() => {
     // 모든 필수 체크박스가 체크되고, 모든 input 필드가 유효한 경우에만 버튼을 활성화
@@ -134,7 +133,7 @@ export default function SignInForms() {
       password &&
       isValidPassword &&
       passwordMatch &&
-      matchPasswordValidCheck(passwordMatch, password)
+      isMatchedPassword
     ) {
       setIsButtonActive(true);
     } else {
@@ -150,6 +149,7 @@ export default function SignInForms() {
     isValidEmail,
     isValidNickname,
     isValidPassword,
+    isMatchedPassword,
   ]);
 
   const [signIn, { isLoading }] = useSignInMutation();
@@ -166,27 +166,21 @@ export default function SignInForms() {
           nickname: nickname,
         });
         console.log(res);
+        setIsEmailModalOpen(true);
       }
     }
   };
-
-  const navigate = useNavigate();
-
-  const onEmailVerificationSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    // 인증번호 제출 요청 보내기 -> 요청 반환값 확인 -> 맞으면 이동 아니면 오류띄우기
-    navigate("/signin/done");
-  };
+  useEffect(() => {
+    console.log("email > ", email);
+  }, [email]);
 
   // 버튼 상태 값
   let status = !isButtonActive ? "active" : "disable";
-  let modalButtonStatus = isEmailModalButtonActive ? "active" : "disable";
 
   return (
     <>
       <S.SignInFormBox onSubmit={onSigninSubmit}>
-        <C.InputWithParagraph>
+        {/* <C.InputWithParagraph>
           <p>이메일</p>
           <Inputs
             value={email}
@@ -200,7 +194,8 @@ export default function SignInForms() {
             validErrorMessage="이메일 주소 형식으로 입력해주세요."
             duplicateErrorMessage="중복된 이메일입니다."
           />
-        </C.InputWithParagraph>
+        </C.InputWithParagraph> */}
+        <SignInEmailForm />
         <C.InputWithParagraph>
           <p>이름</p>
           <Inputs
@@ -256,8 +251,8 @@ export default function SignInForms() {
         setTermsCheck={setTermsCheck}
         alarmCheck={alarmCheck}
         setAlarmCheck={setAlarmCheck}
-        handleOpen={handleEmailMadalOpen}
-        handleOpen2={handleOpen2}
+        handleEmailMadalOpen={handleEmailMadalOpen}
+        handleServiceModalOpen={handleServiceModalOpen}
       />
       <SubmitButton
         type="submit"
@@ -266,40 +261,17 @@ export default function SignInForms() {
         $width="long"
         $height="medium"
         disabled={!isButtonActive}
-        onClick={handleEmailMadalOpen}
+        onClick={onSigninSubmit}
       >
         다음
       </SubmitButton>
 
       {/* 모달 */}
-      <Modal isOpen={isOpen2} onClose={handleClose2}>
-        <SignInModal onClose={handleClose2} />
-      </Modal>
       <Modal isOpen={isEmailModalOpen} onClose={handleEmailMadalClose}>
-        <S.ModalBody>
-          <h2>ll894564@naver.com</h2>
-          <p>입력하신 이메일로 인증번호가 전송되었습니다.</p>
-          <section>
-            <div>
-              <input type="text" placeholder="인증번호를 입력해주세요."></input>
-              <h3>3:00</h3>
-            </div>
-            <C.Devider />
-          </section>
-
-          <h4>메일 재전송</h4>
-          <SubmitButton
-            type="submit"
-            $shape="filled"
-            $status={modalButtonStatus}
-            $width="long"
-            $height="medium"
-            disabled={!isEmailModalButtonActive}
-            onClick={onEmailVerificationSubmit}
-          >
-            확인
-          </SubmitButton>
-        </S.ModalBody>
+        <SignInEmailModal email={email} />
+      </Modal>
+      <Modal isOpen={isServiceModalOpen} onClose={handleServiceModalClose}>
+        <SignInServiceModal onClose={handleServiceModalClose} />
       </Modal>
     </>
   );

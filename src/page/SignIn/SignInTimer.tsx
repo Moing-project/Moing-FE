@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 
-export default function Timer() {
-  const [remainingTime, setRemainingTime] = useState(180); // 3분을 초로 변환
+interface Props {
+  initialTime: number; // 초기 타이머 값
+  resetKey: number; // 키 값 변경 시 초기화를 위한 prop
+}
+
+export default function SignInTimer({ initialTime, resetKey }: Props) {
+  const [remainingTime, setRemainingTime] = useState(initialTime);
 
   useEffect(() => {
+    // 타이머 값 초기화
+    setRemainingTime(initialTime);
+
     const timer = setInterval(() => {
       if (remainingTime > 0) {
         setRemainingTime((prevTime) => prevTime - 1);
@@ -11,20 +19,15 @@ export default function Timer() {
     }, 1000);
 
     return () => {
-      clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
+      clearInterval(timer);
     };
-  }, [remainingTime]);
+  }, [resetKey, initialTime]);
 
-  const formatTime = (timeInSeconds: any) => {
+  const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  return (
-    <div>
-      <h1>타이머</h1>
-      <p>{formatTime(remainingTime)}</p>
-    </div>
-  );
+  return <h3>{formatTime(remainingTime)}</h3>;
 }

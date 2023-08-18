@@ -12,6 +12,10 @@ export type UserEmailDataType = {
   email: string;
 };
 
+export type EmailCode = {
+  code: string;
+};
+
 export type RequestData<T> = {
   postId?: number;
   commentId?: number;

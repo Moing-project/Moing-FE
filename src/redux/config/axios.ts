@@ -43,11 +43,17 @@ instance.interceptors.response.use(
   }
 );
 
+export type customAPIType = BaseQueryFn<
+  AxiosArgs,
+  unknown,
+  unknown,
+  {},
+  FetchBaseQueryMeta
+>;
+
 // 커스텀한 API 요청 함수
 export const axiosBaseQuery =
-  (
-    instance = axios.create({ baseURL: "" })
-  ): BaseQueryFn<AxiosArgs, unknown, unknown, {}, FetchBaseQueryMeta> =>
+  (instance = axios.create({ baseURL: "" })): customAPIType =>
   async ({ url, method, data, params }) => {
     try {
       console.log(data);

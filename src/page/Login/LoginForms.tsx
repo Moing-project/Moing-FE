@@ -20,7 +20,7 @@ export default function LoginForms() {
     clearValue: clearEmail,
     isValid: isValidEmail,
     isEmpty: isEmailEmpty,
-  } = useInput("", emailValidCheck);
+  } = useInput({ initialValue: "", validateFunc: emailValidCheck });
 
   const {
     password,

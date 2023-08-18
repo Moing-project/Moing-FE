@@ -1,12 +1,5 @@
-// import MarkdownEditor from "./MarkdownEditor";
-
-import ToastEditor from "./MarkdownEditor";
+import React from "react";
 
 export default function ProjectsMake() {
-  return (
-    <div>
-      {/* <MarkdownEditor /> */}
-      <ToastEditor></ToastEditor>
-    </div>
-  );
+  return <div>ProjectsMake</div>;
 }

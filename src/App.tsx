@@ -3,7 +3,7 @@ import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import Rending from "./page/Rending/Rending";
 import Main from "./page/Main";
-import Projects from "./page/Projects/Projects";
+import Projects from "./page/Projects/Main/Projects";
 import NotFound from "./page/NotFound";
 import SignIn from "./page/SignIn/SignIn";
 import Login from "./page/Login/Login";

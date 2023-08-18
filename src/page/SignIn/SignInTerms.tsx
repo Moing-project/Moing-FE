@@ -13,8 +13,8 @@ interface SignInTermsProps {
   setTermsCheck: React.Dispatch<React.SetStateAction<boolean>>;
   alarmCheck: boolean;
   setAlarmCheck: React.Dispatch<React.SetStateAction<boolean>>;
-  handleOpen2: any;
-  handleOpen: any;
+  handleServiceModalOpen: any;
+  handleEmailMadalOpen: any;
 }
 
 export default function SignInTerms({
@@ -26,8 +26,8 @@ export default function SignInTerms({
   setTermsCheck,
   alarmCheck,
   setAlarmCheck,
-  handleOpen2,
-  handleOpen,
+  handleEmailMadalOpen,
+  handleServiceModalOpen,
 }: SignInTermsProps) {
   return (
     <>
@@ -54,11 +54,11 @@ export default function SignInTerms({
             onChange={() => setTermsCheck(!termsCheck)}
           >
             <span>(필수)&nbsp;</span>
-            <Link to="" onClick={handleOpen2}>
+            <Link to="" onClick={handleServiceModalOpen}>
               서비스 이용약관
             </Link>
             ,
-            <Link to="" onClick={handleOpen}>
+            <Link to="" onClick={handleEmailMadalOpen}>
               개인정보 처리약관
             </Link>
             에 동의합니다.

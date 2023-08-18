@@ -3,7 +3,6 @@ import { ReactComponent as SignInDone1 } from "../../assets/elements/signindone1
 import { ReactComponent as SignInDone2 } from "../../assets/elements/signindone2.svg";
 import { PrimaryBtn } from "../../components/Buttons";
 import { Link } from "react-router-dom";
-import Timer from "./SignInTimer";
 
 export default function SignInDone() {
   return (
@@ -30,7 +29,6 @@ export default function SignInDone() {
           로그인하기
         </PrimaryBtn>
       </Link>
-      <Timer />
     </S.SignInLayout>
   );
 }

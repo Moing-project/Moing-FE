@@ -1,18 +1,28 @@
 import { useState } from "react";
+import { UseInputProps } from "./types/useValidInputType";
 
-export function useInput(
-  initialValue: string,
-  validateFunc: (value: string) => boolean
-) {
+export function useInput({ initialValue, validateFunc }: UseInputProps) {
   const [value, setValue] = useState<string>(initialValue);
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isEmpty, setIsEmpty] = useState<boolean>(initialValue === "");
+  const [isBlurred, setIsBlurred] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
-    setIsValid(validateFunc(e.target.value));
+    setIsValid(validateFunc(newValue));
     setIsEmpty(newValue === "");
+  };
+
+  const handleBlur = () => {
+    setIsBlurred(true);
+    setIsFocused(false);
+  };
+
+  const handleFocus = () => {
+    setIsBlurred(false);
+    setIsFocused(true);
   };
 
   const clearValue = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,6 +37,10 @@ export function useInput(
     clearValue,
     isValid,
     isEmpty,
+    isBlurred,
+    isFocused,
+    handleBlur,
+    handleFocus,
   };
 }
 
