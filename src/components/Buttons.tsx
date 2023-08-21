@@ -1,4 +1,4 @@
-import * as S from "../styledComponents/Buttons";
+import * as S from "../styledComponents/commons/Buttons";
 import { ButtonProps } from "../styledComponents/types/ButtonType";
 
 export const PrimaryBtn = ({ children, ...props }: ButtonProps) => {

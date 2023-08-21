@@ -1,41 +1,6 @@
 import { styled } from "styled-components";
-import { CustomBtn } from "./Buttons";
 import FlexContainer, { FlexContainerProps } from "./Flexbox";
-import { ButtonProps } from "./types/ButtonType";
-import { AuthProps } from "./types/AuthType";
-
-export const MarginLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  min-width: 1200px;
-  padding: 0 32px;
-`;
-
-export const Devider = styled.div`
-  width: 368px;
-  height: 0.5px;
-  background: var(--gray-05);
-`;
-
-export const InputWithP = styled.div`
-  p:first-child {
-    color: var(--main-font);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-align: left;
-    margin-bottom: 8px;
-  }
-`;
-
-export const SubmitButton = styled(CustomBtn)<ButtonProps & AuthProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${({ disabled }) =>
-    disabled ? "var(--gray-05)" : "var(--keyColor-main)"};
-`;
+import { AuthProps } from "../types/AuthType";
 
 export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   box-sizing: border-box;
@@ -47,8 +12,15 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   background: #fff;
   /* border: 1px solid var(--gray-05); */
   border: 1px solid
-    ${({ $isValidValue, $isEmpty }) =>
-      $isValidValue || $isEmpty ? "var(--gray-05)" : "var(--caution-color)"};
+    ${({ $isValidValue, $isDuplicated, $isEmpty }) => {
+      if ($isEmpty) {
+        return "var(--gray-05)";
+      } else if ($isDuplicated || !$isValidValue) {
+        return "var(--caution-color)";
+      } else {
+        return "var(--gray-05)";
+      }
+    }};
 
   button {
     display: flex;
@@ -87,8 +59,15 @@ export const InputBox = styled(FlexContainer)<FlexContainerProps & AuthProps>`
   &:focus-within {
     /* border: 1px solid var(--gray-07); */
     border: 1px solid
-      ${({ $isValidValue, $isEmpty }) =>
-        $isValidValue || $isEmpty ? "var(--gray-07)" : "var(--caution-color)"};
+      ${({ $isValidValue, $isDuplicated, $isEmpty }) => {
+        if ($isEmpty) {
+          return "var(--gray-07)";
+        } else if ($isDuplicated || !$isValidValue) {
+          return "var(--caution-color)";
+        } else {
+          return "var(--gray-07)";
+        }
+      }};
 
     svg {
       fill: var(--gray-07);

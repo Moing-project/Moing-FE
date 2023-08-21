@@ -1,5 +1,4 @@
 export type Auth = UserEmailDataType & {
-  email: string;
   password: string;
 };
 
@@ -13,19 +12,9 @@ export type UserEmailDataType = {
   email: string;
 };
 
-// export type Auth = UsernameDataType & {
-//   password: string;
-// };
-
-// export type SingInData = Auth & NicknameDataType;
-
-// export type NicknameDataType = {
-//   nickname: string;
-// };
-
-// export type UsernameDataType = {
-//   username: string;
-// };
+export type EmailCode = {
+  code: string;
+};
 
 export type RequestData<T> = {
   postId?: number;

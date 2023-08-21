@@ -1,7 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { checkAccess } from "../config/hook";
 import { ResponseData } from "../types/BaseRequestType";
 import {
   Auth,
+  EmailCode,
   LoginData,
   NicknameDataType,
   SingInData,
@@ -14,11 +16,24 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
+// instance.interceptors.response.use(
+//   (value) => value,
+//   (error) => {
+//     console.log(error);
+//     return error;
+//   }
+// );
+
 instance.interceptors.response.use(
   (value) => value,
   (error) => {
-    console.log(error);
-    return error;
+    if (error.response) {
+      // 에러 객체에 response가 있는 경우
+      return Promise.reject(error.response.data);
+    } else {
+      // 에러 객체에 response가 없는 경우
+      return Promise.reject(error);
+    }
   }
 );
 
@@ -51,6 +66,53 @@ export const Loginapi = createApi({
         method: "POST",
         data: payload,
       }),
+      transformResponse: (response: ResponseData<any>, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response;
+      },
+      transformErrorResponse: (response, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response as ResponseData<any>;
+      },
+    }),
+    // 이메일 코드 get query
+    getEmailCode: builder.query<ResponseData<any>, EmailCode>({
+      query: (payload) => ({
+        url: "/api/auth/code",
+        method: "get",
+        params: payload,
+      }),
+      transformResponse: (response, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response as ResponseData<any>;
+      },
+      onQueryStarted: (arg, api) => {
+        console.log("arg", arg);
+        console.log("api", api);
+      },
+    }),
+    getCheckEmailTemp: builder.mutation<boolean, UserEmailDataType>({
+      query: (payload) => ({
+        url: "/api/auth/email",
+        method: "get",
+        params: payload,
+      }),
+      transformResponse: (response: ResponseData<any>, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return checkAccess(response.msg);
+      },
+      onQueryStarted: (arg, api) => {
+        console.log("arg", arg);
+        console.log("api", api);
+      },
     }),
     // 이메일 중복확인 get query
     getCheckEmail: builder.query<ResponseData<any>, UserEmailDataType>({
@@ -94,6 +156,8 @@ export const Loginapi = createApi({
 export const {
   usePostLoginMutation,
   useSignInMutation,
+  useGetEmailCodeQuery,
   useGetCheckNicknameQuery,
   useGetCheckEmailQuery,
+  useGetCheckEmailTempMutation,
 } = Loginapi;

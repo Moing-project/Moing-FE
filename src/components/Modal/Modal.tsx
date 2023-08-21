@@ -1,8 +1,8 @@
-import React from 'react';
-import { CSSTransition } from 'react-transition-group';
-import styled from '@emotion/styled/macro';
-import './modal.css';
-import Portal from './Portal';
+import React from "react";
+import { CSSTransition } from "react-transition-group";
+import styled from "@emotion/styled/macro";
+import "./modal.css";
+import Portal from "./Portal";
 
 const Overlay = styled.div`
   position: fixed;
@@ -37,7 +37,7 @@ const Modal: React.FC<Props> = ({
   children,
   onClose,
   isOpen,
-  selector = '#modal-root',
+  selector = "#modal-root",
 }) => {
   return (
     <CSSTransition in={isOpen} timeout={180} classNames="modal" unmountOnExit>

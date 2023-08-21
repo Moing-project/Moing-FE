@@ -3,11 +3,11 @@ import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import Rending from "./page/Rending/Rending";
 import Main from "./page/Main";
-import Projects from "./page/Projects/Projects";
+import Projects from "./page/Projects/Main/Projects";
 import NotFound from "./page/NotFound";
 import SignIn from "./page/SignIn/SignIn";
 import Login from "./page/Login/Login";
-import { MarginLayout } from "./styledComponents/commonStyle";
+import { MarginLayout } from "./styledComponents/commons/commonStyle";
 import SignInDone from "./page/SignIn/SignInDone";
 import ProjectsMake from "./page/Projects/ProjectsMake";
 

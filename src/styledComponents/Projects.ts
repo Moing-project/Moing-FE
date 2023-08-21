@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import FlexContainer from "./Flexbox";
-import { Devider } from "./commonStyle";
+import FlexContainer from "./commons/Flexbox";
+import { Devider } from "./commons/commonStyle";
 
 export const ProjectsMekeLayout = styled(FlexContainer)`
   max-width: 752px;
