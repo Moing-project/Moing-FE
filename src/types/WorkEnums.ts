@@ -1,8 +1,56 @@
+// export enum WorkAllowEnum {
+//   ALL_ALLOW = "누구나 참여",
+//   REQUIRED_ALLOW = "참여 승인 (관리자 승인 시 참여 가능)",
+//   NOT_ALLOW = "참여 불가 (프로젝트는 공개되지만 참여 불가능)",
+//   SECRET = "비공개",
+// }
+// export class WorkAllowFunctions {
+//   static GetWorkAllowEnums() {
+//     return Object.values(WorkAllowEnum);
+//   }
+
+//   static GetWorkAllowEnumKeyToString(value: string) {
+//     const result = Object.keys(WorkAllowEnum).find(
+//       (key) =>
+//         WorkAllowEnum[key as keyof typeof WorkAllowEnum].toLowerCase() ===
+//         value.toLowerCase()
+//     );
+//     return WorkAllowEnum[result as keyof typeof WorkAllowEnum];
+//   }
+// }
+
 export enum WorkAllowEnum {
-  ALL_ALLOW = "all_allow",
-  REQUIRED_ALLOW = "required_allow",
-  NOT_ALLOW = "not_allow",
-  SECRET = "secret",
+  ALL_ALLOW = "누구나 참여",
+  REQUIRED_ALLOW = "참여 승인 (관리자 승인 시 참여 가능)",
+  NOT_ALLOW = "참여 불가 (프로젝트는 공개되지만 참여 불가능)",
+  SECRET = "비공개",
+}
+
+export class WorkAllowFunctions {
+  static GetWorkAllowEnumsAsObject() {
+    const enumKeys = Object.keys(
+      WorkAllowEnum
+    ) as (keyof typeof WorkAllowEnum)[];
+    const enumsAsObject = {} as Record<keyof typeof WorkAllowEnum, string>;
+
+    enumKeys.forEach((key) => {
+      const value = WorkAllowEnum[key];
+      const convertedValue =
+        WorkAllowFunctions.GetWorkAllowEnumKeyToString(value);
+      enumsAsObject[key] = convertedValue;
+    });
+
+    return enumsAsObject;
+  }
+
+  static GetWorkAllowEnumKeyToString(value: string) {
+    const result = Object.keys(WorkAllowEnum).find(
+      (key) =>
+        WorkAllowEnum[key as keyof typeof WorkAllowEnum].toLowerCase() ===
+        value.toLowerCase()
+    );
+    return WorkAllowEnum[result as keyof typeof WorkAllowEnum];
+  }
 }
 
 export enum WorkTypeEnum {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { WorkStackFunctions, WorkStackEnum } from "../../../types/WorkEnums";
+import { WorkStackFunctions, WorkStackEnum } from "../../types/WorkEnums";
 import ProjectsBanner from "./ProjectsBanner";
 import ProjectsList from "./ProjectsList";
 

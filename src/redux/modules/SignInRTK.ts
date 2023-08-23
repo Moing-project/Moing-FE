@@ -29,7 +29,6 @@ const SignInRTK = createSlice({
       state.email = "";
       return state;
     },
-
     signInChangeNickname(state, action: PayloadAction<string>) {
       state.nickname = action.payload;
       return state;
