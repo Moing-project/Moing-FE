@@ -1,10 +1,11 @@
 import React from "react";
 import { styled } from "styled-components";
 
+import * as I from "../../components/UsingIcons";
 import ProjectsListItem, { ProjectListLi } from "./ProjectsListItem";
-import * as I from "../../../components/UsingIcons";
 
 export default function ProjectsList() {
+  // 예시 데이터
   const projects = [
     {
       id: 0,
@@ -89,11 +90,9 @@ const ProjectListMakeLi = styled(ProjectListLi)`
   gap: 32px;
 
   h1 {
-    color: var(--01, #202020);
+    color: var(--font-main);
     text-align: center;
 
-    /* header/02 */
-    font-family: Pretendard Variable;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -103,7 +102,6 @@ const ProjectListMakeLi = styled(ProjectListLi)`
   p {
     color: #858585;
     text-align: center;
-    font-family: Pretendard Variable;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
