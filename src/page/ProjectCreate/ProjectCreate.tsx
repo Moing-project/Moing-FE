@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import SingleSelector, { OptionType } from "./SingleSelector";
 import MultiSelector from "./MultiSelector";
 import { MultiValue } from "react-select";
+import MarkdownEditor from "./MarkdownEditor";
+import { Editor } from "@toast-ui/react-editor";
+import SingleCalendarSelector from "./SingleCalendarSelector";
 
 interface ProjectFormData {
   title: string;
   subject: string | null;
   totalMember: number;
-  date: string;
+  date: string | null;
   allowType: string | null;
   stacks: string[];
   introduce: string;
@@ -19,14 +22,14 @@ export default function ProjectCreate() {
     title: "",
     subject: null,
     totalMember: 0,
-    date: "",
+    date: null,
     allowType: null,
     stacks: [],
     introduce: "",
     imageSrc: "",
   });
 
-  // 인풋 함수
+  // 인풋 함수 -> 이름, 인원
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({
@@ -47,16 +50,6 @@ export default function ProjectCreate() {
   };
 
   // 멀티 셀렉터 함수 -> 스택
-  // const handleMultiSelectorChange = (selectedOptions: OptionType[]) => {
-  //   const selectedValues = selectedOptions.map((option) => option.value);
-  //   setProjectData((prevData) => ({
-  //     ...prevData,
-  //     stacks: selectedValues,
-  //   }));
-  // };
-  // ... (이전 코드 부분)
-
-  // 멀티 셀렉터 함수 -> 스택
   const handleMultiSelectorChange = (
     selectedOptions: MultiValue<OptionType>
   ) => {
@@ -69,12 +62,53 @@ export default function ProjectCreate() {
     }));
   };
 
-  // ... (이후 코드 부분)
+  const [dateType, setDateType] = useState<string | null>(null);
+
+  // 날짜 타입 셀렉터 함수
+  const handleDateTypeChange = (option: OptionType | null) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      date: option ? option.value : "",
+    }));
+    setDateType(option ? option.value : null);
+  };
+
+  // 데드라인 함수
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setProjectData((prevData) => ({
+      ...prevData,
+      date: dateType === "null" ? null : value,
+    }));
+  };
+
+  // 에디터 함수 -> 소개
+  const editorRef = useRef<Editor>(null);
+
+  const handleEditorChange = (content: string) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      introduce: content,
+    }));
+  };
 
   const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const editorContent = editorRef.current?.getInstance().getMarkdown();
+
+    // 마크다운 에디터 내용을 introduce에 설정하고 폼 데이터에 포함시킴
+    setProjectData((prevData) => ({
+      ...prevData,
+      introduce: editorContent || prevData.introduce,
+    }));
+
     console.log("Project Data:", projectData);
   };
+
+  // 참여방식 따라 셀렉트, 입력 방지
+  const isAllowTypeRestricted =
+    projectData.allowType === "NOT_ALLOW" || projectData.allowType === "SECRET";
 
   return (
     <form onSubmit={onProjectCreateSubmit}>
@@ -89,6 +123,32 @@ export default function ProjectCreate() {
         />
       </div>
       <div>
+        <p>분야</p>
+        <SingleSelector
+          field="subject"
+          selectedOption={projectData.subject}
+          onSelectChange={(option) =>
+            handleSingleSelectorChange("subject", option)
+          }
+        />
+      </div>
+      <div>
+        <p>마감 기한</p>
+        <SingleCalendarSelector
+          selectedOption={dateType}
+          onSelectChange={handleDateTypeChange}
+          isDisabled={isAllowTypeRestricted} // isDisabled 속성 추가
+        />
+        {dateType === "date" && (
+          <input
+            type="date"
+            name="date"
+            value={projectData.date || ""}
+            onChange={handleDateChange}
+          />
+        )}
+      </div>
+      <div>
         <p>모집 인원</p>
         <input
           type="number"
@@ -99,6 +159,32 @@ export default function ProjectCreate() {
           max={10}
           step={1}
           placeholder="직접 입력해주세요. (최대 10명까지 가능)"
+          disabled={isAllowTypeRestricted}
+        />
+      </div>
+      <div>
+        <p>멤버 참여 방식</p>
+        <SingleSelector
+          field="allowType"
+          selectedOption={projectData.allowType}
+          onSelectChange={(option) =>
+            handleSingleSelectorChange("allowType", option)
+          }
+        />
+      </div>
+      <div>
+        <p>기술 스택</p>
+        <MultiSelector
+          selectedOptions={projectData.stacks}
+          onSelectChange={handleMultiSelectorChange}
+        />
+      </div>
+      <div>
+        <p>프로젝트 소개</p>
+        <MarkdownEditor
+          ref={editorRef}
+          value={projectData.introduce}
+          onChange={handleEditorChange}
         />
       </div>
       <div>
@@ -109,24 +195,6 @@ export default function ProjectCreate() {
           onChange={handleInputChange}
         />
       </div>
-      <SingleSelector
-        field="subject"
-        selectedOption={projectData.subject}
-        onSelectChange={(option) =>
-          handleSingleSelectorChange("subject", option)
-        }
-      />
-      <SingleSelector
-        field="allowType"
-        selectedOption={projectData.allowType}
-        onSelectChange={(option) =>
-          handleSingleSelectorChange("allowType", option)
-        }
-      />
-      <MultiSelector
-        selectedOptions={projectData.stacks}
-        onSelectChange={handleMultiSelectorChange}
-      />
       <button type="submit">프로젝트 생성</button>
     </form>
   );

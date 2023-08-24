@@ -1,1 +1,1 @@
-### add, modify: Project, ProjectCreate 페이지 생성, 수정, 구현 중
+### add, modify: ProjectCreate 페이지 폼 형식 완료

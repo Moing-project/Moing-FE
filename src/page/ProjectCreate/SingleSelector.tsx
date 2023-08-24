@@ -69,13 +69,10 @@ const SelectBoxView = ({
   handleChange: (option: OptionType | null) => void;
   options: OptionType[]; // 옵션 데이터 프롭스로 받음
 }) => (
-  <>
-    <Select<OptionType>
-      value={options.find((option) => option.value === selectedOption)}
-      onChange={handleChange}
-      options={options}
-      components={{ IndicatorSeparator: () => null }}
-    />
-    <p>{options.find((option) => option.value === selectedOption)?.label}</p>
-  </>
+  <Select<OptionType>
+    value={options.find((option) => option.value === selectedOption)}
+    onChange={handleChange}
+    options={options}
+    components={{ IndicatorSeparator: () => null }}
+  />
 );

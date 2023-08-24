@@ -8,6 +8,8 @@ const options = WorkStackFunctions.GetWorkStackEnums().map((value) => ({
   label: value,
 }));
 
+console.log(options)
+
 interface MultiSelectorProps {
   selectedOptions: string[];
   onSelectChange: (options: OptionType[]) => void;
