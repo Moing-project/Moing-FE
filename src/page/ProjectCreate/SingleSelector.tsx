@@ -42,7 +42,6 @@ export default function SingleSelector({
           value: key as keyof typeof WorkAllowEnum, // Type assertion
           label: workAllowEnumsAsObject[key as keyof typeof WorkAllowEnum],
         }));
-        console.log(newOptions);
         break;
       default:
         break;

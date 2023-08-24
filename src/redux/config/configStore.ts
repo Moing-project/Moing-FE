@@ -10,8 +10,10 @@ const store = configureStore({
     [SignInRTK.name]: SignInRTK.reducer,
     // [Imageapi.reducerPath]: Imageapi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(Loginapi.middleware),
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware(),
+    Loginapi.middleware,
+  ],
   //   .concat(Imageapi.middleware),
 });
 

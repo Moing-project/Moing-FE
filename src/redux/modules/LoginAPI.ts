@@ -6,6 +6,7 @@ import {
   EmailCode,
   LoginData,
   NicknameDataType,
+  ProjectType,
   SingInData,
   UserEmailDataType,
 } from "../types/LoginType";
@@ -150,6 +151,26 @@ export const Loginapi = createApi({
         return response.data;
       },
     }),
+    // ** 프로젝트 생성
+    postProject: builder.mutation<ResponseData<any>, ProjectType>({
+      query: (payload) => ({
+        url: "/work/create",
+        method: "POST",
+        data: payload,
+      }),
+      transformResponse: (response: ResponseData<any>, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response;
+      },
+      transformErrorResponse: (response, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response as ResponseData<any>;
+      },
+    }),
   }),
 });
 
@@ -160,4 +181,5 @@ export const {
   useGetCheckNicknameQuery,
   useGetCheckEmailQuery,
   useGetCheckEmailTempMutation,
+  usePostProjectMutation,
 } = Loginapi;
