@@ -1,12 +1,5 @@
 import { styled } from "styled-components";
 
-export const MarginLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  min-width: 1200px;
-  padding: 0 32px;
-`;
-
 export const Devider = styled.div`
   width: 368px;
   height: 0.5px;
