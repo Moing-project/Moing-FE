@@ -5,27 +5,27 @@ import { MultiValue } from "react-select";
 import MarkdownEditor from "./MarkdownEditor";
 import { Editor } from "@toast-ui/react-editor";
 import SingleCalendarSelector from "./SingleCalendarSelector";
-import { usePostProjectMutation } from "../../redux/modules/LoginAPI";
+import { usePostProjectMutation } from "../../redux/modules/ProjectAPI";
 
 interface ProjectFormData {
-  name: string;
+  title: string;
   subject: string | null;
   needMember: number;
   date: string | null;
   allowType: string | null;
-  stack: string[];
+  stacks: string[];
   introduce: string;
   imageSrc: string;
 }
 
 export default function ProjectCreate() {
   const [projectData, setProjectData] = useState<ProjectFormData>({
-    name: "",
+    title: "",
     subject: null,
     needMember: 0,
     date: null,
     allowType: null,
-    stack: [],
+    stacks: [],
     introduce: "",
     imageSrc: "",
   });
@@ -59,7 +59,7 @@ export default function ProjectCreate() {
       : [];
     setProjectData((prevData) => ({
       ...prevData,
-      stack: selectedStacks,
+      stacks: selectedStacks,
     }));
   };
 
@@ -136,8 +136,8 @@ export default function ProjectCreate() {
         <p>플젝 이름</p>
         <input
           type="text"
-          name="name"
-          value={projectData.name}
+          name="title"
+          value={projectData.title}
           onChange={handleInputChange}
           placeholder="20자 이내로 입력해주세요"
         />
@@ -195,7 +195,7 @@ export default function ProjectCreate() {
       <div>
         <p>기술 스택</p>
         <MultiSelector
-          selectedOptions={projectData.stack}
+          selectedOptions={projectData.stacks}
           onSelectChange={handleMultiSelectorChange}
         />
       </div>

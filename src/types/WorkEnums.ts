@@ -66,6 +66,7 @@ export enum WorkTypeEnum {
   MACHINE_LEARNING = "AI/머신러닝",
   UI_UX = "UI/UX",
 }
+
 export class WorkTypeFunctions {
   static GetWorkTypeEnums() {
     return Object.values(WorkTypeEnum);
@@ -114,6 +115,7 @@ export enum WorkStackEnum {
   FIGMA = "Figma",
   ZEPLIN = "Zeplin",
 }
+
 export class WorkStackFunctions {
   static GetWorkStackEnums() {
     return Object.values(WorkStackEnum);

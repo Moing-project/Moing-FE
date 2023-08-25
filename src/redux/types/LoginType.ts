@@ -62,12 +62,12 @@ export enum KanbanEnum {
 // };
 
 export type ProjectType = {
-  name: string;
+  title: string;
   subject: string | null;
   needMember: number;
   date: string | null;
   allowType: string | null;
-  stack: string[];
+  stacks: string[];
   introduce: string;
   imageSrc: string;
 };

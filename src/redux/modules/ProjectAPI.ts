@@ -1,28 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { ResponseData } from "../types/BaseRequestType";
 import { ProjectType } from "../types/LoginType";
-import { axiosBaseQuery } from "../config/axios";
-import axios from "axios";
+import { axiosBaseQuery, instance } from "../config/axios";
 
-const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-});
-
-instance.interceptors.response.use(
-  (value) => value,
-  (error) => {
-    if (error.response) {
-      // 에러 객체에 response가 있는 경우
-      return Promise.reject(error.response.data);
-    } else {
-      // 에러 객체에 response가 없는 경우
-      return Promise.reject(error);
-    }
-  }
-);
-
-export const Projectapi = createApi({
-  reducerPath: "api",
+export const ProjectAPI = createApi({
+  reducerPath: "projectApi",
   baseQuery: axiosBaseQuery(instance),
   endpoints: (builder) => ({
     // 프로젝트 생성 post mutation
@@ -48,4 +30,4 @@ export const Projectapi = createApi({
   }),
 });
 
-export const { usePostProjectMutation } = Projectapi;
+export const { usePostProjectMutation } = ProjectAPI;

@@ -6,7 +6,6 @@ import {
   EmailCode,
   LoginData,
   NicknameDataType,
-  ProjectType,
   SingInData,
   UserEmailDataType,
 } from "../types/LoginType";
@@ -17,16 +16,17 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
-// instance.interceptors.response.use(
-//   (value) => value,
-//   (error) => {
-//     console.log(error);
-//     return error;
-//   }
-// );
-
+// 토큰 로컬스토리지에 저장
 instance.interceptors.response.use(
-  (value) => value,
+  (value) => {
+    // let authorization = value.headers;
+    // console.log("authorization", authorization);
+    value.headers?.authorization &&
+      localStorage.setItem("Authorization", value.headers.authorization);
+    value.headers?.refreshtoken &&
+      localStorage.setItem("RefreshToken", value.headers.refreshtoken);
+    return value;
+  },
   (error) => {
     if (error.response) {
       // 에러 객체에 response가 있는 경우
@@ -38,7 +38,7 @@ instance.interceptors.response.use(
   }
 );
 
-export const Loginapi = createApi({
+export const LoginAPI = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery(instance),
   endpoints: (builder) => ({
@@ -151,26 +151,6 @@ export const Loginapi = createApi({
         return response.data;
       },
     }),
-    // ** 프로젝트 생성
-    postProject: builder.mutation<ResponseData<any>, ProjectType>({
-      query: (payload) => ({
-        url: "/work/create",
-        method: "POST",
-        data: payload,
-      }),
-      transformResponse: (response: ResponseData<any>, meta, arg) => {
-        console.log("response", response);
-        console.log("meta", meta);
-        console.log("arg", arg);
-        return response;
-      },
-      transformErrorResponse: (response, meta, arg) => {
-        console.log("response", response);
-        console.log("meta", meta);
-        console.log("arg", arg);
-        return response as ResponseData<any>;
-      },
-    }),
   }),
 });
 
@@ -181,5 +161,4 @@ export const {
   useGetCheckNicknameQuery,
   useGetCheckEmailQuery,
   useGetCheckEmailTempMutation,
-  usePostProjectMutation,
-} = Loginapi;
+} = LoginAPI;
