@@ -1,16 +1,15 @@
-import React from "react";
-import Select from "react-select";
-import { WorkStackFunctions } from "../../types/WorkEnums";
+import Select, { MultiValue } from "react-select";
+import { WorkStackEnum } from "../../types/WorkEnums";
 import { OptionType } from "./SingleSelector";
 
-const options = WorkStackFunctions.GetWorkStackEnums().map((value) => ({
-  value,
-  label: value,
+const options = Object.keys(WorkStackEnum).map((key) => ({
+  value: key as keyof typeof WorkStackEnum,
+  label: WorkStackEnum[key as keyof typeof WorkStackEnum],
 }));
 
 interface MultiSelectorProps {
-  selectedOptions: string[];
-  onSelectChange: (options: OptionType[]) => void;
+  selectedOptions?: MultiValue<OptionType>;
+  onSelectChange: (selectedOptions: MultiValue<OptionType>) => void;
 }
 
 export default function MultiSelector({
@@ -18,17 +17,17 @@ export default function MultiSelector({
   onSelectChange,
 }: MultiSelectorProps) {
   const handleClearAll = () => {
-    onSelectChange([]); // 선택된 옵션들을 빈 배열로 업데이트
+    onSelectChange([] as MultiValue<OptionType>); // 선택된 옵션들을 빈 배열로 업데이트
   };
 
   return (
     <Select
-      value={options.filter((option) => selectedOptions.includes(option.value))}
+      value={selectedOptions}
       isMulti
       onChange={(newValue, actionMeta) => {
         if (actionMeta.action === "select-option") {
           // Select an option
-          onSelectChange(newValue as OptionType[]);
+          onSelectChange(newValue as MultiValue<OptionType>);
         } else if (actionMeta.action === "remove-value" && !newValue) {
           // Remove all values (when clicking the clear button)
           handleClearAll();
@@ -50,61 +49,3 @@ export default function MultiSelector({
     />
   );
 }
-
-// import React from "react";
-// import Select, { ActionMeta } from "react-select";
-// import { WorkStackFunctions } from "../../types/WorkEnums";
-
-// export type OptionType = {
-//   value: string;
-//   label: string;
-// };
-
-// interface MultiSelectorProps {
-//   selectedOptions: string[];
-//   onSelectChange: (options: OptionType[]) => void;
-// }
-
-// export default function MultiSelector({
-//   selectedOptions,
-//   onSelectChange,
-// }: MultiSelectorProps) {
-//   const options: OptionType[] = WorkStackFunctions.GetWorkStackEnums().map(
-//     (value) => ({
-//       value,
-//       label: value,
-//     })
-//   );
-
-//   return (
-//     <MultiSelectBoxView
-//       selectedOptions={selectedOptions}
-//       handleChange={onSelectChange}
-//       options={options}
-//     />
-//   );
-// }
-
-// const MultiSelectBoxView = ({
-//   selectedOptions,
-//   handleChange,
-//   options,
-// }: {
-//   selectedOptions: string[];
-//   handleChange: (selectedOptions: OptionType[]) => void;
-//   options: OptionType[];
-// }) => (
-//   <>
-//     <Select<OptionType>
-//       value={options.filter((option) => selectedOptions.includes(option.value))}
-//       onChange={handleChange}
-//       options={options}
-//       components={{ IndicatorSeparator: () => null }}
-//     />
-//     <p>
-//       {selectedOptions
-//         .map((option) => options.find((item) => item.value === option)?.label)
-//         .join(", ")}
-//     </p>
-//   </>
-// );

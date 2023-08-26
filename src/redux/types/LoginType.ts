@@ -60,14 +60,3 @@ export enum KanbanEnum {
 //   content: "World",
 //   KanbanT: KanbanEnum.noStart,
 // };
-
-export type ProjectType = {
-  title: string;
-  subject: string | null;
-  needMember: number;
-  date: string | null;
-  allowType: string | null;
-  stacks: string[];
-  introduce: string;
-  imageSrc: string;
-};

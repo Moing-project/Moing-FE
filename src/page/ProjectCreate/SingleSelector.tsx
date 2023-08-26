@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import {
-  WorkAllowEnum,
-  WorkAllowFunctions,
-  WorkTypeFunctions,
-} from "../../types/WorkEnums";
+import { WorkAllowEnum, WorkTypeEnum } from "../../types/WorkEnums";
 
 export type OptionType = {
   value: string;
@@ -30,17 +26,15 @@ export default function SingleSelector({
 
     switch (field) {
       case "subject":
-        newOptions = WorkTypeFunctions.GetWorkTypeEnums().map((value) => ({
-          value,
-          label: value,
+        newOptions = Object.keys(WorkTypeEnum).map((key) => ({
+          value: key as keyof typeof WorkTypeEnum,
+          label: WorkTypeEnum[key as keyof typeof WorkTypeEnum],
         }));
         break;
       case "allowType":
-        const workAllowEnumsAsObject =
-          WorkAllowFunctions.GetWorkAllowEnumsAsObject();
-        newOptions = Object.keys(workAllowEnumsAsObject).map((key) => ({
-          value: key as keyof typeof WorkAllowEnum, // Type assertion
-          label: workAllowEnumsAsObject[key as keyof typeof WorkAllowEnum],
+        newOptions = Object.keys(WorkAllowEnum).map((key) => ({
+          value: key as keyof typeof WorkAllowEnum,
+          label: WorkAllowEnum[key as keyof typeof WorkAllowEnum],
         }));
         break;
       default:

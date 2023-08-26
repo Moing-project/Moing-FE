@@ -1,8 +1,13 @@
 import { styled, css } from "styled-components";
 import { ButtonProps } from "../types/ButtonType";
 
-const heights = { low: `32px`, medium: `42px`, high: `48px` };
-const widths = { short: `80px`, medium: `167px`, long: `368px` };
+const heights = { low: `32px`, medium: `42px`, high: `48px`, xlow: `24px` };
+const widths = {
+  short: `80px`,
+  medium: `167px`,
+  long: `368px`,
+  xshort: `fit-content`,
+};
 
 const CustomBtn = styled.button<ButtonProps>`
   ${({ $shape, $status }) => {
@@ -44,6 +49,11 @@ const CustomBtn = styled.button<ButtonProps>`
           height: ${heights.high};
           font-size: 16px;
         `;
+      case "xlow":
+        return css`
+          height: ${heights.xlow};
+          font-size: 12px;
+        `;
       default:
         return ``;
     }
@@ -57,6 +67,8 @@ const CustomBtn = styled.button<ButtonProps>`
         return widths.medium;
       case "long":
         return widths.long;
+      case "xshort":
+        return widths.xshort;
       default:
         return ``;
     }

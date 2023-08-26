@@ -6,14 +6,20 @@ import MarkdownEditor from "./MarkdownEditor";
 import { Editor } from "@toast-ui/react-editor";
 import SingleCalendarSelector from "./SingleCalendarSelector";
 import { usePostProjectMutation } from "../../redux/modules/ProjectAPI";
+import {
+  WorkAllowFunctions,
+  WorkAllowEnum,
+  WorkTypeEnum,
+  WorkStackEnum,
+} from "../../types/WorkEnums";
 
 interface ProjectFormData {
   title: string;
-  subject: string | null;
+  subject: keyof typeof WorkTypeEnum | null;
   needMember: number;
   date: string | null;
-  allowType: string | null;
-  stacks: string[];
+  allowType: keyof typeof WorkAllowEnum | null;
+  stacks: Array<keyof typeof WorkStackEnum | null>;
   introduce: string;
   imageSrc: string;
 }
@@ -54,18 +60,19 @@ export default function ProjectCreate() {
   const handleMultiSelectorChange = (
     selectedOptions: MultiValue<OptionType>
   ) => {
-    const selectedStacks = selectedOptions
-      ? selectedOptions.map((option) => option.value)
-      : [];
+    const selectedStacks = selectedOptions.map(
+      (option) => option.value
+    ) as Array<keyof typeof WorkStackEnum | null>;
+
     setProjectData((prevData) => ({
       ...prevData,
       stacks: selectedStacks,
     }));
   };
 
+  // 날짜 타입 셀렉터 함수
   const [dateType, setDateType] = useState<string | null>(null);
 
-  // 날짜 타입 셀렉터 함수
   const handleDateTypeChange = (option: OptionType | null) => {
     setProjectData((prevData) => ({
       ...prevData,
@@ -74,7 +81,7 @@ export default function ProjectCreate() {
     setDateType(option ? option.value : null);
   };
 
-  // 데드라인 함수
+  // date 함수
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setProjectData((prevData) => ({
@@ -84,51 +91,57 @@ export default function ProjectCreate() {
   };
 
   // 에디터 함수 -> 소개
-  const editorRef = useRef<Editor>(null);
+  const editorRef = useRef<Editor | null>(null);
 
-  const handleEditorChange = (content: string) => {
+  // html 테스트
+  const editorHTML = editorRef.current!.getInstance().getHTML();
+
+  const handleEditorChange = () => {
+    const editorMarkdown = editorRef.current!.getInstance().getMarkdown();
+
     setProjectData((prevData) => ({
       ...prevData,
-      introduce: content,
+      introduce: editorMarkdown,
     }));
   };
 
-  // const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
+  // 모집 방식 함수
+  const handleAllowTypeChange = (option: OptionType | null) => {
+    const newAllowType = option ? option.value : null;
 
-  //   const editorContent = editorRef.current?.getInstance().getMarkdown();
-
-  //   // 마크다운 에디터 내용을 introduce에 설정하고 폼 데이터에 포함시킴
-  //   setProjectData((prevData) => ({
-  //     ...prevData,
-  //     introduce: editorContent || prevData.introduce,
-  //   }));
-
-  //   console.log("Project Data:", projectData);
-  // };
-
-  const [projectCreate, { isLoading }] = usePostProjectMutation();
-
-  const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const editorContent = editorRef.current?.getInstance().getMarkdown();
-
-    // 마크다운 에디터 내용을 introduce에 설정하고 폼 데이터에 포함시킴
-    setProjectData((prevData) => ({
-      ...prevData,
-      introduce: editorContent || prevData.introduce,
-    }));
-
-    if (!isLoading) {
-      const res = await projectCreate(projectData);
-      console.log(res);
+    if (
+      newAllowType === WorkAllowFunctions.Key(WorkAllowEnum.NOT_ALLOW) ||
+      newAllowType === WorkAllowFunctions.Key(WorkAllowEnum.SECRET)
+    ) {
+      setProjectData((prevData) => ({
+        ...prevData,
+        allowType: newAllowType as "NOT_ALLOW" | "SECRET", // 타입 단언
+        date: null,
+        needMember: 0,
+      }));
+    } else {
+      setProjectData((prevData) => ({
+        ...prevData,
+        allowType: newAllowType as "ALL_ALLOW" | "REQUIRED_ALLOW" | null, // 타입 단언
+      }));
     }
   };
 
   // 참여방식 따라 셀렉트, 입력 방지
   const isAllowTypeRestricted =
     projectData.allowType === "NOT_ALLOW" || projectData.allowType === "SECRET";
+
+  // 프로젝트 생성 mutation
+  const [projectCreate, { isLoading }] = usePostProjectMutation();
+
+  const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isLoading) {
+      const res = await projectCreate(projectData);
+      console.log(res);
+    }
+  };
 
   return (
     <form onSubmit={onProjectCreateSubmit}>
@@ -187,15 +200,13 @@ export default function ProjectCreate() {
         <SingleSelector
           field="allowType"
           selectedOption={projectData.allowType}
-          onSelectChange={(option) =>
-            handleSingleSelectorChange("allowType", option)
-          }
+          onSelectChange={handleAllowTypeChange}
         />
       </div>
       <div>
         <p>기술 스택</p>
         <MultiSelector
-          selectedOptions={projectData.stacks}
+          // selectedOptions={projectData.stacks}
           onSelectChange={handleMultiSelectorChange}
         />
       </div>
@@ -207,6 +218,7 @@ export default function ProjectCreate() {
           onChange={handleEditorChange}
         />
       </div>
+      <div>{editorHTML}</div>
       <div>
         <input
           type="file"
@@ -219,145 +231,3 @@ export default function ProjectCreate() {
     </form>
   );
 }
-
-// 리액트 훅 폼 사용
-// import React, { useRef } from "react";
-// import { useForm } from "react-hook-form";
-// import Select from "react-select";
-// import SingleSelector, { OptionType } from "./SingleSelector";
-// import MultiSelector from "./MultiSelector";
-// import { MultiValue } from "react-select";
-// import MarkdownEditor from "./MarkdownEditor";
-// import { Editor } from "@toast-ui/react-editor";
-// import SingleCalendarSelector from "./SingleCalendarSelector";
-
-// interface ProjectFormData {
-//   name: string;
-//   subject: string | null;
-//   needMember: number;
-//   date: string | null;
-//   allowType: string | null;
-//   stack: string[];
-//   introduce: string;
-//   imageSrc: string;
-// }
-
-// export default function ProjectCreate() {
-//   const {
-//     register,
-//     handleSubmit,
-//     watch,
-//     setValue,
-//     formState: { errors },
-//   } = useForm<ProjectFormData>({
-//     defaultValues: {
-//       name: "",
-//       subject: null,
-//       needMember: 0,
-//       date: null,
-//       allowType: null,
-//       stack: [],
-//       introduce: "",
-//       imageSrc: "",
-//     },
-//   });
-
-//   const watchAllowType = watch("allowType");
-
-//   const onSubmit = (data: ProjectFormData) => {
-//     console.log("Project Data:", data);
-//   };
-
-//   const editorRef = useRef<Editor>(null);
-
-//   const handleEditorChange = (content: string) => {
-//     setValue("introduce", content);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       <div>
-//         <p>플젝 이름</p>
-//         <input
-//           type="text"
-//           {...register("name", { required: true })}
-//           placeholder="20자 이내로 입력해주세요"
-//         />
-//         {errors.name && <span>이 필드는 필수입니다.</span>}
-//       </div>
-//       <div>
-//         <p>분야</p>
-//         <SingleSelector
-//           field="subject"
-//           selectedOption={watch("subject")}
-//           onSelectChange={(option) =>
-//             setValue("subject", option ? option.value : null)
-//           }
-//         />
-//       </div>
-//       <div>
-//         <p>마감 기한</p>
-//         <SingleCalendarSelector
-//           selectedOption={watch("date")}
-//           onSelectChange={(option) =>
-//             setValue("date", option ? option.value : null)
-//           }
-//           isDisabled={
-//             watchAllowType === "NOT_ALLOW" || watchAllowType === "SECRET"
-//           }
-//         />
-//         {watch("date") === "date" && (
-//           <input type="date" {...register("date")} />
-//         )}
-//       </div>
-//       <div>
-//         <p>모집 인원</p>
-//         <input
-//           type="number"
-//           {...register("needMember", { required: true, min: 0, max: 10 })}
-//           placeholder="직접 입력해주세요. (최대 10명까지 가능)"
-//           disabled={
-//             watchAllowType === "NOT_ALLOW" || watchAllowType === "SECRET"
-//           }
-//         />
-//         {errors.needMember && <span>이 필드는 필수입니다.</span>}
-//       </div>
-//       <div>
-//         <p>멤버 참여 방식</p>
-//         <SingleSelector
-//           field="allowType"
-//           selectedOption={watch("allowType")}
-//           onSelectChange={(option) =>
-//             setValue("allowType", option ? option.value : null)
-//           }
-//         />
-//       </div>
-//       <div>
-//         <p>기술 스택</p>
-//         <MultiSelector
-//           selectedOptions={watch("stack")}
-//           onSelectChange={(selectedOptions: MultiValue<OptionType>) =>
-//             setValue(
-//               "stack",
-//               selectedOptions
-//                 ? selectedOptions.map((option) => option.value)
-//                 : []
-//             )
-//           }
-//         />
-//       </div>
-//       <div>
-//         <p>프로젝트 소개</p>
-//         <MarkdownEditor
-//           ref={editorRef}
-//           value={watch("introduce")}
-//           onChange={handleEditorChange}
-//         />
-//       </div>
-//       <div>
-//         <input type="file" {...register("imageSrc")} />
-//       </div>
-//       <button type="submit">프로젝트 생성</button>
-//     </form>
-//   );
-// }

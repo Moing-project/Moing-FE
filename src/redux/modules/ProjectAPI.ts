@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { ResponseData } from "../types/BaseRequestType";
-import { ProjectType } from "../types/LoginType";
+import { ProjectType } from "../types/ProjectType";
 import { axiosBaseQuery, instance } from "../config/axios";
 
 export const ProjectAPI = createApi({

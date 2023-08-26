@@ -19,8 +19,9 @@ const ToastEditor: React.ForwardRefRenderFunction<Editor, ToastEditorProps> = (
       placeholder="프로젝트에 대한 자세한 소개를 작성해주세요."
       previewStyle="vertical"
       hideModeSwitch={true}
-      onChange={(e) => onChange(e)}
-      height="500px"
+      onChange={onChange}
+      minHeight="500px" // 최소 높이 설정
+      height="auto"
       initialEditType="wysiwyg"
       useCommandShortcut={true}
       toolbarItems={[

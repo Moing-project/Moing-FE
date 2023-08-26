@@ -27,6 +27,12 @@ export enum WorkAllowEnum {
 }
 
 export class WorkAllowFunctions {
+  static Key(target: WorkAllowEnum) {
+    return Object.keys(WorkAllowEnum)[
+      Object.values(WorkAllowEnum).indexOf(target)
+    ] as keyof typeof WorkAllowEnum;
+  }
+
   static GetWorkAllowEnumsAsObject() {
     const enumKeys = Object.keys(
       WorkAllowEnum
