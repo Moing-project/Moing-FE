@@ -1,14 +1,15 @@
-import { Routes, Route } from "react-router-dom";
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
-import Rending from "./page/Rending/Rending";
-import Main from "./page/Main";
-import Projects from "./page/Projects/Projects";
-import NotFound from "./page/NotFound";
-import SignIn from "./page/SignIn/SignIn";
-import Login from "./page/Login/Login";
-import SignInDone from "./page/SignInDone";
-import ProjectCreate from "./page/ProjectCreate/ProjectCreate";
+import { Routes, Route } from 'react-router-dom';
+import Footer from './layout/Footer';
+import Header from './layout/Header';
+import Rending from './page/Rending/Rending';
+import Main from './page/Main';
+import Projects from './page/Projects/Projects';
+import NotFound from './page/NotFound';
+import SignIn from './page/SignIn/SignIn';
+import Login from './page/Login/Login';
+import SignInDone from './page/SignInDone';
+import ProjectCreate from './page/ProjectCreate/ProjectCreate';
+import ProjectDetail from './page/ProjectDetails/ProjectDetail';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/main" element={<Main />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/create" element={<ProjectCreate />} />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin/done" element={<SignInDone />} />
         <Route path="/login" element={<Login />} />
