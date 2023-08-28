@@ -4,7 +4,10 @@ import { styled } from "styled-components";
 import * as I from "../../components/UsingIcons";
 import ProjectsListItem, { ProjectListLi } from "./ProjectsListItem";
 
-export default function ProjectsList() {
+export default function ProjectsList({ data }: any) {
+  if (!data) {
+    return null;
+  }
   // 예시 데이터
   const projects = [
     {
@@ -67,7 +70,7 @@ export default function ProjectsList() {
             그러하면 원하는 프로젝트를 빠르게 생성해보세요!
           </p>
         </ProjectListMakeLi>
-        {projects.map((project) => (
+        {data.map((project: any, index: any) => (
           <ProjectsListItem key={project.id} project={project} />
         ))}
       </ProjectsListUl>

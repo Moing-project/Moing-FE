@@ -27,7 +27,23 @@ export const ProjectAPI = createApi({
         return response as ResponseData<any>;
       },
     }),
+    getProjects: builder.query({
+      query: () => ({
+        url: "/team",
+        method: "get",
+      }),
+      transformResponse: (response, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response as ResponseData<any>;
+      },
+      onQueryStarted: (arg, api) => {
+        console.log("arg", arg);
+        console.log("api", api);
+      },
+    }),
   }),
 });
 
-export const { usePostProjectMutation } = ProjectAPI;
+export const { usePostProjectMutation, useGetProjectsQuery } = ProjectAPI;

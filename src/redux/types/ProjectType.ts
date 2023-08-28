@@ -10,3 +10,13 @@ export type ProjectType = {
   introduce: string;
   imageSrc: string;
 };
+
+export type GetProjectsType = {
+  imageSrc: string;
+  name: string;
+  stacks: string[];
+  introduce: string;
+  endTime: string;
+};
+
+export type GetProjectListType = GetProjectsType[];
