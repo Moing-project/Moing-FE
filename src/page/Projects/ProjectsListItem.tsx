@@ -1,31 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
-type ProjectsBannerCardProps = {
-  project: {
-    id: number;
-    type: string;
-    imgUrl: string;
-    name: string;
-    stacks: string[];
-    introduce: string;
-    state: string;
-  };
-};
+export default function ProjectsListItem({ project }: any) {
+  const { id, name, stacks, imageSrc, introduce, endTime } = project;
 
-const ProjectsListItem: React.FC<ProjectsBannerCardProps> = ({ project }) => {
-  const { type, name, stacks, state, imgUrl, introduce } = project;
+  const navigate = useNavigate();
+
+  const handleItemClick = () => {
+    navigate(`/project/${id}`);
+  };
+
+  const [isExpired, setIsExpired] = useState(false);
+  const [daysRemaining, setDaysRemaining] = useState(0);
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const endDateTime = new Date(endTime);
+
+    if (endDateTime <= currentTime) {
+      setIsExpired(true);
+    } else {
+      setIsExpired(false);
+      const timeDiff = endDateTime.getTime() - currentTime.getTime();
+      const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      setDaysRemaining(days);
+    }
+  }, [endTime]);
 
   return (
-    <ProjectListCardLi>
+    <ProjectListCardLi onClick={handleItemClick}>
       <div className="head">
-        <img src={imgUrl} alt="" />
+        <img src={imageSrc} alt="" />
         <div>
-          <p>
-            [{type}] {name}
-          </p>
+          <p>{name}</p>
           <ul>
-            {stacks.map((stack, index) => (
+            {stacks.map((stack: any, index: any) => (
               <li key={index}>{stack}</li>
             ))}
           </ul>
@@ -33,13 +43,13 @@ const ProjectsListItem: React.FC<ProjectsBannerCardProps> = ({ project }) => {
       </div>
       <div className="body">
         <p className="introduce">{introduce}</p>
-        <p className="state">{state}</p>
+        <p className="state">
+          {isExpired ? "마감" : `모집 마감까지 D-${daysRemaining}`}
+        </p>
       </div>
     </ProjectListCardLi>
   );
-};
-
-export default ProjectsListItem;
+}
 
 export const ProjectListLi = styled.li`
   box-sizing: border-box;

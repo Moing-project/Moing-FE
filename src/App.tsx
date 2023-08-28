@@ -23,9 +23,7 @@ function App() {
         <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin/done" element={<SignInDone />} />
-
         <Route path="/login" element={<Login />} />
-
         {/* 상단에 위치하는 라우트들의 규칙 중 일치하는 라우트가 없다면 아래가 화면에 나타남 */}
         <Route path="*" element={<NotFound />}></Route>
       </Routes>

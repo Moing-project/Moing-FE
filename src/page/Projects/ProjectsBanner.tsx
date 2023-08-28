@@ -1,4 +1,3 @@
-import React from "react";
 import ProjectsBannerCard from "./ProjectsBannerCard";
 
 export default function ProjectsBanner() {

@@ -1,1 +1,1 @@
-### add, modify: Project, ProjectCreate 페이지 생성, 수정, 구현 중
+### add: 모집 글 리스트 서버 연결 

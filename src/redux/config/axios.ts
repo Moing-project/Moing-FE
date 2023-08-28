@@ -18,6 +18,7 @@ instance.interceptors.request.use(
     let accessToken;
     config.headers.Authorization =
       !!(accessToken = localStorage.getItem("Authorization")) && accessToken;
+    console.log("accessToken", accessToken);
     return config;
   },
   function (error) {
