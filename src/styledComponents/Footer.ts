@@ -3,9 +3,9 @@ import { styled } from 'styled-components';
 const FooterLayout = styled.div`
   width: 100%;
   background-color: #f4f4f4;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
 `;
 
 const FooterContainer = styled.div`
