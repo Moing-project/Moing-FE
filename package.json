@@ -19,9 +19,15 @@
     "@types/react-slick": "^0.23.10",
     "@uiw/react-md-editor": "^3.23.5",
     "axios": "^1.4.0",
+<<<<<<< HEAD
     "marked": "^7.0.5",
     "react": "^18.2.0",
     "react-cookie": "^6.1.0",
+=======
+    "bootstrap": "^5.3.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
+>>>>>>> b5e63e9 ([add]페이지네이션디자인)
     "react-dom": "^18.2.0",
     "react-fullpage": "^0.1.19",
     "react-hook-form": "^7.45.4",
