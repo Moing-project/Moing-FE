@@ -13,7 +13,16 @@ import ProjectCreate from "./page/ProjectCreate/ProjectCreate";
 import ProjectDetail from "./page/ProjectDetails/ProjectDetail";
 
 function App() {
+  const location = window.location;
+  const isMoingSpace = location.hostname.startsWith("moingspace");
+
   const hasToken = localStorage.getItem("Authorization") !== null;
+
+  // "moingspace" 서브도메인에 접속하면 다른 URL로 리다이렉트
+  if (isMoingSpace) {
+    window.location.href = "moingspace.localhost:3000"; // 원하는 URL로 변경
+    return null; // 리다이렉트 후 렌더링을 중단하기 위해 null 반환
+  }
 
   return (
     <>

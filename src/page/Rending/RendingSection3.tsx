@@ -28,6 +28,9 @@ function RendingSection3() {
                 $status="active"
                 $width="long"
                 $height="high"
+                onClick={() => {
+                  window.location.href = "moingspace.127.0.0.1:3000";
+                }}
               >
                 모잉 둘러보기
               </PrimaryBtn>
