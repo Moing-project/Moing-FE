@@ -1,13 +1,18 @@
 import React from "react";
-import { styled } from "styled-components";
 
 import * as I from "../../components/UsingIcons";
-import ProjectsListItem, { ProjectListLi } from "./ProjectsListItem";
+import * as S from "../../styledComponents/Projects";
+import ProjectsListItem from "./ProjectsListItem";
+import { useNavigate } from "react-router-dom";
+import { SearchBox } from "../../styledComponents/commons/SearchInput";
 
 export default function ProjectsList({ data }: any) {
+  const navigate = useNavigate();
+
   if (!data) {
     return null;
   }
+
   // 예시 데이터
   const projects = [
     {
@@ -52,62 +57,36 @@ export default function ProjectsList({ data }: any) {
   ];
 
   return (
-    <section>
+    <S.ProjectListSection>
+      <h1 className="mainTitle">전체 팀 목록</h1>
       <article>
         <nav>
           <select name="" id=""></select>
           <select name="" id=""></select>
           <select name="" id=""></select>
         </nav>
-        <nav>검색창</nav>
+        <SearchBox>
+          <I.Search />
+          <input
+            type="text"
+            placeholder="팀, 프로젝트, 워크스페이스 전체 검색"
+            style={{ width: "240px" }}
+          />
+        </SearchBox>
       </article>
-      <ProjectsListUl>
-        <ProjectListMakeLi>
+      <S.ProjectsListUl>
+        <S.ProjectListMakeLi onClick={() => navigate("/projects/create")}>
           <h1>빠른 프로젝트 생성하기</h1>
           <I.ProjectMake />
           <p>
             내가 원하는 프로젝트가 없나요? <br />
             그러하면 원하는 프로젝트를 빠르게 생성해보세요!
           </p>
-        </ProjectListMakeLi>
-        {data.map((project: any, index: any) => (
+        </S.ProjectListMakeLi>
+        {data.map((project: any) => (
           <ProjectsListItem key={project.id} project={project} />
         ))}
-      </ProjectsListUl>
-    </section>
+      </S.ProjectsListUl>
+    </S.ProjectListSection>
   );
 }
-
-const ProjectsListUl = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 368px);
-  grid-auto-rows: 244px;
-  gap: 16px;
-`;
-
-const ProjectListMakeLi = styled(ProjectListLi)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
-
-  h1 {
-    color: var(--font-main);
-    text-align: center;
-
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 22px; /* 122.222% */
-  }
-
-  p {
-    color: #858585;
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 17px; /* 121.429% */
-  }
-`;

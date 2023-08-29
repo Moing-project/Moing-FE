@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, ReactNode } from "react";
 import SingleSelector, { OptionType } from "./SingleSelector";
 import MultiSelector from "./MultiSelector";
 import { MultiValue } from "react-select";
@@ -92,9 +92,6 @@ export default function ProjectCreate() {
 
   // 에디터 함수 -> 소개
   const editorRef = useRef<Editor | null>(null);
-
-  // html 테스트
-  const editorHTML = editorRef.current!.getInstance().getHTML();
 
   const handleEditorChange = () => {
     const editorMarkdown = editorRef.current!.getInstance().getMarkdown();
@@ -218,7 +215,6 @@ export default function ProjectCreate() {
           onChange={handleEditorChange}
         />
       </div>
-      <div>{editorHTML}</div>
       <div>
         <input
           type="file"

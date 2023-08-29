@@ -10,6 +10,10 @@ import { ReactComponent as Google } from "../assets/icons/google.svg";
 import { ReactComponent as Kakao } from "../assets/icons/kakaotalk.svg";
 import { ReactComponent as Naver } from "../assets/icons/naver.svg";
 
+import { ReactComponent as Search } from "../assets/icons/search.svg";
+import { ReactComponent as Alert } from "../assets/icons/alert.svg";
+import { ReactComponent as Chat } from "../assets/icons/chat.svg";
+
 export {
   Remove,
   Hide,
@@ -20,4 +24,7 @@ export {
   Kakao,
   Naver,
   ProjectMake,
+  Search,
+  Alert,
+  Chat,
 };

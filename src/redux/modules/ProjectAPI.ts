@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { ResponseData } from "../types/BaseRequestType";
-import { ProjectType } from "../types/ProjectType";
+import { OneProjectType, ProjectType } from "../types/ProjectType";
 import { axiosBaseQuery, instance } from "../config/axios";
 
 export const ProjectAPI = createApi({
@@ -43,7 +43,27 @@ export const ProjectAPI = createApi({
         console.log("api", api);
       },
     }),
+    getOneProject: builder.query({
+      query: (payload) => ({
+        url: `/work/${payload?.projectId}`,
+        method: "get",
+      }),
+      transformResponse: (response, meta, arg) => {
+        console.log("response", response);
+        console.log("meta", meta);
+        console.log("arg", arg);
+        return response as OneProjectType;
+      },
+      onQueryStarted: (arg, api) => {
+        console.log("arg", arg);
+        console.log("api", api);
+      },
+    }),
   }),
 });
 
-export const { usePostProjectMutation, useGetProjectsQuery } = ProjectAPI;
+export const {
+  usePostProjectMutation,
+  useGetProjectsQuery,
+  useGetOneProjectQuery,
+} = ProjectAPI;

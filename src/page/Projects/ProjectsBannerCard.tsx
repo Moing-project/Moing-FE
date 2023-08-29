@@ -1,30 +1,32 @@
-import React from "react";
+import { ProjectBannerSection } from "../../styledComponents/Projects";
+import { PrimaryBtn } from "../../components/Buttons";
+import { WorkAllowEnum, WorkStackEnum } from "../../types/WorkEnums";
 
-type ProjectsBannerCardProps = {
-  card: {
-    id: number;
-    type: string;
-    name: string;
-    stacks: string[];
-    state: string;
-  };
-};
-
-const ProjectsBannerCard: React.FC<ProjectsBannerCardProps> = ({ card }) => {
-  const { type, name, stacks, state } = card;
+export default function ProjectsBannerCard({ card }: any) {
+  const { name, stacks, allowType, imageSrc } = card;
 
   return (
-    <article className="project-banner-card">
-      <h3>{type}</h3>
-      <h2>{name}</h2>
-      <ul>
-        {stacks.map((stack, index) => (
-          <li key={index}>{stack}</li>
-        ))}
-      </ul>
-      <p>{state}</p>
-    </article>
+    <ProjectBannerSection>
+      <figure>
+        <img src={imageSrc} alt="" />
+      </figure>
+      <figcaption>
+        <h1>{name}</h1>
+        <ul>
+          {stacks.map((stack: any, index: any) => (
+            <PrimaryBtn
+              $shape="solid"
+              $status="active"
+              $width="xshort"
+              $height="xlow"
+              key={index}
+            >
+              {WorkStackEnum[stack as keyof typeof WorkStackEnum]}
+            </PrimaryBtn>
+          ))}
+        </ul>
+      </figcaption>
+      <p>{WorkAllowEnum[allowType as keyof typeof WorkAllowEnum]}</p>
+    </ProjectBannerSection>
   );
-};
-
-export default ProjectsBannerCard;
+}

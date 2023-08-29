@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
-import { Devider } from './commons/commonStyle';
+import { styled } from "styled-components";
+import { Devider } from "./commons/commonStyle";
 
 export const ProjectDetailLayout = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const ProjectDetailLayout = styled.div`
 `;
 
 export const ProjectDetailMain = styled.main`
-  width: 100%;
+  min-width: 655px;
 `;
 
 export const ProjectDetailDevider = styled(Devider)`
@@ -38,7 +38,8 @@ export const Layout = styled.div`
 
     img {
       width: 120px;
-      /* height: 120px; */
+      height: 120px;
+      object-fit: cover;
     }
   }
 
@@ -150,5 +151,56 @@ export const Box3 = styled.div`
     font-weight: 500;
     bottom: 0;
     /* gap: 300px; */
+  }
+`;
+
+export const restoredTagStyles = styled.div`
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 1em 0;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 1em 0;
+  }
+
+  h3 {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin: 1em 0;
+  }
+
+  p {
+    font-size: 1em;
+    margin: 1em 0;
+  }
+
+  ul {
+    margin: 1em 0;
+    padding-left: 1.2em;
+  }
+
+  ol {
+    margin: 1em 0;
+    padding-left: 1.2em;
+  }
+
+  li {
+    font-size: 1em;
+  }
+
+  blockquote {
+    border-left: 5px solid #ccc;
+    margin: 1em 0;
+    padding-left: 1em;
+  }
+
+  hr {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin: 1em 0;
   }
 `;

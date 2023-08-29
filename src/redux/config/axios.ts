@@ -7,9 +7,11 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import { AxiosArgs, ResponseData } from "../types/BaseRequestType";
+import { Cookies } from "react-cookie";
 
 export const instance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
+  // withCredentials: true, // 쿠키를 사용하도록 설정합니다.
 });
 
 // 요청 인터셉터 - 토큰 추가
@@ -26,6 +28,21 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+//쿠키
+// const cookies = new Cookies();
+// instance.interceptors.request.use(
+//   function (config: InternalAxiosRequestConfig<any>) {
+//     let accessToken = cookies.get("Authorization"); // 쿠키에서 토큰을 가져옵니다.
+//     config.headers.Authorization = accessToken;
+//     console.log("accessToken", accessToken);
+//     return config;
+//   },
+//   function (error) {
+//     // 요청 오류가 있는 작업 수행
+//     return Promise.reject(error);
+//   }
+// );
 
 // 응답 인터셉터 - 상태 코드가 200인 경우 응답 데이터를 반환 /아닐 경우 응답 데이터의 msg 필드를 반환
 instance.interceptors.response.use(

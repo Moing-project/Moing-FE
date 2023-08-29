@@ -20,3 +20,22 @@ export type GetProjectsType = {
 };
 
 export type GetProjectListType = GetProjectsType[];
+
+// 프로젝트 디테일 타입
+type Member = {
+  userId: number;
+  profileImage: string;
+  nickname: string;
+};
+
+export type OneProjectType = {
+  name: string;
+  subject: string;
+  totalMember: number;
+  lastTime: string | number | Date | undefined;
+  allowType: string;
+  stacks: string[];
+  introduce: string;
+  imageSrc: string;
+  members: Member[];
+};

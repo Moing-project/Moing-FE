@@ -3,7 +3,7 @@ import * as S from "../styledComponents/Header";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function HeaderWithoutToken() {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -17,10 +17,12 @@ export default function Header() {
   return (
     <S.HeaderLayout>
       <S.HeaderBox>
-        <Link to="">
-          <Logo />
-        </Link>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div>
+          <Link to="">
+            <Logo />
+          </Link>
+        </div>
+        <nav style={{ display: "flex", gap: "10px" }}>
           <PrimaryBtn
             onClick={handleLoginClick}
             $shape="filled"
@@ -39,7 +41,7 @@ export default function Header() {
           >
             회원가입
           </PrimaryBtn>
-        </div>
+        </nav>
       </S.HeaderBox>
     </S.HeaderLayout>
   );

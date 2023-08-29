@@ -45,7 +45,12 @@ export default function LoginForms() {
           email: email,
           password: password,
         });
-        console.log(res);
+
+        if (res) {
+          // 로그인이 성공한 경우 /projects 페이지로 이동
+          window.location.href = "/projects";
+          console.log(res);
+        }
       }
     }
   };
