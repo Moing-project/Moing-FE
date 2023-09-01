@@ -1,60 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 
 import * as I from "../../components/UsingIcons";
 import * as S from "../../styledComponents/Projects";
 import ProjectsListItem from "./ProjectsListItem";
 import { useNavigate } from "react-router-dom";
 import { SearchBox } from "../../styledComponents/commons/SearchInput";
+import Pagination from "../../components/Pagination";
 
 export default function ProjectsList({ data }: any) {
   const navigate = useNavigate();
+
+  // 페이지네이션 상태
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
+  const ITEM_PER_PAGE = 15; // 페이지당 아이템 수
+
+  // 검색어 상태
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
+  const [isEmpty, setIsEmpty] = useState<boolean>(searchTerm === "");
 
   if (!data) {
     return null;
   }
 
-  // 예시 데이터
-  const projects = [
-    {
-      id: 0,
-      imgUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj_2nw26JrrVHk4gxXiRUdgzNu5Bcx-zk9nA&usqp=CAU",
-      type: "프로젝트",
-      name: "백엔드 빽빽하게! 채워나가 볼까요?",
-      stacks: ["파이썬", "플라스크"],
-      introduce:
-        "안녕하세요! 백엔드를 전문적으로 공부하고 있는 개간지 이노1팀입니다. 저희 같은 경우는 머리카락을 뽑으면 분신술을 사용할 수 있습니다. 감사합니다",
-      state: "모집 시 마감",
-    },
-    {
-      id: 1,
-      imgUrl: "bit.ly/45eUEXa",
+  // 검색어 입력 핸들러
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newValue = event.target.value;
+    setSearchTerm(newValue);
+    setCurrentPage(1); // 검색어가 변경될 때 페이지를 1로 초기화
+    setIsEmpty(newValue === "");
+  };
 
-      type: "프로젝트",
-      name: "백엔드 빽빽하게! 채워나가 볼까요?",
-      stacks: ["파이썬", "리액트"],
-      introduce: "안녕하세요!",
-      state: "모집 마감",
-    },
-    {
-      id: 2,
-      imgUrl: "bit.ly/45eUEXa",
-      type: "프로젝트",
-      name: "백엔드 빽빽하게! 채워나가 볼까요?",
-      stacks: ["파이썬", "리액트"],
-      introduce: "안녕하세요!",
-      state: "모집 마감",
-    },
-    {
-      id: 3,
-      imgUrl: "bit.ly/45eUEXa",
-      type: "프로젝트",
-      name: "백엔드 빽빽하게! 채워나가 볼까요?",
-      stacks: ["파이썬", "리액트"],
-      introduce: "안녕하세요!",
-      state: "모집 마감",
-    },
-  ];
+  const clearValue = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSearchTerm("");
+    setIsEmpty(true);
+    e.preventDefault();
+  };
+
+  // 필터링된 데이터
+  const filteredData = data.filter((project: any) =>
+    project.name?.toLowerCase().includes(searchTerm)
+  );
+
+  // 페이징
+  const startIndex = (currentPage - 1) * ITEM_PER_PAGE;
+  const endIndex = startIndex + ITEM_PER_PAGE;
+  const totalPages = Math.ceil(filteredData.length / ITEM_PER_PAGE);
+  const itemsToDisplay = filteredData.slice(startIndex, endIndex);
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <S.ProjectListSection>
@@ -63,15 +61,20 @@ export default function ProjectsList({ data }: any) {
         <nav>
           <select name="" id=""></select>
           <select name="" id=""></select>
-          <select name="" id=""></select>
         </nav>
-        <SearchBox>
-          <I.Search />
-          <input
-            type="text"
-            placeholder="팀, 프로젝트, 워크스페이스 전체 검색"
-            style={{ width: "240px" }}
-          />
+        <SearchBox $isEmpty={isEmpty}>
+          <div>
+            <I.Search />
+            <input
+              type="text"
+              placeholder="프로젝트 이름으로 검색해보세요"
+              value={searchTerm}
+              onChange={handleSearchInputChange}
+            />
+          </div>
+          <button onClick={clearValue}>
+            <I.Remove />
+          </button>
         </SearchBox>
       </article>
       <S.ProjectsListUl>
@@ -83,10 +86,15 @@ export default function ProjectsList({ data }: any) {
             그러하면 원하는 프로젝트를 빠르게 생성해보세요!
           </p>
         </S.ProjectListMakeLi>
-        {data.map((project: any) => (
+        {itemsToDisplay.map((project: any) => (
           <ProjectsListItem key={project.id} project={project} />
         ))}
       </S.ProjectsListUl>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </S.ProjectListSection>
   );
 }
