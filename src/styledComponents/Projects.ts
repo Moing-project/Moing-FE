@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-type Props = {
+type ProjectListCardLiProps = {
   $isExpired: boolean;
 };
 
@@ -37,7 +37,8 @@ export const ProjectsListUl = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 40vh;
-  gap: 16px;
+  gap: 30px;
+  margin-bottom: 72px;
 `;
 
 export const ProjectListLi = styled.li`
@@ -45,7 +46,7 @@ export const ProjectListLi = styled.li`
   padding: 25px;
   border-radius: 16px;
   background: #fff;
-  box-shadow: 0px 0px 18px -4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 18px -4px rgba(0, 0, 0, 0.2);
 
   cursor: pointer;
   transition: transform 0.3s;
@@ -82,7 +83,7 @@ export const ProjectListMakeLi = styled(ProjectListLi)`
   }
 `;
 
-export const ProjectListCardLi = styled(ProjectListLi)<Props>`
+export const ProjectListCardLi = styled(ProjectListLi)<ProjectListCardLiProps>`
   position: relative;
 
   .head {
@@ -210,5 +211,9 @@ export const ProjectListSection = styled.section`
   article {
     display: flex;
     justify-content: space-between;
+
+    nav {
+      display: flex;
+    }
   }
 `;

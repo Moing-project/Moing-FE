@@ -14,6 +14,11 @@ import { ReactComponent as Search } from "../assets/icons/search.svg";
 import { ReactComponent as Alert } from "../assets/icons/alert.svg";
 import { ReactComponent as Chat } from "../assets/icons/chat.svg";
 
+import { ReactComponent as Before } from "../assets/icons/before.svg";
+import { ReactComponent as After } from "../assets/icons/after.svg";
+import { ReactComponent as First } from "../assets/icons/first.svg";
+import { ReactComponent as Last } from "../assets/icons/last.svg";
+
 export {
   Remove,
   Hide,
@@ -27,4 +32,8 @@ export {
   Search,
   Alert,
   Chat,
+  Before,
+  After,
+  First,
+  Last,
 };

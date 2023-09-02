@@ -1,6 +1,6 @@
 import Select, { MultiValue } from "react-select";
 import { WorkStackEnum } from "../../types/WorkEnums";
-import { OptionType } from "./SingleSelector";
+import { OptionType } from "./SingleCalendarSelector";
 
 const options = Object.keys(WorkStackEnum).map((key) => ({
   value: key as keyof typeof WorkStackEnum,
@@ -10,11 +10,13 @@ const options = Object.keys(WorkStackEnum).map((key) => ({
 interface MultiSelectorProps {
   selectedOptions?: MultiValue<OptionType>;
   onSelectChange: (selectedOptions: MultiValue<OptionType>) => void;
+  placeholder?: string;
 }
 
 export default function MultiSelector({
   selectedOptions,
   onSelectChange,
+  placeholder,
 }: MultiSelectorProps) {
   const handleClearAll = () => {
     onSelectChange([] as MultiValue<OptionType>); // 선택된 옵션들을 빈 배열로 업데이트
@@ -23,6 +25,7 @@ export default function MultiSelector({
   return (
     <Select
       value={selectedOptions}
+      placeholder={placeholder}
       isMulti
       onChange={(newValue, actionMeta) => {
         if (actionMeta.action === "select-option") {

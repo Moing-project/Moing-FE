@@ -14,7 +14,6 @@ export default function Projects() {
         <ProjectsBanner data={data} />
       </div>
       <ProjectsList data={data} />
-      <div>페이지네이션</div>
     </ProjectsLayout>
   );
 }
