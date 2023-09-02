@@ -211,5 +211,9 @@ export const ProjectListSection = styled.section`
   article {
     display: flex;
     justify-content: space-between;
+
+    nav {
+      display: flex;
+    }
   }
 `;

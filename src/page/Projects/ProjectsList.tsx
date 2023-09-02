@@ -1,22 +1,46 @@
 import React, { useState } from "react";
-
 import * as I from "../../components/UsingIcons";
 import * as S from "../../styledComponents/Projects";
 import ProjectsListItem from "./ProjectsListItem";
 import { useNavigate } from "react-router-dom";
 import { SearchBox } from "../../styledComponents/commons/SearchInput";
 import Pagination from "../../components/Pagination";
+import SearchSelector, { OptionType } from "./SearchSelector";
+import { MultiValue } from "react-select";
+import MultiSelector from "../ProjectCreate/MultiSelector";
 
 export default function ProjectsList({ data }: any) {
   const navigate = useNavigate();
 
   // 페이지네이션 상태
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
-  const ITEM_PER_PAGE = 15; // 페이지당 아이템 수
+  const ITEM_PER_PAGE = 2; // 페이지당 아이템 수
 
   // 검색어 상태
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const [isEmpty, setIsEmpty] = useState<boolean>(searchTerm === "");
+
+  // 싱글 셀렉터 함수 -> 분야
+  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+
+  const handleSingleSelectorChange = (
+    field: string,
+    option: OptionType | null
+  ) => {
+    setSelectedSubject(option ? option.value : null);
+    console.log(selectedSubject);
+  };
+
+  // 멀티 셀렉터 함수 -> 스택
+  const [selectedStacks, setSelectedStacks] = useState<string[] | null>([]);
+
+  const handleMultiSelectorChange = (
+    selectedOptions: MultiValue<OptionType>
+  ) => {
+    setSelectedStacks(selectedOptions.map((option) => option.value));
+  };
+
+  const [toggleExpired, setToggleExpired] = useState();
 
   if (!data) {
     return null;
@@ -59,8 +83,19 @@ export default function ProjectsList({ data }: any) {
       <h1 className="mainTitle">전체 팀 목록</h1>
       <article>
         <nav>
-          <select name="" id=""></select>
-          <select name="" id=""></select>
+          <SearchSelector
+            field="subject"
+            selectedOption={selectedSubject}
+            onSelectChange={(option) =>
+              handleSingleSelectorChange("subject", option)
+            }
+            placeholder="프로젝트 분야"
+          />
+          <MultiSelector
+            // selectedOptions={projectData.stacks}
+            onSelectChange={handleMultiSelectorChange}
+            placeholder="기술 스택"
+          />
         </nav>
         <SearchBox $isEmpty={isEmpty}>
           <div>

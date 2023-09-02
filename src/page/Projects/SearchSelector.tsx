@@ -14,37 +14,42 @@ interface SingleSelectorProps {
   placeholder?: string;
 }
 
-export default function SingleSelector({
+export default function SearchSelector({
   field,
   selectedOption,
   onSelectChange,
   placeholder,
 }: SingleSelectorProps) {
-  const [options, setOptions] = useState<OptionType[]>([]); // 옵션 데이터 상태 추가
+  const [options, setOptions] = useState<OptionType[]>([]);
 
   useEffect(() => {
-    // 옵션 데이터 설정 로직
     let newOptions: OptionType[] = [];
 
     switch (field) {
       case "subject":
-        newOptions = Object.keys(WorkTypeEnum).map((key) => ({
-          value: key as keyof typeof WorkTypeEnum,
-          label: WorkTypeEnum[key as keyof typeof WorkTypeEnum],
-        }));
+        newOptions = [
+          { value: "", label: "전체 선택" }, // 전체 선택 옵션 추가
+          ...Object.keys(WorkTypeEnum).map((key) => ({
+            value: key as keyof typeof WorkTypeEnum,
+            label: WorkTypeEnum[key as keyof typeof WorkTypeEnum],
+          })),
+        ];
         break;
       case "allowType":
-        newOptions = Object.keys(WorkAllowEnum).map((key) => ({
-          value: key as keyof typeof WorkAllowEnum,
-          label: WorkAllowEnum[key as keyof typeof WorkAllowEnum],
-        }));
+        newOptions = [
+          { value: "", label: "전체 선택" }, // 전체 선택 옵션 추가
+          ...Object.keys(WorkAllowEnum).map((key) => ({
+            value: key as keyof typeof WorkAllowEnum,
+            label: WorkAllowEnum[key as keyof typeof WorkAllowEnum],
+          })),
+        ];
         break;
       default:
         break;
     }
 
     setOptions(newOptions);
-  }, [field]); // field 변경 시에만 실행
+  }, [field]);
 
   return (
     <Select<OptionType>

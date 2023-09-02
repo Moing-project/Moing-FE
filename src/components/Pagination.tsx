@@ -61,7 +61,7 @@ export default function Pagination({
         <Before />
       </S.PaginationNaviBtn>
       <div>
-        {[...Array(totalPages)].map((_, index) => (
+        {[...Array(totalPages)]?.map((_, index) => (
           <S.PaginationPageBtn
             key={index}
             onClick={() => goToPage(index + 1)}
