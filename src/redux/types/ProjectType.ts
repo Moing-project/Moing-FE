@@ -1,14 +1,18 @@
-import { WorkStackEnum } from "../../types/WorkEnums";
+import {
+  WorkAllowEnum,
+  WorkStackEnum,
+  WorkTypeEnum,
+} from "../../types/WorkEnums";
 
 export type ProjectType = {
   title: string;
-  subject: string | null;
+  subject: keyof typeof WorkTypeEnum | null;
   needMember: number;
   date: string | null;
-  allowType: string | null;
+  allowType: keyof typeof WorkAllowEnum | null;
   stacks: Array<keyof typeof WorkStackEnum | null>;
   introduce: string;
-  imageSrc: string;
+  imageSrc: Array<string> | undefined;
 };
 
 export type GetProjectsType = {

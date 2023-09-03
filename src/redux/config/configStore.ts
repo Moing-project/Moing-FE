@@ -3,21 +3,21 @@ import { configureStore } from "@reduxjs/toolkit";
 import { LoginAPI } from "../modules/LoginAPI";
 import { ProjectAPI } from "../modules/ProjectAPI";
 import SignInRTK from "../modules/SignInRTK";
-// import { Imageapi } from "../modules/ImageAPI";
+import { Imageapi } from "../modules/ImageAPI";
 
 const store = configureStore({
   reducer: {
     [LoginAPI.reducerPath]: LoginAPI.reducer,
     [ProjectAPI.reducerPath]: ProjectAPI.reducer,
     [SignInRTK.name]: SignInRTK.reducer,
-    // [Imageapi.reducerPath]: Imageapi.reducer,
+    [Imageapi.reducerPath]: Imageapi.reducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
     LoginAPI.middleware,
     ProjectAPI.middleware,
+    Imageapi.middleware,
   ],
-  //   .concat(Imageapi.middleware),
 });
 
 export default store;

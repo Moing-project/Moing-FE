@@ -1,4 +1,4 @@
-import React, { useState, useRef, ReactNode } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SingleSelector, { OptionType } from "./SingleSelector";
 import MultiSelector from "./MultiSelector";
 import { MultiValue } from "react-select";
@@ -12,6 +12,7 @@ import {
   WorkTypeEnum,
   WorkStackEnum,
 } from "../../types/WorkEnums";
+import { useUploadImageMutation } from "../../redux/modules/ImageAPI";
 
 interface ProjectFormData {
   title: string;
@@ -21,7 +22,7 @@ interface ProjectFormData {
   allowType: keyof typeof WorkAllowEnum | null;
   stacks: Array<keyof typeof WorkStackEnum | null>;
   introduce: string;
-  imageSrc: string;
+  imageSrc: Array<string> | undefined;
 }
 
 export default function ProjectCreate() {
@@ -33,8 +34,35 @@ export default function ProjectCreate() {
     allowType: null,
     stacks: [],
     introduce: "",
-    imageSrc: "",
+    imageSrc: [],
   });
+
+  // 파일 함수 -> 프로젝트 썸네일
+  const [image, setImage] = useState<Array<File>>();
+  const [isImageUploaded, setImageUploaded] = useState<boolean>(false); // 이미지 업로드 완료 여부
+
+  const [upload, { isLoading: uploadLoading }] = useUploadImageMutation();
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setImage(Array.from(event.target.files as FileList));
+  };
+
+  const uploadHandler = async () => {
+    if (!uploadLoading) {
+      const payload = new FormData();
+      for (const file of image as Array<File>) {
+        payload.append("imageFile", file);
+      }
+      const res = await upload(payload);
+      if ("data" in res) {
+        setProjectData((prevData) => ({
+          ...prevData,
+          imageSrc: res.data.data,
+        }));
+        setImageUploaded(true); // 이미지 업로드 완료 표시
+      }
+    }
+  };
 
   // 인풋 함수 -> 이름, 인원
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,17 +156,32 @@ export default function ProjectCreate() {
   const isAllowTypeRestricted =
     projectData.allowType === "NOT_ALLOW" || projectData.allowType === "SECRET";
 
+  // 폼 제출 상태
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+
   // 프로젝트 생성 mutation
   const [projectCreate, { isLoading }] = usePostProjectMutation();
 
   const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!isLoading) {
+    if (!isSubmitting && isImageUploaded) {
+      setSubmitting(true); // 제출 중지 여부 설정
       const res = await projectCreate(projectData);
       console.log(res);
+
+      // 폼 제출 후 필요한 작업을 수행할 수 있습니다.
+
+      // 폼 제출 후에는 필요한 작업을 수행하거나 리디렉션을 할 수 있습니다.
     }
   };
+
+  // 이미지 업로드가 완료될 때만 폼 제출을 허용
+  useEffect(() => {
+    if (isImageUploaded) {
+      setSubmitting(false); // 이미지 업로드 완료 후 폼 제출 가능
+    }
+  }, [isImageUploaded]);
 
   return (
     <form onSubmit={onProjectCreateSubmit}>
@@ -216,14 +259,14 @@ export default function ProjectCreate() {
         />
       </div>
       <div>
-        <input
-          type="file"
-          name="imageSrc"
-          value={projectData.imageSrc}
-          onChange={handleInputChange}
-        />
+        <input type="file" multiple onChange={handleFileChange} />
+        <button type="button" onClick={uploadHandler}>
+          이미지 업로드
+        </button>
       </div>
-      <button type="submit">프로젝트 생성</button>
+      <button type="submit" disabled={isSubmitting || !isImageUploaded}>
+        프로젝트 생성
+      </button>
     </form>
   );
 }

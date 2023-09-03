@@ -14,13 +14,11 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
-  // withCredentials: true, // 이 부분을 추가하여 쿠키를 사용하도록 설정합니다.
 });
 
 // 토큰 로컬스토리지에 저장
 instance.interceptors.response.use(
   (value) => {
-    // let authorization = value.headers;
     // console.log("authorization", authorization);
     value.headers?.authorization &&
       localStorage.setItem("Authorization", value.headers.authorization);
@@ -28,16 +26,6 @@ instance.interceptors.response.use(
       localStorage.setItem("RefreshToken", value.headers.refreshtoken);
     return value;
   },
-  // 쿠키
-  // (value) => {
-  //   if (value.headers?.authorization) {
-  //     const authToken = value.headers.authorization;
-  //     // 쿠키에 토큰 저장
-  //     document.cookie = `Authorization=${authToken}; Path=/; SameSite=Strict`;
-  //   }
-  //   // 나머지 코드...
-  //   return value;
-  // },
   (error) => {
     if (error.response) {
       // 에러 객체에 response가 있는 경우
