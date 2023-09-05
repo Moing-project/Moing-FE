@@ -3,7 +3,7 @@ import * as S from "../styledComponents/Header";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function HeaderWithoutToken() {
+export default function HeaderWithoutToken({ isRanding }: any) {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -15,7 +15,7 @@ export default function HeaderWithoutToken() {
   };
 
   return (
-    <S.HeaderLayout>
+    <S.HeaderLayout $isRanding={isRanding}>
       <S.HeaderBox>
         <div>
           <Link to="">

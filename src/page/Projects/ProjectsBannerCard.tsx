@@ -1,12 +1,19 @@
 import { ProjectBannerSection } from "../../styledComponents/Projects";
 import { PrimaryBtn } from "../../components/Buttons";
 import { WorkAllowEnum, WorkStackEnum } from "../../types/WorkEnums";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectsBannerCard({ card }: any) {
-  const { name, stacks, allowType, imageSrc } = card;
+  const { id, name, stacks, allowType, imageSrc } = card;
+
+  const navigate = useNavigate();
+
+  const handleBannerClick = () => {
+    navigate(`/projects/${id}`);
+  };
 
   return (
-    <ProjectBannerSection>
+    <ProjectBannerSection onClick={handleBannerClick}>
       <figure>
         <img src={imageSrc} alt="" />
       </figure>

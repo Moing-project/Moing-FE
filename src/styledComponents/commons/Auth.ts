@@ -55,6 +55,7 @@ export const LoginBox = styled(FlexContainer)<FlexContainerProps>`
 export const LoginFormBox = styled.form`
   display: flex;
   flex-direction: column;
+  width: 368px;
 
   h1 {
     margin-bottom: 24px;

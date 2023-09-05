@@ -1,32 +1,50 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import * as S from "../../styledComponents/commons/Auth";
 import LoginForms from "./LoginForms";
-import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
+import { RandingSlider } from "../../styledComponents/Randing";
+import {
+  ProjectsImg,
+  WorkspaceIssueImg,
+  WorkspaceKanbanImg,
+} from "../../components/UsingImages";
+import { rendingSettings } from "../Rending/SliderOption";
+import { styled } from "styled-components";
 
-export default function Login() {
+const Login = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <S.LoginLayout $justify="center" $gap="144px">
-      <S.LoginIntroBox $direction="column" $gap="48px">
-        <S.LoginIntroText $direction="column" $gap="12px">
-          <h1>
-            모집과 협업을 한번에! <br />
-            모두 있는 모임 공간
-            <span> 모잉</span>
-          </h1>
-          <p>
-            내가 원하는 프로젝트를 바로 찾아
-            <br />
-            바로 협업을 펼쳐보아요!
-          </p>
-        </S.LoginIntroText>
-        <figure>
-          <PageIntro />
-        </figure>
-      </S.LoginIntroBox>
-      <LoginForms />
-    </S.LoginLayout>
+    <div ref={ref}>
+      <S.LoginLayout $justify="center" $gap="144px">
+        <S.LoginIntroBox $direction="column" $gap="48px">
+          <S.LoginIntroText $direction="column" $gap="12px">
+            <h1>
+              모집과 협업을 한번에! <br />
+              모두 있는 모임 공간
+              <span> 모잉</span>
+            </h1>
+            <p>
+              내가 원하는 프로젝트를 바로 찾아
+              <br />
+              바로 협업을 펼쳐보아요!
+            </p>
+          </S.LoginIntroText>
+          <LoginSlider {...rendingSettings}>
+            <ProjectsImg />
+            <WorkspaceKanbanImg />
+            <WorkspaceIssueImg />
+          </LoginSlider>
+        </S.LoginIntroBox>
+        <LoginForms />
+      </S.LoginLayout>
+    </div>
   );
-}
+});
+
+export default Login;
+
+const LoginSlider = styled(RandingSlider)`
+  width: 432px;
+  height: 304px;
+`;
 
 // import React, { useState } from "react";
 // import { usePostLoginMutation } from "../redux/modules/LoginAPI";

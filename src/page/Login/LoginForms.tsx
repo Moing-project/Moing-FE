@@ -123,20 +123,38 @@ export default function LoginForms() {
           로그인
         </SubmitButton>
       </S.LoginFormBox>
-      <C.Devider />
+      <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+        <C.Devider style={{ flex: "4", width: "0" }} />
+        <p
+          style={{
+            flex: "1",
+            textAlign: "center",
+            color: "var(--gray-05)",
+            fontSize: "12px",
+          }}
+        >
+          또는
+        </p>
+        <C.Devider style={{ flex: "4", width: "0" }} />
+      </div>
       <S.LoginSNSBox $direction="column" $align="center" $gap="12px">
-        <p>간편하게 회원가입 및 로그인하기</p>
-        <S.LoginSNSNav $gap="18px">
-          <Link to="">
-            <I.Google />
-          </Link>
-          <Link to="">
-            <I.Kakao />
-          </Link>
-          <Link to="">
-            <I.Naver />
-          </Link>
-        </S.LoginSNSNav>
+        <button
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "34px",
+            height: "42px",
+            border: "none",
+            borderRadius: "8px",
+            background: "#FEE500",
+            cursor: "pointer",
+          }}
+        >
+          <I.Kakao style={{ marginRight: "10px" }} />
+          카카오로 바로 로그인하기
+        </button>
       </S.LoginSNSBox>
     </S.LoginBox>
   );

@@ -1,6 +1,11 @@
 import { styled } from "styled-components";
 
-export const HeaderLayout = styled.div`
+type layoutProps = {
+  $isRanding: boolean;
+};
+
+export const HeaderLayout = styled.div<layoutProps>`
+  ${({ $isRanding }) => ($isRanding ? "position: absolute; top:0;" : "")}
   width: 100%;
   height: 56px;
   border-bottom: 1px solid var(--gray-03);

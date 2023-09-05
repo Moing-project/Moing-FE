@@ -2,14 +2,21 @@ import { useRef } from "react";
 import { PrimaryBtn } from "../../components/Buttons";
 import useIntersectionObsever from "../../hooks/useIntersectionObserver";
 import * as S from "../../styledComponents/Randing";
-import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
+import {
+  WorkspaceIssueImg,
+  WorkspaceKanbanImg,
+  WorkspaceMain,
+  Workspaces,
+} from "../../components/UsingImages";
+import { rendingSettings } from "./SliderOption";
 
-function RendingSection3() {
+function RendingSection3({ handleScroll }: any) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInViewport = useIntersectionObsever(ref);
+
   return (
     <div>
-      <S.RendingSection>
+      <S.RendingSection style={{ background: "#e8e8fc" }}>
         <S.RendingContainer
           ref={ref}
           className={isInViewport ? "animation" : ""}
@@ -24,21 +31,21 @@ function RendingSection3() {
               </h2>
               <br />
               <PrimaryBtn
+                onClick={handleScroll}
                 $shape="filled"
                 $status="active"
                 $width="long"
                 $height="high"
-                onClick={() => {
-                  window.location.href = "moingspace.127.0.0.1:3000";
-                }}
               >
-                모잉 둘러보기
+                워크스페이스 보기
               </PrimaryBtn>
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              {/* <img src={process.env.PUBLIC_URL + './images/img.svg'} alt="페이지 소개1"/> */}
-              <PageIntro />
-            </div>
+            <S.RandingSlider {...rendingSettings}>
+              <Workspaces />
+              <WorkspaceMain />
+              <WorkspaceKanbanImg />
+              <WorkspaceIssueImg />
+            </S.RandingSlider>
           </S.RandingBox>
         </S.RendingContainer>
       </S.RendingSection>

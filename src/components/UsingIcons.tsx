@@ -6,9 +6,7 @@ import { ReactComponent as Unchecked } from "../assets/elements/unchecked.svg";
 import { ReactComponent as Checked } from "../assets/elements/checked.svg";
 import { ReactComponent as ProjectMake } from "../assets/elements/projectMake.svg";
 
-import { ReactComponent as Google } from "../assets/icons/google.svg";
-import { ReactComponent as Kakao } from "../assets/icons/kakaotalk.svg";
-import { ReactComponent as Naver } from "../assets/icons/naver.svg";
+import { ReactComponent as Kakao } from "../assets/icons/kakao.svg";
 
 import { ReactComponent as Search } from "../assets/icons/search.svg";
 import { ReactComponent as Alert } from "../assets/icons/alert.svg";
@@ -25,9 +23,6 @@ export {
   Visible,
   Unchecked,
   Checked,
-  Google,
-  Kakao,
-  Naver,
   ProjectMake,
   Search,
   Alert,
@@ -36,4 +31,5 @@ export {
   After,
   First,
   Last,
+  Kakao,
 };

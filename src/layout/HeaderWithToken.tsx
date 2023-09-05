@@ -4,11 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert, Chat, Search } from "../components/UsingIcons";
 import { SearchBox } from "../styledComponents/commons/SearchInput";
 
-export default function HeaderWithToken() {
+export default function HeaderWithToken({
+  hasToken,
+  setHasToken,
+  isRanding,
+}: any) {
   const navigate = useNavigate();
 
+  function handleDropdown() {}
+
   return (
-    <S.HeaderLayout>
+    <S.HeaderLayout $isRanding={isRanding}>
       <S.HeaderWithTokenBox>
         <div>
           <Link to="">
@@ -30,7 +36,20 @@ export default function HeaderWithToken() {
           <button>
             <Chat />
           </button>
-          <S.HeaderProfile></S.HeaderProfile>
+          <S.HeaderProfile onClick={handleDropdown} />
+          <ul className="dropdown">
+            <li>내 워크스페이스로 이동</li>
+            <li>마이페이지</li>
+            <li
+              onClick={() => {
+                window.location.reload();
+                localStorage.clear();
+                setHasToken(false);
+              }}
+            >
+              로그아웃
+            </li>
+          </ul>
         </nav>
       </S.HeaderWithTokenBox>
     </S.HeaderLayout>

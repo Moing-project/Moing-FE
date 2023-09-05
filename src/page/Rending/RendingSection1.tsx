@@ -2,12 +2,20 @@ import { forwardRef, useRef } from "react";
 import { PrimaryBtn } from "../../components/Buttons";
 import useIntersectionObsever from "../../hooks/useIntersectionObserver";
 import * as S from "../../styledComponents/Randing";
-import { ReactComponent as PageIntro } from "../../assets/images/img.svg";
 import { Link } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import {
+  ProjectsImg,
+  WorkspaceIssueImg,
+  WorkspaceKanbanImg,
+} from "../../components/UsingImages";
+import { rendingSettings } from "./SliderOption";
 
-function RendingSection1() {
+function RendingSection1({ handleScroll }: any) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInViewport = useIntersectionObsever(ref);
+
   return (
     <div>
       <S.RendingSection>
@@ -40,6 +48,7 @@ function RendingSection1() {
               </div>
               <Link to="">
                 <PrimaryBtn
+                  onClick={handleScroll}
                   $shape="filled"
                   $status="active"
                   $width="long"
@@ -49,9 +58,11 @@ function RendingSection1() {
                 </PrimaryBtn>
               </Link>
             </div>
-            <div>
-              <PageIntro />
-            </div>
+            <S.RandingSlider {...rendingSettings}>
+              <ProjectsImg />
+              <WorkspaceIssueImg />
+              <WorkspaceKanbanImg />
+            </S.RandingSlider>
           </S.RandingBox>
         </S.RendingContainer>
       </S.RendingSection>
