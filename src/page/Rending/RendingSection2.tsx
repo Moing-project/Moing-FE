@@ -30,6 +30,9 @@ function RendingSection2() {
                 $status="active"
                 $width="long"
                 $height="high"
+                onClick={() => {
+                  window.location.href = "moingspace.moingtool.com";
+                }}
               >
                 모잉 둘러보기
               </PrimaryBtn>
