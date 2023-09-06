@@ -5,7 +5,7 @@ import { WorkStackEnum } from "../../types/WorkEnums";
 import { PrimaryBtn } from "../../components/Buttons";
 
 export default function ProjectsListItem({ project }: any) {
-  const { id, name, stacks, imageSrc, introduce, endTime } = project;
+  const { id, subject, title, thumnail, intro, endTime, stacks } = project;
 
   const navigate = useNavigate();
 
@@ -39,9 +39,11 @@ export default function ProjectsListItem({ project }: any) {
   return (
     <S.ProjectListCardLi onClick={handleItemClick} $isExpired={isExpired}>
       <div className="head">
-        <img src={imageSrc} alt="" />
+        <img src={thumnail} alt="" />
         <div>
-          <p>{name}</p>
+          <p>
+            [{subject}] {title}
+          </p>
           <ul>
             {visibleStacks.map((stack: any, index: any) => (
               <PrimaryBtn
@@ -59,9 +61,17 @@ export default function ProjectsListItem({ project }: any) {
         </div>
       </div>
       <div className="body">
-        <p className="introduce">{introduce}</p>
+        <p className="introduce">
+          {intro && intro.length > 150
+            ? intro.substring(0, 150) + "..."
+            : intro}
+        </p>
         <p className="state">
-          {isExpired ? "모집 마감" : `모집 마감까지 D-${daysRemaining}`}
+          {endTime === ""
+            ? "모집 시 마감"
+            : isExpired
+            ? "모집 마감"
+            : `모집 마감까지 D-${daysRemaining}`}
         </p>
       </div>
     </S.ProjectListCardLi>

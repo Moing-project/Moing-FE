@@ -13,6 +13,12 @@ import {
   WorkStackEnum,
 } from "../../types/WorkEnums";
 import { useUploadImageMutation } from "../../redux/modules/ImageAPI";
+import { ProjectsMekeLayout } from "../../styledComponents/ProjectCreate";
+import {
+  CustomBtn,
+  SubmitButton,
+} from "../../styledComponents/commons/Buttons";
+import { useNavigate } from "react-router-dom";
 
 interface ProjectFormData {
   title: string;
@@ -22,7 +28,6 @@ interface ProjectFormData {
   allowType: keyof typeof WorkAllowEnum | null;
   stacks: Array<keyof typeof WorkStackEnum | null>;
   introduce: string;
-  imageSrc: Array<string> | undefined;
 }
 
 export default function ProjectCreate() {
@@ -34,35 +39,36 @@ export default function ProjectCreate() {
     allowType: null,
     stacks: [],
     introduce: "",
-    imageSrc: [],
   });
 
+  const navigate = useNavigate();
+
   // 파일 함수 -> 프로젝트 썸네일
-  const [image, setImage] = useState<Array<File>>();
-  const [isImageUploaded, setImageUploaded] = useState<boolean>(false); // 이미지 업로드 완료 여부
+  // const [image, setImage] = useState<Array<File>>();
+  // const [isImageUploaded, setImageUploaded] = useState<boolean>(false); // 이미지 업로드 완료 여부
 
-  const [upload, { isLoading: uploadLoading }] = useUploadImageMutation();
+  // const [upload, { isLoading: uploadLoading }] = useUploadImageMutation();
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setImage(Array.from(event.target.files as FileList));
-  };
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setImage(Array.from(event.target.files as FileList));
+  // };
 
-  const uploadHandler = async () => {
-    if (!uploadLoading) {
-      const payload = new FormData();
-      for (const file of image as Array<File>) {
-        payload.append("imageFile", file);
-      }
-      const res = await upload(payload);
-      if ("data" in res) {
-        setProjectData((prevData) => ({
-          ...prevData,
-          imageSrc: res.data.data,
-        }));
-        setImageUploaded(true); // 이미지 업로드 완료 표시
-      }
-    }
-  };
+  // const uploadHandler = async () => {
+  //   if (!uploadLoading) {
+  //     const payload = new FormData();
+  //     for (const file of image as Array<File>) {
+  //       payload.append("imageFile", file);
+  //     }
+  //     const res = await upload(payload);
+  //     if ("data" in res) {
+  //       setProjectData((prevData) => ({
+  //         ...prevData,
+  //         imageSrc: res.data.data,
+  //       }));
+  //       setImageUploaded(true); // 이미지 업로드 완료 표시
+  //     }
+  //   }
+  // };
 
   // 인풋 함수 -> 이름, 인원
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,116 +163,173 @@ export default function ProjectCreate() {
     projectData.allowType === "NOT_ALLOW" || projectData.allowType === "SECRET";
 
   // 폼 제출 상태
-  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  // const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
   // 프로젝트 생성 mutation
-  const [projectCreate, { isLoading }] = usePostProjectMutation();
+  // const [projectCreate, { isLoading }] = usePostProjectMutation();
+
+  // const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   const res = await projectCreate(projectData);
+  //   console.log(res);
+  // };
 
   const onProjectCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!isSubmitting && isImageUploaded) {
-      setSubmitting(true); // 제출 중지 여부 설정
-      const res = await projectCreate(projectData);
-      console.log(res);
+    try {
+      // 프로젝트 데이터를 JSON 형식으로 직렬화
+      const formData = JSON.stringify(projectData);
 
-      // 폼 제출 후 필요한 작업을 수행할 수 있습니다.
+      // 서버의 엔드포인트 URL을 설정 (team 가상 서버에 POST하는 예제)
+      const serverUrl = "http://localhost:3001/team"; // 실제 서버 URL로 변경해야 합니다.
 
-      // 폼 제출 후에는 필요한 작업을 수행하거나 리디렉션을 할 수 있습니다.
+      // POST 요청을 보냅니다.
+      const response = await fetch(serverUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        // 요청이 성공한 경우에 대한 처리
+        alert("프로젝트 생성 요청이 성공했습니다.");
+        window.location.href = "/projects";
+        // 필요한 리디렉션 또는 다른 작업 수행
+      } else {
+        // 요청이 실패한 경우에 대한 처리
+        alert("프로젝트 생성 요청이 실패했습니다.");
+      }
+    } catch (error) {
+      alert("프로젝트 생성 요청 중 오류 발생");
     }
   };
 
   // 이미지 업로드가 완료될 때만 폼 제출을 허용
-  useEffect(() => {
-    if (isImageUploaded) {
-      setSubmitting(false); // 이미지 업로드 완료 후 폼 제출 가능
-    }
-  }, [isImageUploaded]);
+  // useEffect(() => {
+  //   if (isImageUploaded) {
+  //     setSubmitting(false); // 이미지 업로드 완료 후 폼 제출 가능
+  //   }
+  // }, [isImageUploaded]);
 
   return (
-    <form onSubmit={onProjectCreateSubmit}>
-      <div>
-        <p>플젝 이름</p>
-        <input
-          type="text"
-          name="title"
-          value={projectData.title}
-          onChange={handleInputChange}
-          placeholder="20자 이내로 입력해주세요"
-        />
-      </div>
-      <div>
-        <p>분야</p>
-        <SingleSelector
-          field="subject"
-          selectedOption={projectData.subject}
-          onSelectChange={(option) =>
-            handleSingleSelectorChange("subject", option)
-          }
-        />
-      </div>
-      <div>
-        <p>마감 기한</p>
-        <SingleCalendarSelector
-          selectedOption={dateType}
-          onSelectChange={handleDateTypeChange}
-          isDisabled={isAllowTypeRestricted} // isDisabled 속성 추가
-        />
-        {dateType === "date" && (
+    <ProjectsMekeLayout onSubmit={onProjectCreateSubmit}>
+      <header>
+        <h1>프로젝트 생성하기</h1>
+        <p>협업하고 싶은 프로젝트를 모잉과 함께 간단히 생성해보아요!</p>
+      </header>
+      <section>
+        <div className="text">
+          <p>프로젝트 이름</p>
           <input
-            type="date"
-            name="date"
-            value={projectData.date || ""}
-            onChange={handleDateChange}
+            type="text"
+            name="title"
+            value={projectData.title}
+            onChange={handleInputChange}
+            placeholder="20자 이내로 입력해주세요"
+            className="defaultInput"
           />
-        )}
-      </div>
-      <div>
-        <p>모집 인원</p>
-        <input
-          type="number"
-          name="needMember"
-          value={projectData.needMember}
-          onChange={handleInputChange}
-          min={0}
-          max={10}
-          step={1}
-          placeholder="직접 입력해주세요. (최대 10명까지 가능)"
-          disabled={isAllowTypeRestricted}
-        />
-      </div>
-      <div>
-        <p>멤버 참여 방식</p>
-        <SingleSelector
-          field="allowType"
-          selectedOption={projectData.allowType}
-          onSelectChange={handleAllowTypeChange}
-        />
-      </div>
-      <div>
-        <p>기술 스택</p>
-        <MultiSelector
-          // selectedOptions={projectData.stacks}
-          onSelectChange={handleMultiSelectorChange}
-        />
-      </div>
-      <div>
-        <p>프로젝트 소개</p>
+        </div>
+        <div>
+          <p>프로젝트 분야</p>
+          <SingleSelector
+            field="subject"
+            selectedOption={projectData.subject}
+            onSelectChange={(option) =>
+              handleSingleSelectorChange("subject", option)
+            }
+            placeholder="아래 분야 중 한 가지를 선택해주세요"
+          />
+        </div>
+        <div>
+          <p>모집 인원</p>
+          <input
+            type="number"
+            name="needMember"
+            value={projectData.needMember}
+            onChange={handleInputChange}
+            min={0}
+            max={10}
+            step={1}
+            placeholder="직접 입력해주세요. (최대 10명까지 가능)"
+            disabled={isAllowTypeRestricted}
+            className="defaultInput"
+          />
+        </div>
+        <div>
+          <p>멤버 참여 방식</p>
+          <SingleSelector
+            field="allowType"
+            selectedOption={projectData.allowType}
+            onSelectChange={handleAllowTypeChange}
+            placeholder="멤버 참여 방식을 지정해주세요"
+          />
+        </div>
+        <div>
+          <p>모집 마감 기간</p>
+          <SingleCalendarSelector
+            selectedOption={dateType}
+            onSelectChange={handleDateTypeChange}
+            isDisabled={isAllowTypeRestricted} // isDisabled 속성 추가
+            placeholder="모집 마감 방법을 지정해주세요"
+          />
+          {dateType === "date" && (
+            <input
+              type="date"
+              name="date"
+              value={projectData.date || ""}
+              onChange={handleDateChange}
+            />
+          )}
+        </div>
+        <div>
+          <p>기술 스택</p>
+          <MultiSelector
+            // selectedOptions={projectData.stacks}
+            onSelectChange={handleMultiSelectorChange}
+            placeholder="프로젝트 사용 스택을 선택해주세요"
+          />
+        </div>
+      </section>
+      <div className="introduce">
+        <p className="title">프로젝트 소개</p>
         <MarkdownEditor
           ref={editorRef}
           value={projectData.introduce}
           onChange={handleEditorChange}
         />
       </div>
-      <div>
+      {/* <div>
         <input type="file" multiple onChange={handleFileChange} />
         <button type="button" onClick={uploadHandler}>
           이미지 업로드
         </button>
-      </div>
-      <button type="submit" disabled={isSubmitting || !isImageUploaded}>
-        프로젝트 생성
-      </button>
-    </form>
+      </div> */}
+      <nav>
+        <SubmitButton
+          type="submit"
+          $shape="filled"
+          $width="medium"
+          $height="medium"
+        >
+          프로젝트 생성
+        </SubmitButton>
+        <CustomBtn
+          onClick={(e: any) => {
+            e.preventDefault();
+            navigate("/projects");
+          }}
+          $status=""
+          $shape="filled"
+          $width="medium"
+          $height="medium"
+        >
+          취소
+        </CustomBtn>
+      </nav>
+    </ProjectsMekeLayout>
   );
 }

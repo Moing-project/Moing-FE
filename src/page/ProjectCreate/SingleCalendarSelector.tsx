@@ -9,6 +9,7 @@ interface SingleSelectorProps {
   selectedOption: string | null; // 수정된 선택 옵션 속성
   onSelectChange: (option: OptionType | null) => void;
   isDisabled?: boolean; // 새로 추가한 속성
+  placeholder?: string;
 }
 
 const options = [
@@ -20,6 +21,7 @@ export default function SingleCalendarSelector({
   selectedOption,
   onSelectChange,
   isDisabled = false, // 기본값으로 비활성화되지 않도록 설정
+  placeholder,
 }: SingleSelectorProps) {
   return (
     <SelectBoxView
@@ -27,6 +29,7 @@ export default function SingleCalendarSelector({
       handleChange={onSelectChange}
       options={options} // options를 프롭스로 넘겨줌
       isDisabled={isDisabled} // 새로 추가한 속성 전달
+      placeholder={placeholder}
     />
   );
 }
@@ -36,11 +39,13 @@ const SelectBoxView = ({
   handleChange,
   options, // options 프롭스 받음
   isDisabled = false, // 기본값으로 비활성화되지 않도록 설정
+  placeholder,
 }: {
   selectedOption: string | null;
   handleChange: (option: OptionType | null) => void;
   options: OptionType[]; // 옵션 데이터 프롭스로 받음
   isDisabled?: boolean; // 새로 추가한 속성
+  placeholder?: string;
 }) => (
   <Select<OptionType>
     value={options.find((option) => option.value === selectedOption)}
@@ -48,5 +53,6 @@ const SelectBoxView = ({
     options={options}
     components={{ IndicatorSeparator: () => null }}
     isDisabled={isDisabled} // 새로 추가한 속성 사용
+    placeholder={placeholder}
   />
 );

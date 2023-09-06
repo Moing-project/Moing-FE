@@ -32,7 +32,8 @@ export const Layout = styled.div`
   figure {
     width: 120px;
     height: 120px;
-    border-radius: 5%;
+    border-radius: 10px;
+    overflow: hidden;
     /* border: 1px solid;
     border-color: red; */
 
@@ -54,10 +55,19 @@ export const Layout = styled.div`
       font-weight: 500;
     }
 
-    a {
+    .linkBtn {
+      svg {
+        margin-right: 5px;
+      }
+
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      border: none;
+      background: none;
       color: #7d7d7d;
-      font-size: 18px;
       font-weight: 500;
+      cursor: pointer;
     }
   }
 `;

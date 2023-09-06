@@ -44,7 +44,10 @@ function App() {
         <Route path="/main" element={<Main />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/create" element={<ProjectCreate />} />
-        <Route path="/projects/:projectId" element={<ProjectDetail />} />
+        <Route
+          path="/projects/:projectId"
+          element={<ProjectDetail hasToken={hasToken} />}
+        />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin/done" element={<SignInDone />} />
         <Route path="/login" element={<Login />} />

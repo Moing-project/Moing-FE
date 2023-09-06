@@ -1,42 +1,74 @@
 import { styled } from "styled-components";
-import FlexContainer from "./commons/Flexbox";
 import { Devider } from "./commons/commonStyle";
 
-export const ProjectsMekeLayout = styled(FlexContainer)`
-  max-width: 752px;
-  margin: 72px auto;
-  background-color: aliceblue;
+export const ProjectsMekeLayout = styled.form`
+  margin: 80px auto;
+  max-width: 800px;
 
-  & > div:first-child {
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 70px;
     h1 {
-      margin-bottom: 12px;
-      color: var(--main-font);
+      color: var(--unnamed, #3f40e9);
       font-size: 30px;
-      font-style: normal;
       font-weight: 600;
-      line-height: 38px;
-      color: var(--keyColor-main);
     }
-
-    & > p {
-      color: var(--gray-06);
+    p {
+      color: var(--gray-06, #7d7d7d);
       font-size: 20px;
-      font-style: normal;
       font-weight: 500;
-      line-height: 26px; /* 130% */
     }
   }
-`;
 
-export const ProjectsMekeFormBox = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 42px;
-  margin: 88px 0 56px 0;
-`;
+  section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 18px;
+    row-gap: 40px;
+    margin-bottom: 40px;
 
-export const ProjectsMekeFormBoxRow = styled(FlexContainer)``;
+    div {
+      p {
+        margin-bottom: 10px;
+        color: var(--01, #202020);
+        font-size: 16px;
+        font-weight: 600;
+      }
+      input {
+        height: 28px;
+      }
+      .defaultInput {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        padding: 12px;
+        height: 42px;
+        align-items: center;
+        border-radius: 5px;
+        border: 1px solid #c1c1c1;
+      }
+      .css-1jqq78o-placeholder {
+        color: var(--gray-05, #a6a6a6);
+        font-size: 14px;
+      }
+    }
+  }
 
-export const ProjectsMekeDevider = styled(Devider)`
-  width: 100%;
+  .introduce {
+    margin-bottom: 40px;
+    .title {
+      margin-bottom: 10px;
+      color: var(--01, #202020);
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  nav {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
 `;

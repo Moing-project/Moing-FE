@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { PrimaryBtn } from "../../components/Buttons";
 import { ProjectDetailDevider } from "../../styledComponents/ProjectDetail";
 
-export default function ProjectDetailFloating({ members, allowType }: any) {
+export default function ProjectDetailFloating({
+  members,
+  allowType,
+  leader,
+  hasToken,
+}: any) {
   const isNotActive = allowType === "NOT_ALLOW" || allowType === "SECRET";
   console.log(isNotActive);
 
@@ -18,8 +23,11 @@ export default function ProjectDetailFloating({ members, allowType }: any) {
             alt="..."
           />
           <div className="one-container">
-            <p className="card-text">정원나라우주</p>
+            <p className="card-text">{leader}</p>
             <PrimaryBtn
+              onClick={() => {
+                alert("기능 업데이트 예정");
+              }}
               $shape="solid"
               $status="active"
               $width="xshort"
@@ -46,6 +54,16 @@ export default function ProjectDetailFloating({ members, allowType }: any) {
         </div>
         <div className="btn">
           <PrimaryBtn
+            onClick={() => {
+              if (hasToken) {
+                alert("참가 신청이 완료되었습니다.");
+              } else {
+                const userConfirmed = window.confirm("로그인이 필요합니다!");
+                if (userConfirmed) {
+                  window.location.href = "/login";
+                }
+              }
+            }}
             $shape="filled"
             $status={isNotActive ? "notActive" : "active"}
             $width="medium"

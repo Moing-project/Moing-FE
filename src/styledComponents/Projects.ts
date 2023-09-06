@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-type ProjectListCardLiProps = {
+export type ProjectListCardLiProps = {
   $isExpired: boolean;
 };
 
@@ -161,7 +161,7 @@ export const ProjectListCardLi = styled(ProjectListLi)<ProjectListCardLiProps>`
 `;
 
 // 배너 슬라이더 카드
-export const ProjectBannerSection = styled.section`
+export const ProjectBannerSection = styled.section<ProjectListCardLiProps>`
   margin-bottom: 80px;
 
   figure {
@@ -199,6 +199,11 @@ export const ProjectBannerSection = styled.section`
       display: flex;
       gap: 6px;
     }
+  }
+
+  p {
+    color: ${({ $isExpired }) =>
+      $isExpired ? "var(--gray-06)" : "var(--unnamed, #3f40e9);"};
   }
 `;
 

@@ -17,6 +17,8 @@ import { ReactComponent as After } from "../assets/icons/after.svg";
 import { ReactComponent as First } from "../assets/icons/first.svg";
 import { ReactComponent as Last } from "../assets/icons/last.svg";
 
+import { ReactComponent as Share } from "../assets/icons/share.svg";
+
 export {
   Remove,
   Hide,
@@ -32,4 +34,5 @@ export {
   First,
   Last,
   Kakao,
+  Share,
 };

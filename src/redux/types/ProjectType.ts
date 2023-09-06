@@ -7,12 +7,12 @@ import {
 export type ProjectType = {
   title: string;
   subject: keyof typeof WorkTypeEnum | null;
-  needMember: number;
+  needMember: number | null;
   date: string | null;
   allowType: keyof typeof WorkAllowEnum | null;
   stacks: Array<keyof typeof WorkStackEnum | null>;
   introduce: string;
-  imageSrc: Array<string> | undefined;
+  // imageSrc: Array<string> | undefined;
 };
 
 export type GetProjectsType = {
